@@ -38,7 +38,6 @@ a {
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #4b2e1f;
-  /* coffee tone */
 }
 
 .menu-intro {
@@ -118,14 +117,20 @@ a {
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .menu-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item.special {
+  border: 2px solid gold;
+  box-shadow: 0 0 20px gold;
 }
 
 /* Media for images/videos */
@@ -200,7 +205,7 @@ a {
   text-align: center;
 }
 
-/* ================= CART ITEMS TIGHT ================= */
+/* ================= CART ITEMS ================= */
 .cart-item {
   display: flex;
   align-items: center;
@@ -210,7 +215,7 @@ a {
   border-radius: 10px;
 }
 
-.cart-item-img {
+.cart-item img {
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -244,6 +249,27 @@ a {
 .qty-btn:hover,
 .remove:hover {
   background: #8b4b2b;
+}
+
+/* ================= ADD ITEM TOOLTIP ================= */
+.add-tooltip {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #6b3c1f;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  z-index: 9999;
+}
+
+.add-tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ================= RESPONSIVE ================= */

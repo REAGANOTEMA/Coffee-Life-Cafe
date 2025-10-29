@@ -1,9 +1,7 @@
 (() => {
     'use strict';
 
-    /* ===========================
-       CONFIG
-    =========================== */
+    /* ================= CONFIG ================= */
     const WA_NUMBER = '256709691395';
     const MTN_MERCHANT = '971714';
     const AIRTEL_MERCHANT = '4393386';
@@ -20,19 +18,16 @@
         airtel: amount => `*185*9*${AIRTEL_MERCHANT}*${amount}#`
     };
 
-    /* ===========================
-       STATE
-    =========================== */
+    /* ================= STATE ================= */
     window.CoffeeLife = window.CoffeeLife || {};
     window.CoffeeLife.cart = window.CoffeeLife.cart || [];
     let DELIVERY_FEE = 0;
     let selectedProvider = null;
 
-    /* ===========================
-       DOM SELECTORS
-    =========================== */
+    /* ================= SELECTORS ================= */
     const qs = s => document.querySelector(s);
     const qsa = s => Array.from(document.querySelectorAll(s));
+
     const deliverySelect = qs('#delivery-zone');
     const deliveryFeeEl = qs('#deliveryFee');
     const deliveryFeeSummaryEl = qs('#deliveryFeeSummary');
@@ -48,25 +43,26 @@
     const whatsappBtn = qs('#whatsapp-confirm');
     const toastEl = qs('#toast');
 
-    /* ===========================
-       UTILS
-    =========================== */
+    /* ================= UTILS ================= */
     const formatUGX = v => (Number(v) || 0).toLocaleString() + ' UGX';
+
     const persistCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(window.CoffeeLife.cart));
     const loadCart = () => {
         const saved = localStorage.getItem(STORAGE_KEY);
         window.CoffeeLife.cart = saved ? JSON.parse(saved) : [];
     };
+
     const showToast = (text, duration = 2500) => {
         if (!toastEl) return alert(text);
         toastEl.textContent = text;
-        toastEl.style.display = 'block';
-        toastEl.classList.add('toast-show');
+        toastEl.style.opacity = '1';
+        toastEl.style.transform = 'translateY(0)';
         setTimeout(() => {
-            toastEl.classList.remove('toast-show');
-            toastEl.style.display = 'none';
+            toastEl.style.opacity = '0';
+            toastEl.style.transform = 'translateY(-20px)';
         }, duration);
     };
+
     const copyToClipboard = async text => {
         try { await navigator.clipboard.writeText(text); return true; }
         catch {
@@ -80,9 +76,7 @@
         }
     };
 
-    /* ===========================
-       CART FUNCTIONS
-    =========================== */
+    /* ================= CART FUNCTIONS ================= */
     const calcSubtotal = () => window.CoffeeLife.cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
     const renderCart = () => {
@@ -149,9 +143,7 @@
     window.CoffeeLife.addToCart = addToCart;
     window.CoffeeLife.renderCart = renderCart;
 
-    /* ===========================
-       DELIVERY HANDLING
-    =========================== */
+    /* ================= DELIVERY HANDLING ================= */
     const updateDeliveryFee = () => {
         const area = deliverySelect?.value || '';
         DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
@@ -162,9 +154,7 @@
     deliverySelect?.addEventListener('change', updateDeliveryFee);
     updateDeliveryFee();
 
-    /* ===========================
-       PAYMENT PROVIDER
-    =========================== */
+    /* ================= PAYMENT PROVIDER ================= */
     const setSelectedProvider = provider => {
         selectedProvider = provider || null;
         merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
@@ -175,9 +165,7 @@
     };
     paymentOptions.forEach(btn => btn.addEventListener('click', () => setSelectedProvider(btn.dataset.provider)));
 
-    /* ===========================
-       COPY BUTTONS
-    =========================== */
+    /* ================= COPY BUTTONS ================= */
     copyMerchantBtn?.addEventListener('click', async () => {
         if (await copyToClipboard(merchantCodeEl.textContent)) showToast('Merchant code copied');
     });
@@ -189,27 +177,24 @@
         alert(`USSD Instruction: ${selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn('AMOUNT') : USSD_TEMPLATES.airtel('AMOUNT')}`);
     });
 
-    /* ===========================
-       WHATSAPP ORDER
-    =========================== */
+    /* ================= WHATSAPP ORDER ================= */
     whatsappBtn?.addEventListener('click', () => {
         if (!window.CoffeeLife.cart.length) return showToast('Cart is empty');
         if (!deliverySelect?.value) return showToast('Select delivery area');
         const name = prompt('Enter your full name:')?.trim();
         if (!name) return showToast('Name required');
+
         const message = encodeURIComponent(
             `✨ Coffee Life Order ✨\n👤 Customer: ${name}\n📍 Delivery Area: ${deliverySelect.value}\n💰 Payment: ${selectedProvider?.toUpperCase() || 'Cash'}\n\n` +
             `🛒 Items:\n${window.CoffeeLife.cart.map((it, i) => `${i + 1}. ${it.name} x${it.qty} = ${formatUGX(it.price * it.qty)}`).join('\n')}` +
             `\n\n🧾 Subtotal: ${formatUGX(calcSubtotal())}\n🚚 Delivery: ${formatUGX(DELIVERY_FEE)}\n💰 Total: ${formatUGX(calcSubtotal() + DELIVERY_FEE)}\n\n☕ Coffee Life — Enjoy!`
         );
+
         window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
         window.CoffeeLife.cart = []; persistCart(); renderCart();
     });
 
-    /* ===========================
-       INITIALIZATION
-    =========================== */
+    /* ================= INITIALIZE ================= */
     loadCart();
     renderCart();
-
 })();
