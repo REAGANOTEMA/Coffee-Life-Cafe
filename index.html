@@ -1894,6 +1894,121 @@
 
 
         <body>
+            <script>
+                // =================== Magical Menu Organizer ===================
+
+                // Configuration: Map of data-id prefixes to target section IDs
+                const categoryMap = {
+                    'goat-stew': 'local-food',
+                    'chicken-stew': 'local-food',
+                    'beef-stew-local': 'local-food',
+                    'beans-or-peas': 'local-food',
+                    'chicken-pilau': 'local-food',
+                    'goats-pilau': 'local-food',
+                    'beef-pilau-local': 'local-food',
+
+                    'special-festival-pizza': 'pizzas',
+
+                    'vegetable-curry': 'curries',
+                    'chicken-curry': 'curries',
+                    'beef-curry': 'curries',
+                    'fish-curry': 'curries',
+                    'thai-peanut-chicken-curry': 'curries',
+
+                    'chicken-burger': 'burgers',
+                    'beef-burger': 'burgers',
+                    'vegan-burger': 'burgers',
+
+                    'vegetable-sandwich': 'sandwiches',
+                    'beef-steak-sandwich': 'sandwiches',
+                    'chicken-sandwich': 'sandwiches',
+                    'chicken-mayo-sandwich': 'sandwiches',
+                    'cheese-sandwich': 'sandwiches',
+                    'original-club-sandwich': 'sandwiches',
+
+                    'carrot-ginger-soup': 'lunch-dinner',
+                    'tomato-soup': 'lunch-dinner',
+                    'vegetable-soup': 'lunch-dinner',
+                    'coffee-life-platter': 'lunch-dinner',
+                    'burger-promotion': 'lunch-dinner',
+                    'whole-chicken': 'lunch-dinner',
+                    'chicken-goat-biryani': 'lunch-dinner',
+
+                    'house-coffee': 'beverages',
+                    'espresso': 'beverages',
+                    'americano': 'beverages',
+                    'latte': 'beverages',
+                    'cappuccino': 'beverages',
+                    'mocha': 'beverages',
+                    'vanilla-latte': 'beverages',
+                    'white-chocolate': 'beverages',
+                    'african-tea': 'beverages',
+                    'hot-chocolate': 'beverages',
+                    'iced-mocha': 'beverages',
+                    'regular-juice': 'beverages',
+                    'signature-apple-juice': 'beverages',
+                    'banana-caramel': 'beverages',
+                    'mango-smoothie': 'beverages',
+                    'soda': 'beverages',
+                    'water': 'beverages'
+                };
+
+                // Helper: Ensure each category has a .menu-grid
+                document.querySelectorAll('.menu-category').forEach(cat => {
+                    if (!cat.querySelector('.menu-grid')) {
+                        const grid = document.createElement('div');
+                        grid.classList.add('menu-grid');
+                        cat.appendChild(grid);
+                    }
+                });
+
+                // Move items to their target categories
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    const id = item.dataset.id;
+                    for (let key in categoryMap) {
+                        if (id.startsWith(key)) {
+                            const targetCat = document.getElementById(categoryMap[key]);
+                            if (targetCat) {
+                                const grid = targetCat.querySelector('.menu-grid');
+                                grid.appendChild(item);
+                                item.style.transition = 'all 0.8s ease';
+                                item.style.opacity = 0;
+                                setTimeout(() => item.style.opacity = 1, 100);
+                            }
+                            break;
+                        }
+                    }
+                });
+
+                // Sort items inside each category by price descending
+                document.querySelectorAll('.menu-category').forEach(cat => {
+                    const grid = cat.querySelector('.menu-grid');
+                    const items = Array.from(grid.querySelectorAll('.menu-item'));
+                    items.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
+                    items.forEach(i => grid.appendChild(i));
+                });
+
+                // Highlight promotions and specials
+                const specialIds = ['burger-promotion', 'coffee-life-platter', 'whole-chicken'];
+                specialIds.forEach(id => {
+                    const el = document.querySelector(`.menu-item[data-id="${id}"]`);
+                    if (el) {
+                        el.style.border = '2px solid gold';
+                        el.style.boxShadow = '0 0 20px gold';
+                        el.style.transition = 'all 1s ease';
+                    }
+                });
+
+                // Optional: Smooth scroll when clicking menu nav
+                document.querySelectorAll('a[href^="#"]').forEach(link => {
+                    link.addEventListener('click', e => {
+                        e.preventDefault();
+                        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+
+                console.log("✨ Menu has been magically organized and styled! ✨");
+            </script>
 
             <!-- ==============================
          JS FILES — CORE SITE SCRIPTS
