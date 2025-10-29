@@ -1,59 +1,54 @@
 /* ============================
-   COFFEE LIFE FINAL MENU 2025
-   Fully visible images, compact texts, pure white backgrounds
+   COFFEE LIFE FINAL MENU 2025 - PERFECT TIGHT VERSION
 ============================ */
 
-/* Page & Item Backgrounds */
-body,
-.menu-item,
-.menu-media,
-.cart-items,
-.cart-item {
-  background-color: #ffffff;
-  color: #2c1b0e;
-  font-family: 'Poppins', sans-serif;
+/* Page & Body Reset */
+body {
   margin: 0;
   padding: 0;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  color: #2c1b0e;
 }
 
-/* Menu Grid */
+/* ===== MENU GRID ===== */
 .menu-grid,
 #menu-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 4px;
-  padding: 4px;
+  gap: 0;
+  padding: 0;
+  margin: 0 auto;
   justify-items: center;
 }
 
-/* Menu Item Cards */
+/* ===== MENU ITEM CARD ===== */
 .menu-item {
   width: 100%;
   max-width: 220px;
-  border-radius: 12px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  transition: all 0.3s ease;
   background-color: #4b2e1e;
-  color: #ffffff;
+  /* coffee brown */
+  border-radius: 0;
+  /* remove extra rounded corners */
+  overflow: hidden;
   margin: 0;
   padding: 0;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
-/* Menu Image Container */
+/* ===== MENU IMAGE ===== */
 .menu-media {
   width: 100%;
   height: 180px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  border-radius: 12px 12px 0 0;
-  background: #fefefe;
   margin: 0;
   padding: 0;
 }
@@ -62,33 +57,30 @@ body,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* ensures fully visible, fills card */
-  border-radius: 12px 12px 0 0;
+  /* image fills card */
   display: block;
-  transition: transform 0.2s ease;
+  border-radius: 0;
 }
 
-.menu-media img:hover {
-  transform: scale(1.03);
-}
-
-/* Menu Body Compact */
+/* ===== MENU BODY ===== */
 .menu-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 4px 6px;
+  padding: 2px 4px;
   margin: 0;
+  gap: 0;
 }
 
-/* Item Title */
+/* Title - centered, bold, white */
 .menu-body h4 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin: 2px 0;
+  color: #ffffff;
   text-align: center;
-  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  line-height: 1.1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* Description */
@@ -104,43 +96,44 @@ body,
   font-size: 0.85rem;
   font-weight: 700;
   color: #ffd27f;
-  margin: 2px 0;
+  margin: 0;
+  line-height: 1rem;
 }
 
 /* Buttons */
 .menu-body .actions {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  margin-top: 2px;
+  gap: 2px;
+  margin: 2px 0 0 0;
+  padding: 0;
 }
 
 .menu-body .actions .btn-add,
 .menu-body .actions .btn-whatsapp {
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  border-radius: 18px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 12px;
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
 }
 
-.menu-body .actions .btn-add {
+.menu-body .btn-add {
   background-color: #4b2e1e;
   color: #f5e6d3;
 }
 
-.menu-body .actions .btn-whatsapp {
+.menu-body .btn-whatsapp {
   background-color: #25D366;
   color: #fff;
 }
 
-/* Cart Items Compact */
+/* ===== CART ITEMS ===== */
 .cart-items {
   max-height: 320px;
   overflow-y: auto;
-  padding: 4px;
+  padding: 0;
   margin: 0;
 }
 
@@ -148,18 +141,17 @@ body,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 6px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  margin-bottom: 4px;
+  padding: 2px 4px;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .cart-item img {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border-radius: 6px;
-  margin-right: 4px;
+  margin: 0 4px 0 0;
 }
 
 .cart-item-info {
@@ -169,33 +161,30 @@ body,
   align-items: center;
   text-align: center;
   margin: 0;
+  padding: 0;
 }
 
-.cart-item-info h4 {
-  font-size: 0.85rem;
-  margin: 0 0 1px 0;
-}
-
+.cart-item-info h4,
 .cart-item-info p {
-  font-size: 0.7rem;
-  color: #555;
   margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  font-size: 0.8rem;
 }
 
 /* Controls */
 .controls {
   display: flex;
   gap: 2px;
-  align-items: center;
 }
 
 .qty-btn {
-  padding: 2px 5px;
+  padding: 2px 4px;
+  font-size: 0.75rem;
   border-radius: 6px;
   border: none;
   background: #b47b3a;
   color: #fff;
-  font-weight: bold;
   cursor: pointer;
 }
 
@@ -205,7 +194,7 @@ body,
 
 .cart-item-remove {
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #c0392b;
 }
 
@@ -213,7 +202,7 @@ body,
   color: #e74c3c;
 }
 
-/* Responsive tweaks */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .menu-media {
     height: 160px;
@@ -230,6 +219,6 @@ body,
   .menu-body .actions .btn-add,
   .menu-body .actions .btn-whatsapp {
     font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.25rem 0.5rem;
   }
 }
