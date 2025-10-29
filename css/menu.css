@@ -470,3 +470,35 @@ body,
     padding: 0.3rem 0.6rem !important;
   }
 }
+
+/* === HEADER TITLE ENHANCEMENT FOR ALL MENU ITEMS === */
+.menu-body h4 {
+  color: #ffffff !important;
+  /* Pure white title */
+  font-weight: 700 !important;
+  /* Bold */
+  text-align: center !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem !important;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  /*Makes text pop & readable */
+  margin-top: 4px !important;
+}
+
+/* Give the header area a nice background behind text if needed */
+.menu-item {
+  background-color: #4b2e1e !important;
+  /* Rich coffee brown */
+  color: #ffffff !important;
+}
+
+/* Ensure the description and price still contrast well */
+.menu-body .desc {
+  color: #f1e8e0 !important;
+  /* Light cream for readability */
+}
+
+.menu-body .price {
+  color: #ffd27f !important;
+  /* Gold-like color to stand out */
+}
