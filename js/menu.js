@@ -1,145 +1,123 @@
-/* ============================
-   COFFEE LIFE MENU & CART JS
-   Compact, category arranged, fully linked
-============================ */
+// ================= MENU SCRIPT =================
 
-let cart = [];
-
-// Helper
-function createEl(tag, className, innerHTML) {
-  const el = document.createElement(tag);
-  if (className) el.className = className;
-  if (innerHTML) el.innerHTML = innerHTML;
-  return el;
-}
-
-// Render menu by categories
-function renderMenu() {
-  const container = document.getElementById("menu-container");
-  if (!container) return;
-  container.innerHTML = "";
-
-  const menuItems = window.MENU_ITEMS || [];
-
-  // Group by category
-  const categories = [...new Set(menuItems.map(i => i.category || "Other"))];
-
-  categories.forEach(cat => {
-    const catTitle = createEl("h3", "menu-category", cat);
-    catTitle.style.margin = "8px 0";
-    container.appendChild(catTitle);
-
-    const catGrid = createEl("div", "menu-grid-cat");
-    catGrid.style.display = "grid";
-    catGrid.style.gridTemplateColumns = "repeat(auto-fit, minmax(200px, 1fr))";
-    catGrid.style.gap = "8px";
-
-    menuItems.filter(i => i.category === cat).forEach(item => {
-      const card = createEl("div", "menu-item");
-
-      card.innerHTML = `
-        <div class="menu-media">
-          <a href="payment.html" class="img-link">
-            <img src="${item.img}" alt="${item.name}">
-          </a>
-        </div>
-        <div class="menu-body">
-          <h4>${item.name}</h4>
-          <p class="desc">${item.description}</p>
-          <p class="price">UGX ${item.price.toLocaleString()}</p>
-          <div class="actions">
-            <button class="btn-add">Add</button>
-            <button class="btn-whatsapp">WA</button>
-          </div>
-        </div>
-      `;
-
-      // Add to cart
-      card.querySelector(".btn-add").addEventListener("click", () => addToCart(item));
-      // WhatsApp single item
-      card.querySelector(".btn-whatsapp").addEventListener("click", () => {
-        const msg = `I want ${item.name} (UGX ${item.price.toLocaleString()})`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
+// ======= SMOOTH SCROLL FOR TABS =======
+document.querySelectorAll('.menu-cat').forEach(tab => {
+  tab.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(tab.getAttribute('href'));
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 80, // offset for header
+        behavior: 'smooth'
       });
-
-      catGrid.appendChild(card);
-    });
-
-    container.appendChild(catGrid);
+    }
   });
-}
-
-// Add to cart
-function addToCart(item) {
-  const existing = cart.find(ci => ci.id === item.id);
-  if (existing) existing.qty++;
-  else cart.push({ ...item, qty: 1 });
-  renderCart();
-  saveCart();
-}
-
-// Render cart
-function renderCart() {
-  const container = document.querySelector(".cart-items");
-  if (!container) return;
-  container.innerHTML = "";
-
-  cart.forEach(item => {
-    const cartItem = createEl("div", "cart-item");
-    cartItem.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
-      <div class="cart-item-info">
-        <h4>${item.name}</h4>
-        <div class="controls">
-          <button class="qty-btn minus">-</button>
-          <span>${item.qty}</span>
-          <button class="qty-btn plus">+</button>
-          <span class="cart-item-remove">x</span>
-        </div>
-      </div>
-    `;
-    const btnMinus = cartItem.querySelector(".minus");
-    const btnPlus = cartItem.querySelector(".plus");
-    const removeBtn = cartItem.querySelector(".cart-item-remove");
-
-    btnMinus.addEventListener("click", () => {
-      if (item.qty > 1) item.qty--;
-      else cart = cart.filter(ci => ci.id !== item.id);
-      renderCart(); saveCart();
-    });
-    btnPlus.addEventListener("click", () => { item.qty++; renderCart(); saveCart(); });
-    removeBtn.addEventListener("click", () => { cart = cart.filter(ci => ci.id !== item.id); renderCart(); saveCart(); });
-
-    container.appendChild(cartItem);
-  });
-
-  updateTotals();
-}
-
-// Update totals
-function updateTotals() {
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  document.getElementById("subtotal")?.textContent = subtotal.toLocaleString();
-  document.getElementById("grandTotal")?.textContent = subtotal.toLocaleString();
-}
-
-// Save/load cart
-function saveCart() { localStorage.setItem("COFFEE_CART", JSON.stringify(cart)); }
-function loadCart() {
-  const saved = localStorage.getItem("COFFEE_CART");
-  if (saved) cart = JSON.parse(saved);
-}
-
-// WhatsApp full cart
-document.querySelector(".btn-order")?.addEventListener("click", () => {
-  if (!cart.length) return alert("Cart is empty!");
-  let msg = "Order:%0A";
-  cart.forEach(item => {
-    msg += `${item.name} x${item.qty} = UGX ${(item.price * item.qty).toLocaleString()}%0A`;
-  });
-  msg += `Total: UGX ${cart.reduce((s, i) => s + i.price * i.qty, 0).toLocaleString()}`;
-  window.open(`https://wa.me/?text=${msg}`);
 });
 
-// Init
-document.addEventListener("DOMContentLoaded", () => { loadCart(); renderMenu(); renderCart(); });
+// ======= CART SYSTEM =======
+let cart = [];
+
+// Function to add item to cart
+function addToCart(itemName, itemPrice) {
+  const existing = cart.find(i => i.name === itemName);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+  }
+  updateCartDisplay();
+}
+
+// Function to remove item from cart
+function removeFromCart(itemName) {
+  cart = cart.filter(i => i.name !== itemName);
+  updateCartDisplay();
+}
+
+// Function to update cart display
+function updateCartDisplay() {
+  let cartContainer = document.getElementById('cart-container');
+  if (!cartContainer) {
+    // Create cart sidebar if it doesn't exist
+    cartContainer = document.createElement('div');
+    cartContainer.id = 'cart-container';
+    cartContainer.style.position = 'fixed';
+    cartContainer.style.top = '80px';
+    cartContainer.style.right = '20px';
+    cartContainer.style.width = '250px';
+    cartContainer.style.maxHeight = '70vh';
+    cartContainer.style.overflowY = 'auto';
+    cartContainer.style.background = '#fff';
+    cartContainer.style.border = '2px solid #ff6b3c';
+    cartContainer.style.borderRadius = '10px';
+    cartContainer.style.padding = '10px';
+    cartContainer.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
+    document.body.appendChild(cartContainer);
+  }
+
+  cartContainer.innerHTML = '<h4 style="text-align:center;color:#ff6b3c;">Your Cart</h4>';
+  if (cart.length === 0) {
+    cartContainer.innerHTML += '<p style="text-align:center;color:#555;">Cart is empty</p>';
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.style.listStyle = 'none';
+  ul.style.padding = '0';
+
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+    const li = document.createElement('li');
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+            <span style="font-weight:600;">${item.name}</span> x ${item.quantity} 
+            <span style="float:right;color:#ff6b3c;">${item.price * item.quantity} UGX</span>
+            <button style="margin-top:5px;display:block;width:100%;padding:3px 0;background:#ff3e00;color:#fff;border:none;border-radius:5px;cursor:pointer;">Remove</button>
+        `;
+    li.querySelector('button').addEventListener('click', () => removeFromCart(item.name));
+    ul.appendChild(li);
+  });
+
+  const totalDiv = document.createElement('div');
+  totalDiv.style.marginTop = '10px';
+  totalDiv.style.fontWeight = '700';
+  totalDiv.style.color = '#ff6b3c';
+  totalDiv.style.textAlign = 'right';
+  totalDiv.textContent = `Total: ${total} UGX`;
+
+  cartContainer.appendChild(ul);
+  cartContainer.appendChild(totalDiv);
+}
+
+// ======= ATTACH ADD BUTTONS =======
+document.querySelectorAll('.btn-add').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    let itemName, itemPrice;
+
+    // If using <a href>, get values from URL
+    if (btn.tagName.toLowerCase() === 'a') {
+      const urlParams = new URLSearchParams(btn.getAttribute('href').split('?')[1]);
+      itemName = urlParams.get('item');
+      itemPrice = parseInt(urlParams.get('price'));
+    } else {
+      // For button with onclick
+      itemName = btn.getAttribute('data-name') || btn.textContent;
+      itemPrice = parseInt(btn.getAttribute('data-price')) || 0;
+    }
+
+    addToCart(itemName, itemPrice);
+  });
+});
+
+// Optional: Smooth scroll for hash links on page load
+if (window.location.hash) {
+  const target = document.querySelector(window.location.hash);
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop - 80,
+      behavior: 'smooth'
+    });
+  }
+}
