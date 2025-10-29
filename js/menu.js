@@ -1,123 +1,133 @@
-// ================= MENU SCRIPT =================
+// ================= FINAL MENU.JS =================
+(() => {
+  'use strict';
 
-// ======= SMOOTH SCROLL FOR TABS =======
-document.querySelectorAll('.menu-cat').forEach(tab => {
-  tab.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(tab.getAttribute('href'));
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop - 80, // offset for header
-        behavior: 'smooth'
-      });
-    }
-  });
-});
+  const STORAGE_KEY = 'COFFEE_CART';
+  let cart = [];
 
-// ======= CART SYSTEM =======
-let cart = [];
+  // ======= LOAD CART FROM LOCALSTORAGE =======
+  const loadCart = () => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    cart = saved ? JSON.parse(saved) : [];
+  };
 
-// Function to add item to cart
-function addToCart(itemName, itemPrice) {
-  const existing = cart.find(i => i.name === itemName);
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ name: itemName, price: itemPrice, quantity: 1 });
-  }
-  updateCartDisplay();
-}
+  const saveCart = () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  };
 
-// Function to remove item from cart
-function removeFromCart(itemName) {
-  cart = cart.filter(i => i.name !== itemName);
-  updateCartDisplay();
-}
+  const formatUGX = (v) => (Number(v) || 0).toLocaleString() + ' UGX';
 
-// Function to update cart display
-function updateCartDisplay() {
-  let cartContainer = document.getElementById('cart-container');
-  if (!cartContainer) {
-    // Create cart sidebar if it doesn't exist
-    cartContainer = document.createElement('div');
-    cartContainer.id = 'cart-container';
-    cartContainer.style.position = 'fixed';
-    cartContainer.style.top = '80px';
-    cartContainer.style.right = '20px';
-    cartContainer.style.width = '250px';
-    cartContainer.style.maxHeight = '70vh';
-    cartContainer.style.overflowY = 'auto';
-    cartContainer.style.background = '#fff';
-    cartContainer.style.border = '2px solid #ff6b3c';
-    cartContainer.style.borderRadius = '10px';
-    cartContainer.style.padding = '10px';
-    cartContainer.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
-    document.body.appendChild(cartContainer);
-  }
-
-  cartContainer.innerHTML = '<h4 style="text-align:center;color:#ff6b3c;">Your Cart</h4>';
-  if (cart.length === 0) {
-    cartContainer.innerHTML += '<p style="text-align:center;color:#555;">Cart is empty</p>';
-    return;
-  }
-
-  const ul = document.createElement('ul');
-  ul.style.listStyle = 'none';
-  ul.style.padding = '0';
-
-  let total = 0;
-  cart.forEach(item => {
-    total += item.price * item.quantity;
-    const li = document.createElement('li');
-    li.style.marginBottom = '8px';
-    li.innerHTML = `
-            <span style="font-weight:600;">${item.name}</span> x ${item.quantity} 
-            <span style="float:right;color:#ff6b3c;">${item.price * item.quantity} UGX</span>
-            <button style="margin-top:5px;display:block;width:100%;padding:3px 0;background:#ff3e00;color:#fff;border:none;border-radius:5px;cursor:pointer;">Remove</button>
-        `;
-    li.querySelector('button').addEventListener('click', () => removeFromCart(item.name));
-    ul.appendChild(li);
-  });
-
-  const totalDiv = document.createElement('div');
-  totalDiv.style.marginTop = '10px';
-  totalDiv.style.fontWeight = '700';
-  totalDiv.style.color = '#ff6b3c';
-  totalDiv.style.textAlign = 'right';
-  totalDiv.textContent = `Total: ${total} UGX`;
-
-  cartContainer.appendChild(ul);
-  cartContainer.appendChild(totalDiv);
-}
-
-// ======= ATTACH ADD BUTTONS =======
-document.querySelectorAll('.btn-add').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.preventDefault();
-    let itemName, itemPrice;
-
-    // If using <a href>, get values from URL
-    if (btn.tagName.toLowerCase() === 'a') {
-      const urlParams = new URLSearchParams(btn.getAttribute('href').split('?')[1]);
-      itemName = urlParams.get('item');
-      itemPrice = parseInt(urlParams.get('price'));
+  // ======= ADD ITEM TO CART =======
+  const addToCart = (item) => {
+    const existing = cart.find(i => i.id === item.id);
+    if (existing) {
+      existing.qty += 1;
     } else {
-      // For button with onclick
-      itemName = btn.getAttribute('data-name') || btn.textContent;
-      itemPrice = parseInt(btn.getAttribute('data-price')) || 0;
+      cart.push({ ...item, qty: 1 });
+    }
+    saveCart();
+    renderCart();
+  };
+
+  // ======= REMOVE ITEM =======
+  const removeFromCart = (id) => {
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCart();
+  };
+
+  // ======= RENDER CART FOR DISPLAY =======
+  const renderCart = () => {
+    const cartContainer = document.getElementById('cartItems');
+    if (!cartContainer) return;
+
+    cartContainer.innerHTML = '';
+    if (!cart.length) {
+      cartContainer.innerHTML = `<p style="padding:12px;color:#555;">Your cart is empty.</p>`;
+      document.getElementById('cartSubtotal') && (document.getElementById('cartSubtotal').textContent = '0 UGX');
+      document.getElementById('cartTotal') && (document.getElementById('cartTotal').textContent = '0 UGX');
+      return;
     }
 
-    addToCart(itemName, itemPrice);
-  });
-});
+    let subtotal = 0;
+    cart.forEach(item => {
+      subtotal += item.price * item.qty;
 
-// Optional: Smooth scroll for hash links on page load
-if (window.location.hash) {
-  const target = document.querySelector(window.location.hash);
-  if (target) {
-    window.scrollTo({
-      top: target.offsetTop - 80,
-      behavior: 'smooth'
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.style.display = 'flex';
+      div.style.alignItems = 'center';
+      div.style.marginBottom = '10px';
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;margin-right:10px;">
+        <div style="flex:1">
+          <strong>${item.name}</strong>
+          <p>${formatUGX(item.price)} x ${item.qty}</p>
+        </div>
+        <div>
+          <button class="qty-btn minus" data-id="${item.id}">-</button>
+          <span style="margin:0 5px;">${item.qty}</span>
+          <button class="qty-btn plus" data-id="${item.id}">+</button>
+          <button class="remove" data-id="${item.id}">Remove</button>
+        </div>
+      `;
+      cartContainer.appendChild(div);
+
+      // Event listeners
+      div.querySelector('.minus').addEventListener('click', () => {
+        item.qty -= 1;
+        if (item.qty <= 0) removeFromCart(item.id);
+        else { saveCart(); renderCart(); }
+      });
+      div.querySelector('.plus').addEventListener('click', () => {
+        item.qty += 1;
+        saveCart(); renderCart();
+      });
+      div.querySelector('.remove').addEventListener('click', () => removeFromCart(item.id));
     });
-  }
-}
+
+    // Update totals
+    const deliveryFee = parseInt(document.getElementById('deliveryFeeSummary')?.textContent.replace(/,/g, '').replace(' UGX', '')) || 0;
+    document.getElementById('cartSubtotal') && (document.getElementById('cartSubtotal').textContent = formatUGX(subtotal));
+    document.getElementById('cartTotal') && (document.getElementById('cartTotal').textContent = formatUGX(subtotal + deliveryFee));
+  };
+
+  // ======= ATTACH ADD BUTTONS =======
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const parentArticle = btn.closest('.menu-item');
+      if (!parentArticle) return;
+
+      const item = {
+        id: parentArticle.dataset.id,
+        name: parentArticle.dataset.name,
+        price: parseInt(parentArticle.dataset.price),
+        img: parentArticle.querySelector('img')?.src || ''
+      };
+
+      addToCart(item);
+    });
+  });
+
+  // ======= OPTIONAL: SMOOTH SCROLL FOR CATEGORY TABS =======
+  document.querySelectorAll('.menu-cat').forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(tab.getAttribute('href'));
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // ======= INIT =======
+  loadCart();
+  renderCart();
+
+  // Make cart globally accessible if needed
+  window.CoffeeLifeCart = { addToCart, removeFromCart, renderCart, cart };
+})();

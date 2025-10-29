@@ -40,7 +40,6 @@
     const cartSubtotalEl = qs('#cartSubtotal');
     const cartTotalEl = qs('#cartTotal');
     const paymentOptions = qsa('.payment-option');
-    const paymentNumberInput = qs('#paymentNumber');
     const merchantProviderEl = qs('#merchantProvider');
     const merchantCodeEl = qs('#merchantCode');
     const copyMerchantBtn = qs('#copyMerchant');
@@ -156,8 +155,8 @@
     const updateDeliveryFee = () => {
         const area = deliverySelect?.value || '';
         DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
-        deliveryFeeEl.textContent = formatUGX(DELIVERY_FEE);
-        deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
+        if (deliveryFeeEl) deliveryFeeEl.textContent = formatUGX(DELIVERY_FEE);
+        if (deliveryFeeSummaryEl) deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
         renderCart();
     };
     deliverySelect?.addEventListener('change', updateDeliveryFee);

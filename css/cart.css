@@ -1,407 +1,234 @@
-/* ============================ 
-   COFFEE LIFE Premium CSS Bundle (FINAL 2025)
-   Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel + Luxurious + Perfect Layout
-   ============================ */
-
-/* === ROOT VARIABLES === */
-:root {
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --coffee: #4b2e1e;
-    --gold: #b47b3a;
-    --cream: #f5e6d3;
-    --dark: #2c1b0e;
-    --lux-glow: 0 0 20px #FFD700, 0 0 40px #FFD700 inset;
-    --danger: #c0392b;
-}
-
-/* ===================== BODY ===================== */
-body {
-    background-color: #fefefe;
-    font-family: 'Poppins', sans-serif;
-    color: var(--dark);
+/* ================= GENERAL RESET ================= */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===================== MENU GRID ===================== */
-#menu-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    justify-items: center;
-    padding: 1rem;
+body {
+    background: #fdfaf6;
+    color: #333;
+    line-height: 1.5;
 }
 
-@media(max-width:1024px) {
-    #menu-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media(max-width:600px) {
-    #menu-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ===================== MENU ITEMS ===================== */
-.menu-item {
-    background: #fff7e6;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
-}
-
-.menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(180, 123, 58, 0.25);
-}
-
-/* === IMAGE FULL VISIBILITY === */
-.menu-item img,
-.menu-item video {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    border-radius: 14px 14px 0 0;
-}
-
-/* ===================== MENU BODY ===================== */
-.menu-body {
-    padding: 0.5rem 0.8rem 0.8rem;
-    display: flex;
-    flex-direction: column;
+/* ================= CART HEADER ================= */
+.cart-header {
     text-align: center;
-    gap: 0.2rem;
+    padding: 2rem 1rem;
+    background: #fff8f0;
+    border-bottom: 4px solid #6b3c1f;
+    margin-bottom: 2rem;
 }
 
-.menu-body h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--coffee);
-    margin: 0 0 0.2rem 0;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.menu-body h4:hover {
-    color: var(--gold);
-    transform: scale(1.03);
-}
-
-.menu-body .desc {
-    font-size: 0.82rem;
-    color: #5a3a28;
-    margin-bottom: 0.3rem;
-}
-
-.menu-body .price {
+.cart-header h2 {
+    font-size: 2rem;
     font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
+    color: #4b2e1f;
+    margin-bottom: 0.5rem;
 }
 
-/* === BUTTONS IMMEDIATELY UNDER PRICE === */
-.menu-body .actions {
+.cart-header p {
+    font-size: 1.1rem;
+    color: #6b3c1f;
+}
+
+/* ================= CART CONTAINER ================= */
+#cart-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ================= CART ITEMS ================= */
+#cartItems {
     display: flex;
-    justify-content: center;
-    gap: 0.2rem;
-}
-
-.menu-body .btn-add,
-.menu-body .btn-whatsapp {
-    background: var(--coffee);
-    color: var(--cream);
-    padding: 0.4rem 0.8rem;
-    border-radius: 25px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    flex: 1;
-    text-align: center;
-    transition: all 0.3s ease;
-    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
-}
-
-.menu-body .btn-add:hover,
-.menu-body .btn-whatsapp:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: scale(1.05);
-    box-shadow: var(--lux-glow);
-}
-
-.menu-body .btn-whatsapp i {
-    margin-right: 5px;
-}
-
-/* ===================== CART STYLES ===================== */
-.cart-container {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 380px;
-    height: 100vh;
-    background: #fff;
-    color: var(--dark);
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.25);
-    transition: right 0.5s ease;
-    z-index: 9999;
-    overflow-y: auto;
-    border-left: 4px solid var(--coffee);
-    font-family: "Poppins", sans-serif;
-}
-
-.cart-container.active {
-    right: 0;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .cart-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.8rem;
-    border-bottom: 1px solid #eee;
-}
-
-.cart-item img {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    margin-right: 10px;
-    object-fit: cover;
-}
-
-.cart-item-info h4 {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--dark);
-}
-
-.cart-item-info .subtotal {
-    color: var(--gold);
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.cart-item-remove {
-    color: #c0392b;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: transform 0.3s, color 0.3s;
-}
-
-.cart-item-remove:hover {
-    transform: scale(1.3);
-    color: #e74c3c;
-}
-
-/* === ADD/REMOVE QUANTITY CONTROLS === */
-.cart-item .controls {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.cart-item .qty-btn {
-    background: var(--coffee);
-    color: var(--cream);
-    border: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.cart-item .qty-btn:hover {
-    background: var(--gold);
-    color: var(--dark);
-    transform: scale(1.1);
-    box-shadow: var(--lux-glow);
-}
-
-.cart-item .qty {
-    min-width: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-
-/* ===================== BUTTON ANIMATIONS ===================== */
-@keyframes shakeBtn {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    20%,
-    60% {
-        transform: translateX(-3px);
-    }
-
-    40%,
-    80% {
-        transform: translateX(3px);
-    }
-}
-
-@keyframes glowBtn {
-
-    0%,
-    100% {
-        box-shadow: 0 0 0 var(--gold);
-    }
-
-    50% {
-        box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===================== CART TOTAL & DELIVERY ===================== */
-.cart-total {
-    font-weight: bold;
-    color: var(--coffee);
-    font-size: 1.1rem;
-    text-align: right;
-    padding: 0.5rem 0.8rem;
-    border-top: 1px solid #eee;
-}
-
-.cart-total .delivery-fee {
-    font-size: 0.85rem;
-    color: #555;
-    display: block;
-    margin-top: 2px;
-}
-
-/* ===================== PAYMENT BUTTONS ===================== */
-.payment-section {
-    padding: 0.8rem;
-    border-top: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.payment-btn {
-    padding: 0.6rem 1rem;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
+    background: #fff8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
 
-.payment-btn.mtn {
-    background: #fcd116;
-    color: #000;
+.cart-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.payment-btn.airtel {
-    background: #e60000;
-    color: #fff;
+.cart-item-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
-.payment-btn:hover {
-    transform: scale(1.05);
-    box-shadow: var(--lux-glow);
-}
-
-/* ===================== FLOATING WHATSAPP ===================== */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25d366;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    box-shadow: var(--shadow);
+.cart-item-info {
+    flex: 1;
+    padding: 0.8rem 1rem;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-item-info strong {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: #4b2e1f;
+}
+
+.cart-item-info p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* ================= CART ITEM CONTROLS ================= */
+.cart-item-controls {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0.5rem;
+    gap: 0.4rem;
+}
+
+.qty-btn {
+    background: #6b3c1f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    font-weight: 700;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+    background: #8b4b2b;
+    transform: scale(1.05);
+}
+
+.remove {
+    background: #ff3e00;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove:hover {
+    background: #ff6b3c;
+    transform: scale(1.05);
+}
+
+/* ================= CART SUMMARY ================= */
+.cart-summary {
+    margin-top: 1.5rem;
+    background: #fff8f0;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cart-summary h4 {
+    font-weight: 700;
+    color: #4b2e1f;
+    margin-bottom: 0.8rem;
+}
+
+.cart-summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+}
+
+.cart-summary-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #6b3c1f;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
+}
+
+/* ================= BUTTONS ================= */
+#checkoutBtn {
+    display: block;
+    width: 100%;
+    padding: 0.7rem 0;
+    margin-top: 1rem;
+    border-radius: 12px;
+    background: #6b3c1f;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#checkoutBtn:hover {
+    background: #8b4b2b;
+    transform: scale(1.03);
+}
+
+/* ================= TOAST ================= */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #6b3c1f;
+    color: #fff;
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    display: none;
     z-index: 9999;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #25d366, 0 0 40px #25d366 inset;
-}
-
-.whatsapp-float svg {
-    width: 28px;
-    height: 28px;
-    color: #fff;
-}
-
-.cart-badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: var(--danger);
-    color: #fff;
-    font-size: 0.7rem;
-    padding: 3px 6px;
-    border-radius: 50%;
-}
-
-/* ===================== MOBILE OPTIMIZATION ===================== */
-@media(max-width:768px) {
-    .cart-container {
-        width: 90%;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .menu-item {
-        grid-template-columns: 1fr;
+    .cart-item-img {
+        width: 100%;
+        height: 180px;
     }
 
-    .cart-item img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .payment-btn {
-        font-size: 0.9rem;
+    .cart-item-controls {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
     }
 }
 
-@media(max-width:480px) {
-    .cart-container {
-        width: 95%;
+@media (max-width: 600px) {
+    .cart-header h2 {
+        font-size: 1.6rem;
     }
 
-    .cart-item-info h4 {
-        font-size: 0.9rem;
+    .cart-item-info strong {
+        font-size: 0.95rem;
     }
 
-    .cart-item .qty-btn {
-        padding: 0.2rem 0.4rem;
-    }
-
-    .cart-total {
+    .cart-summary h4 {
         font-size: 1rem;
+    }
+
+    #checkoutBtn {
+        font-size: 0.95rem;
     }
 }

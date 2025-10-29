@@ -40,7 +40,6 @@
   const cartSubtotalEl = qs('#cartSubtotal');
   const cartTotalEl = qs('#cartTotal');
   const paymentOptions = qsa('.payment-option');
-  const paymentNumberInput = qs('#paymentNumber');
   const merchantProviderEl = qs('#merchantProvider');
   const merchantCodeEl = qs('#merchantCode');
   const copyMerchantBtn = qs('#copyMerchant');
@@ -93,24 +92,27 @@
 
     if (!cart.length) {
       cartItemsContainer.innerHTML = `<p style="padding:12px;color:#fff;">Your cart is empty. <a href="index.html#menu" style="color:#ffb300;">Add items</a></p>`;
+      cartSubtotalEl.textContent = formatUGX(0);
+      cartTotalEl.textContent = formatUGX(DELIVERY_FEE);
+      return;
     }
 
     cart.forEach(item => {
       const div = document.createElement('div');
       div.className = 'cart-item';
       div.innerHTML = `
-                <img src="${item.img || 'menu-images/placeholder.jpg'}" alt="${item.name}" class="cart-item-img">
-                <div class="cart-item-info">
-                    <strong>${item.name}</strong>
-                    <p>${formatUGX(item.price)} x ${item.qty}</p>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="qty-btn minus" data-id="${item.id}">-</button>
-                    <span class="qty">${item.qty}</span>
-                    <button class="qty-btn plus" data-id="${item.id}">+</button>
-                    <button class="remove" data-id="${item.id}">Remove</button>
-                </div>
-            `;
+        <img src="${item.img || 'menu-images/placeholder.jpg'}" alt="${item.name}" class="cart-item-img">
+        <div class="cart-item-info">
+          <strong>${item.name}</strong>
+          <p>${formatUGX(item.price)} x ${item.qty}</p>
+        </div>
+        <div class="cart-item-controls">
+          <button class="qty-btn minus" data-id="${item.id}">-</button>
+          <span class="qty">${item.qty}</span>
+          <button class="qty-btn plus" data-id="${item.id}">+</button>
+          <button class="remove" data-id="${item.id}">Remove</button>
+        </div>
+      `;
       cartItemsContainer.appendChild(div);
 
       div.querySelector('.minus').addEventListener('click', () => {
@@ -156,8 +158,8 @@
   const updateDeliveryFee = () => {
     const area = deliverySelect?.value || '';
     DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
-    deliveryFeeEl.textContent = formatUGX(DELIVERY_FEE);
-    deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
+    if (deliveryFeeEl) deliveryFeeEl.textContent = formatUGX(DELIVERY_FEE);
+    if (deliveryFeeSummaryEl) deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
     renderCart();
   };
   deliverySelect?.addEventListener('change', updateDeliveryFee);
@@ -168,8 +170,8 @@
   =========================== */
   const setSelectedProvider = provider => {
     selectedProvider = provider || null;
-    merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
-    merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` :
+    if (merchantProviderEl) merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
+    if (merchantCodeEl) merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` :
       selectedProvider === 'airtel' ? `Airtel: ${AIRTEL_MERCHANT}` :
         `MTN: ${MTN_MERCHANT} • Airtel: ${AIRTEL_MERCHANT}`;
     paymentOptions.forEach(b => b.classList.toggle('selected', b.dataset.provider === provider));
@@ -198,11 +200,13 @@
     if (!deliverySelect?.value) return showToast('Select delivery area');
     const name = prompt('Enter your full name:')?.trim();
     if (!name) return showToast('Name required');
+
     const message = encodeURIComponent(
       `✨ Coffee Life Order ✨\n👤 Customer: ${name}\n📍 Delivery Area: ${deliverySelect.value}\n💰 Payment: ${selectedProvider?.toUpperCase() || 'Cash'}\n\n` +
       `🛒 Items:\n${window.CoffeeLife.cart.map((it, i) => `${i + 1}. ${it.name} x${it.qty} = ${formatUGX(it.price * it.qty)}`).join('\n')}` +
       `\n\n🧾 Subtotal: ${formatUGX(calcSubtotal())}\n🚚 Delivery: ${formatUGX(DELIVERY_FEE)}\n💰 Total: ${formatUGX(calcSubtotal() + DELIVERY_FEE)}\n\n☕ Coffee Life — Enjoy!`
     );
+
     window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
     window.CoffeeLife.cart = []; persistCart(); renderCart();
   });
