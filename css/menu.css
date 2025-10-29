@@ -398,3 +398,75 @@ body,
     gap: 10px;
   }
 }
+
+/* === FINAL IMAGE & SPACING FIX (Do Not Remove Existing Code) === */
+
+/* Make images fill card area fully, no empty white space */
+.menu-media img {
+  object-fit: cover !important;
+}
+
+/* Reduce extra spacing in card body */
+.menu-body {
+  padding: 4px 6px !important;
+  gap: 0 !important;
+  margin: 0 !important;
+}
+
+/* Tighten title, description, price */
+.menu-body h4,
+.menu-body .desc,
+.menu-body .price {
+  margin: 2px 0 !important;
+  line-height: 1.1rem !important;
+}
+
+/* Make price closer to button */
+.menu-body .price {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #b47b3a !important;
+}
+
+/* Remove big space before buttons */
+.menu-body .actions {
+  margin-top: 2px !important;
+  gap: 4px !important;
+}
+
+/* Make add button slightly larger and easier to click */
+.menu-body .actions .btn-add,
+.menu-body .actions .btn-whatsapp {
+  padding: 0.35rem 0.75rem !important;
+  font-size: 0.8rem !important;
+  border-radius: 18px !important;
+}
+
+/* Ensure all cards are equal height */
+.menu-item {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+/* Responsive: make sure layout stays tight on mobile */
+@media (max-width: 480px) {
+  .menu-media {
+    height: 160px !important;
+  }
+
+  .menu-body h4 {
+    font-size: 0.9rem !important;
+  }
+
+  .menu-body .desc {
+    font-size: 0.65rem !important;
+  }
+
+  .menu-body .actions .btn-add,
+  .menu-body .actions .btn-whatsapp {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+}
