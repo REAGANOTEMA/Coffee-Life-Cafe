@@ -1,0 +1,246 @@
+/* ==========================
+   GLOBAL STYLES
+========================== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #3E2723, #6D4C41);
+  /* luxurious coffee gradient */
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #ffb300;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================
+   CART & ITEMS
+========================== */
+#cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.cart-item-info {
+  flex: 1;
+  padding: 10px;
+}
+
+.cart-item-info strong {
+  font-size: 1.1rem;
+  color: #ffeb3b;
+}
+
+.cart-item-info p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.cart-item-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+.qty-btn,
+.remove {
+  background: #ffb300;
+  border: none;
+  color: #3E2723;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qty-btn:hover,
+.remove:hover {
+  animation: shake 0.4s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+span.qty {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* ==========================
+   DELIVERY & SUMMARY
+========================== */
+#deliveryFee,
+#deliveryFeeSummary,
+#cartSubtotal,
+#cartTotal {
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+/* ==========================
+   PAYMENT BUTTONS
+========================== */
+.payment-option {
+  background: #ffb300;
+  color: #3E2723;
+  border: none;
+  padding: 10px 16px;
+  margin-right: 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+  animation: shake 0.5s;
+  transform: scale(1.05);
+}
+
+.payment-option.selected {
+  background: #ffc107;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================
+   WHATSAPP CONFIRM
+========================== */
+#whatsapp-confirm {
+  background: #25D366;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#whatsapp-confirm:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================
+   COMPLAINT BOX
+========================== */
+#complaint-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border: 2px solid #c0392b;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  width: 250px;
+  font-family: Poppins, sans-serif;
+  z-index: 9999;
+  color: #3E2723;
+}
+
+#complaint-box h4 {
+  margin: 0 0 10px 0;
+  color: #c0392b;
+  font-size: 1.1rem;
+}
+
+#complaint-box p {
+  font-size: 0.9rem;
+  margin: 0 0 10px 0;
+}
+
+#complaint-box a {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+#complaint-box a:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================
+   TOAST
+========================== */
+#toast {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background: #ffb300;
+  color: #3E2723;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: none;
+  z-index: 10000;
+}
+
+/* ==========================
+   BUTTON ANIMATION
+========================== */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ==========================
+   IMAGE STYLING
+========================== */
+.cart-item-img,
+.merchant-img {
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,37 @@
+/* === CONTACT SECTION === */
+.contact {
+    background: var(--latte);
+    color: var(--dark);
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    padding: 5rem 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.contact-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.contact-card h4 {
+    margin-bottom: 1rem;
+    color: var(--coffee);
+}
+
+.contact a {
+    color: var(--coffee);
+    font-weight: 600;
+}
+
+.map {
+    border-radius: 16px;
+    overflow: hidden;
+    height: 250px;
+}

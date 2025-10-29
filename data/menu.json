@@ -1,0 +1,135 @@
+{
+  "restaurant": {
+    "name": "COFFEE LIFE CAFÉ",
+    "author": "Reagan Otema",
+    "contact": {
+      "phone": "+256709691395",
+      "email": "food@coffeelife.cafe",
+      "website": "https://coffeelife.cafe",
+      "address": "Plot 45 Coffee Street, Jinja, Uganda"
+    },
+    "socials": {
+      "instagram": "@coffeelifecafe",
+      "facebook": "https://www.facebook.com/share/1BGUixCgi8/?mibextid=wwXIfr"
+    }
+  },
+  "layout": {
+    "gridColumns": 4,
+    "style": "text-only",
+    "note": "Render menu items in a 4-column responsive grid below payment & location."
+  },
+  "menu": [
+    {
+      "id": "food1",
+      "category": "Food",
+      "name": "Grilled Chicken Sandwich",
+      "description": "Tender grilled chicken breast with lettuce, tomatoes and house sauce",
+      "price": 18500
+    },
+    {
+      "id": "food2",
+      "category": "Food",
+      "name": "Classic Beef Burger",
+      "description": "Juicy beef patty with cheese, lettuce, tomato and fries",
+      "price": 20500
+    },
+    {
+      "id": "food3",
+      "category": "Food",
+      "name": "Veggie Wrap",
+      "description": "Assorted seasonal vegetables wrapped in tortilla",
+      "price": 15500
+    },
+    {
+      "id": "food4",
+      "category": "Food",
+      "name": "Spicy Chicken Wings",
+      "description": "Crispy wings tossed in signature hot sauce",
+      "price": 17500
+    },
+    {
+      "id": "drink1",
+      "category": "Drinks",
+      "name": "Cappuccino",
+      "description": "Espresso with steamed milk and foam",
+      "price": 8500
+    },
+    {
+      "id": "drink2",
+      "category": "Drinks",
+      "name": "Latte",
+      "description": "Smooth espresso with creamy steamed milk",
+      "price": 9200
+    },
+    {
+      "id": "drink3",
+      "category": "Drinks",
+      "name": "Cold Brew Coffee",
+      "description": "Slow brewed cold coffee, strong & refreshing",
+      "price": 10200
+    },
+    {
+      "id": "drink4",
+      "category": "Drinks",
+      "name": "Fresh Orange Juice",
+      "description": "100% natural, cold pressed juice",
+      "price": 7200
+    },
+    {
+      "id": "drink5",
+      "category": "Drinks",
+      "name": "Green Tea Latte",
+      "description": "Matcha green tea with frothed milk",
+      "price": 9700
+    },
+    {
+      "id": "dessert1",
+      "category": "Desserts",
+      "name": "Chocolate Lava Cake",
+      "description": "Molten center, rich dark chocolate",
+      "price": 12200
+    },
+    {
+      "id": "dessert2",
+      "category": "Desserts",
+      "name": "Cheesecake",
+      "description": "Creamy cheesecake with strawberry topping",
+      "price": 13200
+    },
+    {
+      "id": "dessert3",
+      "category": "Desserts",
+      "name": "Tiramisu",
+      "description": "Espresso-soaked layers with mascarpone cream",
+      "price": 14200
+    },
+    {
+      "id": "special1",
+      "category": "Specials",
+      "name": "Chef’s Special Breakfast",
+      "description": "Eggs, salmon, avocado toast & fruits",
+      "price": 22500
+    },
+    {
+      "id": "special2",
+      "category": "Specials",
+      "name": "Afternoon Coffee Combo",
+      "description": "Coffee with cake or pastry of the day",
+      "price": 15200
+    },
+    {
+      "id": "coffee1",
+      "category": "Coffee Beans",
+      "name": "Arabica Blend",
+      "description": "Premium aromatic Arabica coffee beans",
+      "price": 40500
+    },
+    {
+      "id": "coffee2",
+      "category": "Coffee Beans",
+      "name": "Espresso Roast",
+      "description": "Bold dark roast beans for espresso",
+      "price": 38500
+    }
+  ]
+}

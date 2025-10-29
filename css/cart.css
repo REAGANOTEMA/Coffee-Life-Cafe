@@ -1,0 +1,407 @@
+/* ============================ 
+   COFFEE LIFE Premium CSS Bundle (FINAL 2025)
+   Menu + Cart + WhatsApp + Chat + Animations + MTN/Airtel + Luxurious + Perfect Layout
+   ============================ */
+
+/* === ROOT VARIABLES === */
+:root {
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --coffee: #4b2e1e;
+    --gold: #b47b3a;
+    --cream: #f5e6d3;
+    --dark: #2c1b0e;
+    --lux-glow: 0 0 20px #FFD700, 0 0 40px #FFD700 inset;
+    --danger: #c0392b;
+}
+
+/* ===================== BODY ===================== */
+body {
+    background-color: #fefefe;
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    margin: 0;
+    padding: 0;
+}
+
+/* ===================== MENU GRID ===================== */
+#menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    padding: 1rem;
+}
+
+@media(max-width:1024px) {
+    #menu-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:600px) {
+    #menu-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================== MENU ITEMS ===================== */
+.menu-item {
+    background: #fff7e6;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(180, 123, 58, 0.25);
+}
+
+/* === IMAGE FULL VISIBILITY === */
+.menu-item img,
+.menu-item video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 14px 14px 0 0;
+}
+
+/* ===================== MENU BODY ===================== */
+.menu-body {
+    padding: 0.5rem 0.8rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.2rem;
+}
+
+.menu-body h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--coffee);
+    margin: 0 0 0.2rem 0;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-body h4:hover {
+    color: var(--gold);
+    transform: scale(1.03);
+}
+
+.menu-body .desc {
+    font-size: 0.82rem;
+    color: #5a3a28;
+    margin-bottom: 0.3rem;
+}
+
+.menu-body .price {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+}
+
+/* === BUTTONS IMMEDIATELY UNDER PRICE === */
+.menu-body .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.menu-body .btn-add,
+.menu-body .btn-whatsapp {
+    background: var(--coffee);
+    color: var(--cream);
+    padding: 0.4rem 0.8rem;
+    border-radius: 25px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: shakeBtn 4s infinite, glowBtn 4s infinite;
+}
+
+.menu-body .btn-add:hover,
+.menu-body .btn-whatsapp:hover {
+    background: var(--gold);
+    color: var(--dark);
+    transform: scale(1.05);
+    box-shadow: var(--lux-glow);
+}
+
+.menu-body .btn-whatsapp i {
+    margin-right: 5px;
+}
+
+/* ===================== CART STYLES ===================== */
+.cart-container {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: #fff;
+    color: var(--dark);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.25);
+    transition: right 0.5s ease;
+    z-index: 9999;
+    overflow-y: auto;
+    border-left: 4px solid var(--coffee);
+    font-family: "Poppins", sans-serif;
+}
+
+.cart-container.active {
+    right: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.cart-item-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--dark);
+}
+
+.cart-item-info .subtotal {
+    color: var(--gold);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.cart-item-remove {
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.cart-item-remove:hover {
+    transform: scale(1.3);
+    color: #e74c3c;
+}
+
+/* === ADD/REMOVE QUANTITY CONTROLS === */
+.cart-item .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cart-item .qty-btn {
+    background: var(--coffee);
+    color: var(--cream);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-item .qty-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    transform: scale(1.1);
+    box-shadow: var(--lux-glow);
+}
+
+.cart-item .qty {
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ===================== BUTTON ANIMATIONS ===================== */
+@keyframes shakeBtn {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-3px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes glowBtn {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 var(--gold);
+    }
+
+    50% {
+        box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================== CART TOTAL & DELIVERY ===================== */
+.cart-total {
+    font-weight: bold;
+    color: var(--coffee);
+    font-size: 1.1rem;
+    text-align: right;
+    padding: 0.5rem 0.8rem;
+    border-top: 1px solid #eee;
+}
+
+.cart-total .delivery-fee {
+    font-size: 0.85rem;
+    color: #555;
+    display: block;
+    margin-top: 2px;
+}
+
+/* ===================== PAYMENT BUTTONS ===================== */
+.payment-section {
+    padding: 0.8rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.payment-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.payment-btn.mtn {
+    background: #fcd116;
+    color: #000;
+}
+
+.payment-btn.airtel {
+    background: #e60000;
+    color: #fff;
+}
+
+.payment-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--lux-glow);
+}
+
+/* ===================== FLOATING WHATSAPP ===================== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #25d366, 0 0 40px #25d366 inset;
+}
+
+.whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 50%;
+}
+
+/* ===================== MOBILE OPTIMIZATION ===================== */
+@media(max-width:768px) {
+    .cart-container {
+        width: 90%;
+    }
+
+    .menu-item {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .payment-btn {
+        font-size: 0.9rem;
+    }
+}
+
+@media(max-width:480px) {
+    .cart-container {
+        width: 95%;
+    }
+
+    .cart-item-info h4 {
+        font-size: 0.9rem;
+    }
+
+    .cart-item .qty-btn {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .cart-total {
+        font-size: 1rem;
+    }
+}

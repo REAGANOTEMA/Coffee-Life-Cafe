@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <title>COFFEE LIFE CAFE</title>
+        <meta name="description"
+            content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
+        <meta name="author" content="Mr. Reagan Otema">
+
+        <!-- =========================
+     COFFEE LIFE CAFE - Head Section
+     Premium PWA, Fonts, Styles, Service Worker
+========================= -->
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- PWA / Installable App -->
+        <link rel="manifest" href="/manifest.json">
+        <link rel="apple-touch-icon" href="/images/logo.jpg">
+        <link rel="icon" href="/images/logo.jpg" type="image/jpeg">
+        <meta name="theme-color" content="#b85c38">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-title" content="COFFEE LIFE CAFE">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <!-- SEO & Author -->
+        <meta name="description"
+            content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
+        <meta name="author" content="Mr. Reagan Otema">
+
+        <!-- Fonts & Icons -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        jax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="/css/hero.css">
+        <link rel="stylesheet" href="/css/location.css">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/responsive.css">
+        <link rel="stylesheet" href="/css/gallery.css">
+        <link rel="stylesheet" href="/css/apps.css">
+        <link rel="stylesheet" href="/css/qr.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/contact.css">
+        <link rel="stylesheet" href="/css/payments.css">
+        <link rel="stylesheet" href="/css/menu.css">
+        <link rel="stylesheet" href="/css/cart.css">
+        <link rel="stylesheet" href="/css/whatsapp.css">
+
+
+        <script>
+            let deferredPrompt;
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+
+                // Auto-show prompt after a short delay on first visit
+                setTimeout(async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const choice = await deferredPrompt.userChoice;
+                        if (choice.outcome === 'accepted') {
+                            console.log('App Installed');
+                        }
+                        deferredPrompt = null; // Clear it
+                    }
+                }, 2000); // Show after 2 seconds
+            });
+        </script>
+
+
+        <!-- Optional: Smooth scroll JS fallback -->
+        <script>
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        </script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/hero.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" href="images/logo.jpg">
+
+        <!-- Fonts & icons (CDN) -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- External CSS (do not inline) -->
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/navbar.css">
+        <link rel="stylesheet" href="css/hero.css">
+        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/qr.css">
+        <link rel="stylesheet" href="css/location.css">
+        <link rel="stylesheet" href="css/cart.css">
+        <link rel="stylesheet" href="css/whatsapp.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/gallery.css">
+        <link rel="stylesheet" href="css/contact.css">
+        <link rel="stylesheet" href="css/apps.css">
+        <link rel="stylesheet" href="css/footer.css">
+
+        <!-- Data source (JS will fetch data/menu.json) -->
+        <!-- No inline JS or CSS per request -->
+    </head>
+
+<body>
+    <!-- ===== FINAL STATIC LUXURY CINEMATIC HEADER HTML (FIXED) ===== -->
+    <header class="site-header" id="mainHeader" role="banner">
+        <div class="container nav-inner">
+
+            <!-- BRAND / LOGO (JS will inject circle logo + slogan here) -->
+            <a class="logo" href="#home" aria-label="Coffee Life home"></a>
+
+            <!-- NAVIGATION -->
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#menu" class="nav-link">Menu</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <!-- ACTIONS (CART + HAMBURGER) -->
+                <div class="nav-actions">
+                    <!-- CART ICON -->
+                    <div class="cart-icon" aria-label="Shopping cart">
+                        🛒 <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
+
+                    <!-- HAMBURGER FOR MOBILE -->
+                    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#menu" class="mobile-link">Menu</a>
+            <a href="#gallery" class="mobile-link">Gallery</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </header>
+
+
+
+    <!-- Optional: Background hero animation -->
+    <div class="header-bg-anim"></div>
+
+    <!-- Floating gold particles -->
+    <div class="luxury-particle-container"></div>
+
+
+    <!-- ===== END FINAL CINEMATIC HEADER HTML ===== -->
+
+    <body>
+        <!-- ===== HERO SECTION - CINEMATIC LUXURY HERO ===== -->
+        <main id="home" class="main">
+            <section class="hero" aria-label="Coffee Life Cinematic Hero">
+
+                <!-- Background Layers -->
+                <div class="hero-background"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-luxury-glow"></div>
+
+                <!-- Hero Video (Autoplay first) -->
+                <video class="hero-video" autoplay muted playsinline preload="auto">
+                    <source src="videos/hero-welcome.mp4" type="video/mp4">
+                </video>
+
+                <!-- Hero Slideshow (Image Slides as fallback or loop) -->
+                <div class="hero-slideshow">
+                    <img class="hero-slide" src="menu-images/hero5.jpg" alt="Slide 1">
+                    <img class="hero-slide" src="menu-images/hero6.jpg" alt="Slide 2">
+                    <img class="hero-slide" src="menu-images/hero3.jpg" alt="Slide 3">
+                    <img class="hero-slide" src="menu-images/hero4.jpg" alt="Slide 4">
+                    <img class="hero-slide" src="menu-images/hero2.jpg" alt="Slide 5">
+                </div>
+
+                <!-- Hero Content -->
+                <div class="hero-inner container">
+                    <div class="hero-content" data-animate="fade-in-up">
+
+                        <!-- Hero Title -->
+                        <h1 class="hero-title">
+                            <span class="hero-title-text">WELCOME TO OUR RESTAURANT</span>
+                            <span class="hero-title-shimmer"></span>
+                        </h1>
+
+                        <!-- Hero Subtitle -->
+                        <p class="hero-subtitle cinematic-text">
+                            <span class="slide-text">ORDER.</span>
+                            <span class="slide-text">SAVOR.</span>
+                            <span class="slide-text">ENJOY.</span>
+                        </p>
+
+                        <!-- Hero Note -->
+                        <p class="hero-note cinematic-note">
+                            Indulge in the perfect cup, delight in every dessert, and cherish every moment.
+                        </p>
+
+                        <!-- Hero Call-to-Action Button -->
+                        <a href="index.html#menu" class="hero-btn order-btn">ORDER NOW</a>
+
+                    </div>
+                </div>
+
+                <!-- Scroll Down Indicator -->
+                <a class="scroll-down" href="index.html#menu" aria-label="Scroll to menu">
+                    <span class="scroll-icon">↓</span>
+                </a>
+
+                <!-- Parallax / Floating Food Elements -->
+                <div class="hero-parallax" aria-hidden="true"></div>
+
+            </section>
+        </main>
+
+
+        <!-- ================= MENU HEADER ================= -->
+        <div class="menu-header">
+            <h2 id="menu-title">FOOD MENU FOR FOOD DELIVERIES</h2>
+            <p class="menu-intro"><strong>COFFEE LIFE CAFÉ</strong></p>
+            <p class="menu-sub">EAT. MEET. WORK!</p>
+            <p class="menu-desc">
+                Browse our menu, press <strong>"Add"</strong> to include items in your cart, and you'll immediately see
+                the payment details. You can add as many items as you like before completing your order via WhatsApp.
+            </p>
+
+            <!-- Category filters -->
+            <nav class="menu-cats" aria-label="Menu categories">
+                <a href="#food" class="menu-cat">Food</a>
+                <a href="#drinks" class="menu-cat">Drinks</a>
+                <a href="#desserts" class="menu-cat">Desserts</a>
+                <a href="#specials" class="menu-cat">Specials</a>
+                <a href="#coffeeBeans" class="menu-cat">Coffee Beans</a>
+            </nav>
+        </div>
+
+        <div id="menu-container" class="menu-grid"></div>
+
+
+
+        <!-- ===== FOOD CATEGORIES & ITEMS (each item includes image slot, description, price, add/remove) ===== -->
+
+        <!-- 17. Breakfast Menu -->
+        <section id="breakfast" class="menu-category">
+            <h3>Breakfast Menu</h3>
+            <div class="menu-grid">
+
+                <article class="menu-item" data-id="pancake-breakfast" data-name="Pancake Breakfast Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-pancake.jpg" alt="Pancake Breakfast">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Pancake Breakfast Combo</h4>
+                        <p class="desc">Eggs of choice, home fries, pancakes & sausages.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=pancake-breakfast">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="coffee-life-all-time-breakfast"
+                    data-name="Coffee Life All Time Breakfast" data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-alltime.jpg" alt="All Time Breakfast">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Coffee Life All Time Breakfast</h4>
+                        <p class="desc">Grilled fish fillet, steamed vegetables with two boiled eggs.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=coffee-life-all-time-breakfast">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="stack-breakfast" data-name="Stack Breakfast Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-stack.jpg" alt="Stack Breakfast"></div>
+                    <div class="menu-body">
+                        <h4>Stack Breakfast Combo</h4>
+                        <p class="desc">Tender grilled chicken/steak served on layered potatoes, spinach &
+                            mushrooms.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=stack-breakfast">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-egg-breakfast" data-name="Chicken & Egg Breakfast Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-chicken-egg.jpg"
+                            alt="Chicken & Egg Breakfast"></div>
+                    <div class="menu-body">
+                        <h4>Chicken & Egg Breakfast Combo</h4>
+                        <p class="desc">Eggs of choice, sausages, bread crumbed chicken & home fries.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=chicken-egg-breakfast">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="healthy-native-breakfast" data-name="Healthy Native Breakfast Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-native.jpg" alt="Healthy Native Breakfast">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Healthy Native Breakfast Combo</h4>
+                        <p class="desc">Assorted steamed vegetables, boiled eggs, steamed plantain & sausages.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=healthy-native-breakfast">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="english-breakfast" data-name="English Breakfast Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-english.jpg" alt="English Breakfast">
+                    </div>
+                    <div class="menu-body">
+                        <h4>English Breakfast Combo</h4>
+                        <p class="desc">Eggs of choice, sausages, home fries, baked beans & bread.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=english-breakfast">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="american-rolex-combo" data-name="American Rolex Combo"
+                    data-price="27000">
+                    <div class="menu-media"><img src="menu-images/breakfast-rolex.jpg" alt="American Rolex Combo">
+                    </div>
+                    <div class="menu-body">
+                        <h4>American Rolex Combo</h4>
+                        <p class="desc">Two eggs with beef steak wrapped in chapati served with home fries.</p>
+                        <div class="meta">
+                            <div class="price">27,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=american-rolex-combo">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="avotoast-combo" data-name="Avo Toast Combo" data-price="20000">
+                    <div class="menu-media"><img src="menu-images/avotoast.jpg" alt="Avo Toast"></div>
+                    <div class="menu-body">
+                        <h4>Avo Toast Combo</h4>
+                        <p class="desc">Toasted bread topped with avocado & scrambled eggs. Served with tea or
+                            coffee.</p>
+                        <div class="meta">
+                            <div class="price">20,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=avotoast-combo">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="muffin-combo" data-name="Muffin Combo" data-price="15000">
+                    <div class="menu-media"><img src="menu-images/muffin.webp" alt="Muffin Combo"></div>
+                    <div class="menu-body">
+                        <h4>Muffin Combo</h4>
+                        <p class="desc">Muffin of choice with coffee or tea.</p>
+                        <div class="meta">
+                            <div class="price">15,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=muffin-combo">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <p class="note">Top up your omelet with Cheese 3,000 / Sausage 3,000 / Spinach 3,000 / Chicken 6,000
+                    / Beef 6,000. Combos served with coffee, tea or juice. If you suffer from allergens, inform your
+                    server.</p>
+
+            </div>
+        </section>
+
+        <!-- 18. Light Bites -->
+        <section id="light-bites" class="menu-category">
+            <h3>Light Bites</h3>
+            <div class="menu-grid">
+
+                <article class="menu-item" data-id="samosas" data-name="Samosas (Chicken/Beef/Vegetable)"
+                    data-price="5000">
+                    <div class="menu-media"><img src="menu-images/samosas.jpg" alt="Samosas"></div>
+                    <div class="menu-body">
+                        <h4>Samosas</h4>
+                        <div class="meta">
+                            <div class="price">5,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=samosas">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="buttermilk-pancakes" data-name="Butter Milk Pancakes"
+                    data-price="10000">
+                    <div class="menu-media"><img src="menu-images/pancake.webp" alt="Butter Milk Pancakes"></div>
+                    <div class="menu-body">
+                        <h4>Butter Milk Pancakes</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=buttermilk-pancakes">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="sausages-light" data-name="Sausages (Light)" data-price="6000">
+                    <div class="menu-media"><img src="menu-images/sausages.webp" alt="Sausages"></div>
+                    <div class="menu-body">
+                        <h4>Sausages</h4>
+                        <div class="meta">
+                            <div class="price">6,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=sausages-light">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chapati" data-name="Chapati" data-price="2000">
+                    <div class="menu-media"><img src="menu-images/chapati.webp" alt="chapati"></div>
+                    <div class="menu-body">
+                        <h4>Chapati</h4>
+                        <div class="meta">
+                            <div class="price">2,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=chapati">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chips-masala" data-name="Chips Masala" data-price="10000">
+                    <div class="menu-media">
+                        <img src="menu-images/chips-masala.webp" alt="Chips Masala">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chips Masala</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chips%20Masala&price=10000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="plain-omelet" data-name="Plain Omelet" data-price="5000">
+                    <div class="menu-media">
+                        <img src="menu-images/omelet.jpg" alt="Plain Omelet">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Plain Omelet</h4>
+                        <div class="meta">
+                            <div class="price">5,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Plain%20Omelet&price=5000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-pie" data-name="Chicken pie" data-price="8000">
+                    <div class="menu-media">
+                        <img src="menu-images/chicken-pie.jpg" alt="Chicken pie">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Pie</h4>
+                        <div class="meta">
+                            <div class="price">8,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Pie&price=8000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chocolate-croissant" data-name="Chocolate Croissants"
+                    data-price="7000">
+                    <div class="menu-media">
+                        <img src="menu-images/croissant-chocolate.webp" alt="Chocolate Croissant">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chocolate Croissants</h4>
+                        <div class="meta">
+                            <div class="price">7,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chocolate%20Croissants&price=7000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+
+                <!-- Beef Stir Fry -->
+                <article class="menu-item" data-id="beef-stir-fry" data-name="Beef Stir Fry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/Beef Stir Fry.webp" alt="Beef Stir Fry"></div>
+                    <div class="menu-body">
+                        <h4>Beef Stir Fry</h4>
+                        <p class="desc">Beef strips cooked in vegetables and soy sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Stir%20Fry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pepper Steak -->
+                <article class="menu-item" data-id="pepper-steak" data-name="Pepper Steak" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/Pepper Steak.webp" alt="Pepper Steak"></div>
+                    <div class="menu-body">
+                        <h4>Pepper Steak</h4>
+                        <p class="desc">Juicy tender fillet steak grilled to your preference served in pepper sauce.
+                        </p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Pepper%20Steak&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beefy Bliss -->
+                <article class="menu-item" data-id="beefy-bliss" data-name="Beefy Bliss" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beefy-bliss.jpg" alt="Beefy Bliss"></div>
+                    <div class="menu-body">
+                        <h4>Beefy Bliss</h4>
+                        <p class="desc">A creamy sauce of beef chunks, mushrooms, peppers & onions.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beefy%20Bliss&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beef with Broccoli -->
+                <article class="menu-item" data-id="beef-broccoli" data-name="Beef with Broccoli" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beef-broccoli.jpg" alt="Beef with Broccoli"></div>
+                    <div class="menu-body">
+                        <h4>Beef with Broccoli</h4>
+                        <p class="desc">Boneless beef cut in cubes cooked with broccoli and sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20with%20Broccoli&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Deef Skewers -->
+                <article class="menu-item" data-id="deef-skewers" data-name="Deef Skewers" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/deef-skewers.jpg" alt="Deef Skewers"></div>
+                    <div class="menu-body">
+                        <h4>Deef Skewers</h4>
+                        <p class="desc">Marinated beef skewers grilled to perfection.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Deef%20Skewers&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beef Pilau -->
+                <article class="menu-item" data-id="beef-pilau" data-name="Beef Pilau" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beef-pilau.jpg" alt="Beef Pilau"></div>
+                    <div class="menu-body">
+                        <h4>Beef Pilau</h4>
+                        <p class="desc">Served with avocado, kachumbali and gravy.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Pilau&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+
+                <!-- Chicken Buckets -->
+                <article class="menu-item" data-id="tender-love-bucket" data-name="Tender Love Bucket"
+                    data-price="78000">
+                    <div class="menu-media"><img src="menu-images/chicken-crispy6.jpg" alt="Tender Love Bucket">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Tender Love Bucket</h4>
+                        <p class="desc">8 Pieces, 2 regular chips, salads & 2 Ltr Soda.</p>
+                        <div class="meta">
+                            <div class="price">78,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Tender%20Love%20Bucket&price=78000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="over-load-bucket" data-name="Over Load Bucket" data-price="86000">
+                    <div class="menu-media"><img src="menu-images/chicken-crispy7.jpg" alt="Over Load Bucket"></div>
+                    <div class="menu-body">
+                        <h4>Over Load Bucket</h4>
+                        <p class="desc">10 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
+                        <div class="meta">
+                            <div class="price">86,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Over%20Load%20Bucket&price=86000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="crazy-bucket" data-name="Crazy Bucket" data-price="140000">
+                    <div class="menu-media"><img src="menu-images/chicken-crispy10.jpg" alt="Crazy Bucket"></div>
+                    <div class="menu-body">
+                        <h4>Crazy Bucket</h4>
+                        <p class="desc">16 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
+                        <div class="meta">
+                            <div class="price">140,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Crazy%20Bucket&price=140000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="haven-bucket" data-name="Haven Bucket" data-price="120000">
+                    <div class="menu-media"><img src="menu-images/chicken-crispy7.webp" alt="Haven Bucket"></div>
+                    <div class="menu-body">
+                        <h4>Haven Bucket</h4>
+                        <p class="desc">14 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
+                        <div class="meta">
+                            <div class="price">120,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Haven%20Bucket&price=120000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="good-times-bucket" data-name="Good Times Bucket"
+                    data-price="100000">
+                    <div class="menu-media"><img src="menu-images/chicken5.jpg" alt="Good Times Bucket"></div>
+                    <div class="menu-body">
+                        <h4>Good Times Bucket</h4>
+                        <p class="desc">12 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
+                        <div class="meta">
+                            <div class="price">100,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Good%20Times%20Bucket&price=100000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+        </section>
+        </div>
+
+        <!-- 4. Goats -->
+        <section id="goats" class="menu-category">
+            <h3>Goats</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="grilled-goats-meat" data-name="Grilled Goats Meat"
+                    data-price="38000">
+                    <div class="menu-media"><img src="menu-images/goat-grilled.jpg" alt="Grilled Goats Meat">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Grilled Goats Meat</h4>
+                        <p class="desc">Marinated and oven grilled — glazed in honey sauce with vegetables.
+                        </p>
+                        <div class="meta">
+                            <div class="price">38,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Grilled%20Goats%20Meat&price=38000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="pan-fried-goat" data-name="Pan Fried Goat" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/goat-panfried.webp" alt="Pan Fried Goat">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Pan Fried Goat</h4>
+                        <p class="desc">Grilled goat cubes pan fried in cucumber or vegetables; dry fry or
+                            with sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Pan%20Fried%20Goat&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="boiled-goats-meat" data-name="Boiled Goats Meat" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/goat-boiled.jpg" alt="Boiled Goats Meat">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Boiled Goats Meat</h4>
+                        <p class="desc">Boiled to perfection with vegetables and greens.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Boiled%20Goats%20Meat&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="goat-brochette" data-name="Goat Brochette" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/goat-brochette1.jpg" alt="Goat Brochette">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Goat Brochette</h4>
+                        <p class="desc">Marinated and grilled goat skewers served with chips and mayo.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Goat%20Brochette&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="goat-biriyani" data-name="Goat Biriyani" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/goat-biryani.jpg" alt="Goat Biriyani">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Goat Biriyani</h4>
+                        <p class="desc">Goat meat marinated & cooked with basmati spiced rice. Served with
+                            choice of chips, mashed, posho or rice.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Goat%20Biriyani&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        </div>
+
+        <!-- 5. Quesadillas -->
+        <section id="quesadillas" class="menu-category">
+            <h3>Quesadillas</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="chicken-quesadilla" data-name="Chicken Quesadilla"
+                    data-price="30000">
+                    <div class="menu-media"><img src="menu-images/quesadilla-chicken.jpg" alt="Chicken Quesadilla">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Quesadilla</h4>
+                        <p class="desc">Marinated chicken with grilled vegetables & mozzarella. Served with
+                            guacamole & salsa.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Quesadilla&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="deef-quesadilla" data-name="Deef Quesadilla" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/quesadilla-beef.jpg" alt="Deef Quesadilla">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Deef Quesadilla</h4>
+                        <p class="desc">Marinated beef with vegetables & mozzarella. Served with guacamole &
+                            salsa.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Deef%20Quesadilla&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        </div>
+
+
+        <!-- 6. Local Food Menu -->
+        <section id="local-food" class="menu-category">
+            <h3>Local Food Menu</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="goat-stew" data-name="Goat Stew" data-price="25000">
+                    <div class="menu-media"><img src="menu-images/local-goat-stew.jpg" alt="Goat Stew">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Goat Stew</h4>
+                        <p class="desc">Served with rice, posho, matooke and greens.</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Goat%20Stew&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-stew" data-name="Chicken Stew" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/local-chicken-stew.jpg" alt="Chicken Stew">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Stew</h4>
+                        <p class="desc">Served with choice of rice, posho, matooke & greens.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Stew&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-stew-local" data-name="Beef Stew" data-price="25000">
+                    <div class="menu-media"><img src="menu-images/local-beef-stew.webp" alt="Beef Stew">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Stew</h4>
+                        <p class="desc">All local foods are served with rice, posho, matooke & greens.</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Stew&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beans-or-peas" data-name="Beans or Peas" data-price="20000">
+                    <div class="menu-media"><img src="menu-images/local-beans.jpg" alt="Beans or Peas">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beans or Peas</h4>
+                        <p class="desc">Traditional sides.</p>
+                        <div class="meta">
+                            <div class="price">20,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beans%20or%20Peas&price=20000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-pilau" data-name="Chicken Pilau" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/local-chicken-pilau.jpg" alt="Chicken Pilau">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Pilau</h4>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Pilau&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="goats-pilau" data-name="Goats Pilau" data-price="28000">
+                    <div class="menu-media"><img src="menu-images/local-goat-pilau.jpg" alt="Goats Pilau">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Goats Pilau</h4>
+                        <div class="meta">
+                            <div class="price">28,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Goats%20Pilau&price=28000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-pilau-local" data-name="Beef Pilau" data-price="25000">
+                    <div class="menu-media"><img src="menu-images/local-beef-pilau.png" alt="Beef Pilau">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Pilau</h4>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Pilau&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 7. Cheesy Pizzas -->
+        <section id="pizzas" class="menu-category">
+            <h3>Cheesy Pizzas</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="special-festival-pizza-large"
+                    data-name="Special Festival Pizza (Large)" data-price="42000">
+                    <div class="menu-media"><img src="menu-images/pizza-festival-large.webp"
+                            alt="Special Festival Pizza Large"></div>
+                    <div class="menu-body">
+                        <h4>Special Festival Pizza — Large</h4>
+                        <p class="desc">Chunks of chicken, minced meat, sausages, onions & green pepper
+                            topped with cheese.</p>
+                        <div class="meta">
+                            <div class="price">42,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Special%20Festival%20Pizza%20(Large)&price=42000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="special-festival-pizza-medium"
+                    data-name="Special Festival Pizza (Medium)" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/pizza-festival-medium.jpg"
+                            alt="Special Festival Pizza Medium"></div>
+                    <div class="menu-body">
+                        <h4>Special Festival Pizza — Medium</h4>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Special%20Festival%20Pizza%20(Medium)&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="special-festival-pizza-small"
+                    data-name="Special Festival Pizza (Small)" data-price="22000">
+                    <div class="menu-media"><img src="menu-images/pizza-festival-small.jpg"
+                            alt="Special Festival Pizza Small"></div>
+                    <div class="menu-body">
+                        <h4>Special Festival Pizza — Small</h4>
+                        <div class="meta">
+                            <div class="price">22,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Special%20Festival%20Pizza%20(Small)&price=22000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="bbq-temptation-large" data-name="BBQ Temptation (Large)"
+                    data-price="40000">
+                    <div class="menu-media"><img src="menu-images/pizza-bbq-large.jpg" alt="BBQ Temptation Large">
+                    </div>
+                    <div class="menu-body">
+                        <h4>BBQ Temptation — Large</h4>
+                        <div class="meta">
+                            <div class="price">40,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=BBQ%20Temptation%20(Large)&price=40000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="vegetarian-delight-large" data-name="Vegetarian Delight (Large)"
+                    data-price="40000">
+                    <div class="menu-media"><img src="menu-images/pizza-veg-large.webp" alt="Vegetarian Delight Large">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegetarian Delight — Large</h4>
+                        <div class="meta">
+                            <div class="price">40,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Vegetarian%20Delight%20(Large)&price=40000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="margherita-large" data-name="Margherita Pizza (Large)"
+                    data-price="38000">
+                    <div class="menu-media"><img src="menu-images/pizza-margherita-large.webp" alt="Margherita Large">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Margherita — Large</h4>
+                        <div class="meta">
+                            <div class="price">38,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Margherita%20(Large)&price=38000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="vegan-burger" data-name="Vegan Burger" data-price="28000">
+                    <div class="menu-media"><img src="menu-images/vegan-burger.webp" alt="Vegan Burger">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegan Burger</h4>
+                        <p class="desc">Plant-based patty and house salad.</p>
+                        <div class="meta">
+                            <div class="price">28,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Vegan%20Burger&price=28000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <p class="promo">EVERY FRIDAY — Paza Promotion: Buy 1 Get 1 Free (Any extra topping charged at
+                5,000 UGX).</p>
+        </section>
+
+
+        <!-- 8. Curries -->
+        <section id="curries" class="menu-category">
+            <h3>Curries</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="vegetable-curry" data-name="Vegetable curry" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/curry-veg.jpg" alt="Vegetable Curry">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegetable Curry</h4>
+                        <p class="desc">Assorted seasoned vegetables cooked in mild creamy sauce.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Vegetable%20Curry&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-curry" data-name="Chicken Curry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/curry-chicken.jpg" alt="Chicken Curry">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Curry</h4>
+                        <p class="desc">Tender chicken fillet cut in cubes cooked in mild creamy sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-curry" data-name="Beef Curry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/curry-beef.webp" alt="Beef Curry"></div>
+                    <div class="menu-body">
+                        <h4>Beef Curry</h4>
+                        <p class="desc">Served with either rice, mashed potatoes or chips.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="fish-curry" data-name="Fish Curry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/curry-fish.jpg" alt="Fish Curry"></div>
+                    <div class="menu-body">
+                        <h4>Fish Curry</h4>
+                        <p class="desc">Delicate fish fillet in creamy curry sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Fish%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="thai-peanut-chicken" data-name="Thai Peanut Chicken Curry"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/thai-peanut-chicken.webp"
+                            alt="Thai Peanut Chicken Curry"></div>
+                    <div class="menu-body">
+                        <h4>Thai Peanut Chicken Curry</h4>
+                        <p class="desc">Tender chicken in mild peanut-curry sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Thai%20Peanut%20Chicken%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- 9. Burgers -->
+        <section id="burgers" class="menu-category">
+            <h3>Burgers</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="chicken-burger-single" data-name="Chicken Burger (Single)"
+                    data-price="32000">
+                    <div class="menu-media"><img src="menu-images/burger-chicken-single.webp"
+                            alt="Chicken Burger Single"></div>
+                    <div class="menu-body">
+                        <h4>Chicken Burger — Single</h4>
+                        <div class="meta">
+                            <div class="price">32,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Chicken%20Burger%20(Single)&price=32000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-burger-single" data-name="Beef Burger (Single)"
+                    data-price="32000">
+                    <div class="menu-media"><img src="menu-images/burger-beef-single.webp" alt="Beef Burger Single">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Burger — Single</h4>
+                        <div class="meta">
+                            <div class="price">32,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Burger%20(Single)&price=32000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="fish-burger" data-name="Fish Burger" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/burger-fish.webp" alt="Fish Burger"></div>
+                    <div class="menu-body">
+                        <h4>Fish Burger</h4>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Fish%20Burger&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
+                    data-price="25000">
+                    <div class="menu-media">
+                        <video autoplay muted loop playsinline>
+                            <source src="videos/burger.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="menu-body">
+                        <h4>Burger Promotion</h4>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="life-special-burger" data-name="Life Special Burger"
+                    data-price="40000">
+                    <div class="menu-media"><img src="menu-images/burger-life-special.webp" alt="Life Special Burger">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Life Special Burger</h4>
+                        <p class="desc">Chicken, beef, fried egg, cheese, tomatoes, onions, lettuce.</p>
+                        <div class="meta">
+                            <div class="price">40,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Life%20Special%20Burger&price=40000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Double variations -->
+                <article class="menu-item" data-id="chicken-burger-double" data-name="Chicken Burger (Double)"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/burger-chicken-double.jpg"
+                            alt="Chicken Burger Double"></div>
+                    <div class="menu-body">
+                        <h4>Chicken Burger — Double</h4>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Chicken%20Burger%20(Double)&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-burger-double" data-name="Beef Burger (Double)"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/burger-beef-double.jpg" alt="Beef Burger Double">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Burger — Double</h4>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Burger%20(Double)&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="vegan-burger-32k" data-name="Vegan Burger (Single)"
+                    data-price="32000">
+                    <div class="menu-media"><img src="menu-images/vegan-burger.jpg" alt="Vegan Burger">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegan Burger</h4>
+                        <div class="meta">
+                            <div class="price">32,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Vegan%20Burger%20(Single)&price=32000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- 12. Sandwiches -->
+        <section id="sandwiches" class="menu-category">
+            <h3>Sandwiches</h3>
+            <div class="menu-grid">
+                <article class="menu-item" data-id="vegetable-sandwich" data-name="Vegetable Sandwich"
+                    data-price="25000">
+                    <div class="menu-media"><img src="menu-images/sandwich-veg.jpg" alt="Vegetable Sandwich">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegetable Sandwich</h4>
+                        <p class="desc">Served with either House Salad, Chips or Potato Wedges.</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Vegetable%20Sandwich&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="beef-steak-sandwich" data-name="Beef Steak Sandwich"
+                    data-price="32000">
+                    <div class="menu-media"><img src="menu-images/sandwich-beef.webp" alt="Beef Steak Sandwich">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Steak Sandwich</h4>
+                        <div class="meta">
+                            <div class="price">32,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Steak%20Sandwich&price=32000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-sandwich" data-name="Chicken Sandwich" data-price="34000">
+                    <div class="menu-media"><img src="menu-images/sandwich-chicken.jpg" alt="Chicken Sandwich">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Sandwich</h4>
+                        <div class="meta">
+                            <div class="price">34,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Sandwich&price=34000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-mayo-sandwich" data-name="Chicken Mayo Sandwich"
+                    data-price="34000">
+                    <div class="menu-media"><img src="menu-images/sandwich-chicken-mayo.jpg"
+                            alt="Chicken Mayo Sandwich"></div>
+                    <div class="menu-body">
+                        <h4>Chicken Mayo Sandwich</h4>
+                        <div class="meta">
+                            <div class="price">34,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Chicken%20Mayo%20Sandwich&price=34000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="cheese-sandwich" data-name="Cheese Sandwich" data-price="25000">
+                    <div class="menu-media"><img src="menu-images/sandwich-cheese.jpg" alt="Cheese Sandwich">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Cheese Sandwich</h4>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Cheese%20Sandwich&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="original-club-sandwich" data-name="Original Club Sandwich"
+                    data-price="40000">
+                    <div class="menu-media"><img src="menu-images/sandwich-club.jpg" alt="Original Club Sandwich">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Original Club Sandwich</h4>
+                        <p class="desc">Chicken mayo, beef steak, fried eggs, cheese, pickles, tomatoes &
+                            onions. Served with House Salad, Chips or Potato Wedges.</p>
+                        <div class="meta">
+                            <div class="price">40,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=Original%20Club%20Sandwich&price=40000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- 13. Lunch & Dinner Specials (Salads, Soups, Fish, Chicken Dishes) -->
+        <section id="lunch-dinner" class="menu-category">
+            <h3>Lunch & Dinner Specials</h3>
+            <div class="menu-grid">
+
+                <!-- Soups -->
+                <article class="menu-item" data-id="carrot-ginger-soup" data-name="Carrot & Ginger Soup"
+                    data-price="15000">
+                    <div class="menu-media"><img src="menu-images/soup-carrot.jpg" alt="Carrot & Ginger Soup">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Carrot & Ginger Soup</h4>
+                        <div class="meta">
+                            <div class="price">15,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Carrot%20%26%20Ginger%20Soup&price=15000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="tomato-soup" data-name="Tomato Soup" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/soup-tomato.webp" alt="Tomato Soup"></div>
+                    <div class="menu-body">
+                        <h4>Tomato Soup</h4>
+                        <p class="desc">Choice of a creamy or clear soup.</p>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Tomato%20Soup&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="vegetable-soup" data-name="Vegetable Soup" data-price="15000">
+                    <div class="menu-media"><img src="menu-images/soup-vegetable.webp" alt="Vegetable Soup">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vegetable Soup</h4>
+                        <div class="meta">
+                            <div class="price">15,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Vegetable%20Soup&price=15000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Fish Dishes -->
+                <article class="menu-item" data-id="fish-craft" data-name="Fish Craft" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/fish-craft.webp" alt="Fish Craft"></div>
+                    <div class="menu-body">
+                        <h4>Fish Craft</h4>
+                        <p class="desc">Nile perch fillet grilled to perfection.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Fish%20Craft&price=30000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="ocean-picks" data-name="Ocean Picks" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/fish-ocean.jpg" alt="Ocean Picks"></div>
+                    <div class="menu-body">
+                        <h4>Ocean Picks</h4>
+                        <p class="desc">Crispy & tasty fish fingers.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Ocean%20Picks&price=30000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="pesto-fish" data-name="Pesto Fish" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/fish-pesto.jpg" alt="Pesto Fish"></div>
+                    <div class="menu-body">
+                        <h4>Pesto Fish</h4>
+                        <p class="desc">Fillet topped with pesto sauce.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Pesto%20Fish&price=30000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="crispy-catches" data-name="Crispy Catches" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/fish-crispy.webp" alt="Crispy Catches">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Crispy Catches</h4>
+                        <p class="desc">Yummy fillet with crumbs.</p>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Crispy%20Catches&price=30000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Chicken Dishes -->
+                <article class="menu-item" data-id="chilli-chicken" data-name="Chilli Chicken" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/chicken-chill.webp" alt="Chilli Chicken">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chilli Chicken</h4>
+                        <p class="desc">Coated chicken strips in a spicy sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Chilli%20Chicken&price=35000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="jerk-chicken" data-name="Jerk Chicken" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/chicken-jerk.jpg" alt="Jerk Chicken">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Jerk Chicken</h4>
+                        <p class="desc">Pan-fried with vegetables in a sweet sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Jerk%20Chicken&price=35000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="grilled-chicken" data-name="Grilled Chicken" data-price="30000">
+                    <div class="menu-media"><img src="menu-images/chicken-grilled.jpg" alt="Grilled Chicken">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Grilled Chicken</h4>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Grilled%20Chicken&price=30000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="grilled-chicken-fillet" data-name="Grilled Chicken Fillet"
+                    data-price="30000">
+                    <div class="menu-media"><img src="menu-images/chicken-fillet.jpg" alt="Grilled Chicken Fillet">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Grilled Chicken Fillet</h4>
+                        <div class="meta">
+                            <div class="price">30,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Grilled%20Chicken%20Fillet&price=30000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="bbq-chicken-wings" data-name="BBQ Chicken wings" data-price="28000">
+                    <div class="menu-media"><img src="menu-images/chicken-wings.jpeg" alt="BBQ Chicken wings">
+                    </div>
+                    <div class="menu-body">
+                        <h4>BBQ Chicken Wings</h4>
+                        <div class="meta">
+                            <div class="price">28,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=BBQ%20Chicken%20Wings&price=28000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-stir-fry" data-name="Chicken Stir fry" data-price="32000">
+                    <div class="menu-media"><img src="menu-images/chicken-stirfry.jpg" alt="Chicken Stir fry">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken Stir fry</h4>
+                        <p class="desc">Served with choice of rice, mashed potatoes, chips, plantain or
+                            wedges.</p>
+                        <div class="meta">
+                            <div class="price">32,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Chicken%20Stir%20Fry&price=32000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Platters & Specials -->
+                <article class="menu-item" data-id="coffee-life-platter" data-name="All Time Coffee Life Platter"
+                    data-price="85000">
+                    <div class="menu-media"><img src="menu-images/platter.jpg" alt="Coffee Life Platter">
+                    </div>
+                    <div class="menu-body">
+                        <h4>All Time Coffee Life Platter</h4>
+                        <p class="desc">Sausages, goat meat, chicken skewer, fish fillet, brocoli, carrot,
+                            peppers.</p>
+                        <div class="meta">
+                            <div class="price">85,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=All%20Time%20Coffee%20Life%20Platter&price=85000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
+                    data-price="25000">
+                    <div class="menu-media">
+                        <video autoplay muted loop playsinline>
+                            <source src="videos/burger.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="menu-body">
+                        <h4>Burger Promotion</h4>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <button class="btn-add"
+                                    onclick="addToCart('EVERY Wednesday Promotion', 25000)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="whole-chicken" data-name="Whole Chicken" data-price="65000">
+                    <div class="menu-media"><img src="menu-images/whole-chicken.jpg" alt="Whole Chicken">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Whole Chicken</h4>
+                        <p class="desc">Whole oven grilled chicken marinated to perfection with chips or
+                            wedges.</p>
+                        <div class="meta">
+                            <div class="price">65,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Whole%20Chicken&price=65000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="chicken-goat-biryani" data-name="Chicken/Goat Biryani"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/biryani.webp" alt="Chicken/Goat Biryani">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Chicken/Goat Biryani</h4>
+                        <p class="desc">Aromatic spiced rice served with choice of chicken or goat.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Chicken%2FGoat%20Biryani&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- 16. Beverages Menu (full as requested) -->
+        <section id="beverages" class="menu-category">
+            <h3>Beverages</h3>
+            <div class="menu-grid beverages-grid">
+
+                <!-- Coffee -->
+                <article class="menu-item" data-id="house-coffee-single" data-name="House Coffee (Single)"
+                    data-price="9000">
+                    <div class="menu-media"><img src="gallery-images/space1.jpeg" alt="House Coffee"></div>
+                    <div class="menu-body">
+                        <h4>House Coffee — Single</h4>
+                        <div class="meta">
+                            <div class="price">9,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=House%20Coffee%20(Single)&price=9000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="house-coffee-double" data-name="House Coffee (Double)"
+                    data-price="10000">
+                    <div class="menu-media"><img src="menu-images/coffee-house2.jpg" alt="House Coffee Double">
+                    </div>
+                    <div class="menu-body">
+                        <h4>House Coffee, Double</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=House%20Coffee%20(Double)&price=10000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="espresso-single" data-name="Espresso (Single)" data-price="6000">
+                    <div class="menu-media"><img src="menu-images/espresso.jpg" alt="Espresso"></div>
+                    <div class="menu-body">
+                        <h4>Espresso — Single</h4>
+                        <div class="meta">
+                            <div class="price">6,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Espresso%20(Single)&price=6000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="espresso-double" data-name="Espresso (Double)" data-price="7000">
+                    <div class="menu-media"><img src="menu-images/espresso2.webp" alt="Espresso Double">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Espresso — Double</h4>
+                        <div class="meta">
+                            <div class="price">7,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Espresso%20(Double)&price=7000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="americano-single" data-name="Americano (Single)" data-price="8000">
+                    <div class="menu-media"><img src="menu-images/americano.jpg" alt="Americano"></div>
+                    <div class="menu-body">
+                        <h4>Americano — Single</h4>
+                        <div class="meta">
+                            <div class="price">8,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Americano%20(Single)&price=8000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="americano-double" data-name="Americano (Double)" data-price="9000">
+                    <div class="menu-media"><img src="menu-images/americano2.jpg" alt="Americano Double">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Americano — Double</h4>
+                        <div class="meta">
+                            <div class="price">9,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Americano%20(Double)&price=9000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="latte-single" data-name="Latte (Single)" data-price="9000">
+                    <div class="menu-media"><img src="menu-images/latte.webp" alt="Latte"></div>
+                    <div class="menu-body">
+                        <h4>Latte — Single</h4>
+                        <div class="meta">
+                            <div class="price">9,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Latte%20(Single)&price=9000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="latte-double" data-name="Latte (Double)" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/latte2.jpg" alt="Latte Double"></div>
+                    <div class="menu-body">
+                        <h4>Latte — Double</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Latte%20(Double)&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="cappuccino-single" data-name="Cappuccino (Single)"
+                    data-price="9000">
+                    <div class="menu-media"><img src="menu-images/cappuccino.webp" alt="Cappuccino"></div>
+                    <div class="menu-body">
+                        <h4>Cappuccino — Single</h4>
+                        <div class="meta">
+                            <div class="price">9,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Cappuccino%20(Single)&price=9000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="mocha" data-name="Mocha" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/mocha.webp" alt="Mocha"></div>
+                    <div class="menu-body">
+                        <h4>Mocha</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add" href="payment.html?item=Mocha&price=10000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="vanilla-latte" data-name="Vanilla Latte" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/vanilla-latte2.jpg" alt="Vanilla Latte">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Vanilla Latte</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Vanilla%20Latte&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="white-chocolate" data-name="White chocolate" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/white-chocolate.webp" alt="White chocolate">
+                    </div>
+                    <div class="menu-body">
+                        <h4>White chocolate</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=White%20Chocolate&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Teas, Juices, Smoothies, etc. -->
+                <article class="menu-item" data-id="african-tea" data-name="African Tea" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/tea-african.webp" alt="African Tea"></div>
+                    <div class="menu-body">
+                        <h4>African Tea</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=African%20Tea&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="hot-chocolate" data-name="Hot Chocolate" data-price="10000">
+                    <div class="menu-media"><img src="menu-images/hot-chocolate.jpg" alt="Hot Chocolate">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Hot Chocolate</h4>
+                        <div class="meta">
+                            <div class="price">10,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Hot%20Chocolate&price=10000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="iced-mocha" data-name="Iced Mocha" data-price="13000">
+                    <div class="menu-media"><img src="menu-images/iced-mocha.webp" alt="Iced Mocha"></div>
+                    <div class="menu-body">
+                        <h4>Iced Mocha</h4>
+                        <div class="meta">
+                            <div class="price">13,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Iced%20Mocha&price=13000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="regular-juice" data-name="Regular Juice" data-price="9000">
+                    <div class="menu-media"><img src="menu-images/juice-regular.jpeg" alt="Regular Juice">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Regular Juice</h4>
+                        <p class="desc">Blend of mango, watermelon, passion or pineapple.</p>
+                        <div class="meta">
+                            <div class="price">9,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Regular%20Juice&price=9000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="signature-apple-juice" data-name="Apple (Signature juice)"
+                    data-price="13000">
+                    <div class="menu-media"><img src="menu-images/juice-apple.webp" alt="Apple Juice"></div>
+                    <div class="menu-body">
+                        <h4>Apple Juice</h4>
+                        <div class="meta">
+                            <div class="price">13,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Apple%20Juice&price=13000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="banana-caramel" data-name="Banana Caramel Smoothie"
+                    data-price="16000">
+                    <div class="menu-media"><img src="menu-images/smoothie-banana.webp" alt="Banana Caramel">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Banana Caramel Smoothie</h4>
+                        <div class="meta">
+                            <div class="price">16,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Banana%20Caramel%20Smoothie&price=16000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item" data-id="mango-smoothie" data-name="Mango Smoothie" data-price="15000">
+                    <div class="menu-media"><img src="menu-images/smoothie-mango.webp" alt="Mango Smoothie">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Mango Smoothie</h4>
+                        <div class="meta">
+                            <div class="price">15,000 UGX</div>
+                            <div class="actions"><a class="btn-add"
+                                    href="payment.html?item=Mango%20Smoothie&price=15000">Add</a></div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- Soft Drinks -->
+        <article class="menu-item menu-item--small" data-id="soda" data-name="Soda (Soft Drink)" data-price="3000">
+            <div class="menu-body">
+                <h4>Soda</h4>
+                <div class="meta">
+                    <div class="price">3,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=Soda&price=3000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="menu-item menu-item--small" data-id="water" data-name="Water" data-price="3000">
+            <div class="menu-body">
+                <h4>Water</h4>
+                <div class="meta">
+                    <div class="price">3,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=Water&price=3000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
+        <!-- ===== COFFEE LIFE GALLERY ===== -->
+        <section id="gallery" class="gallery-section container">
+            <div class="gallery-header">
+                <h2 class="gallery-title">Our Story in Moments</h2>
+                <p class="gallery-subtitle">
+                    Discover the spirit of <strong>Coffee Life</strong>, where aroma, art, and community blend
+                    perfectly in Jinja, Uganda.
+                </p>
+            </div>
+
+            <!-- ===== FILTER BUTTONS (optional) ===== -->
+            <!--
+    <div class="filter-buttons">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="videos">Videos</button>
+        <button data-filter="images">Images</button>
+    </div>
+    -->
+
+            <div class="gallery-grid">
+                <!-- HERO VIDEO -->
+                <div class="gallery-item video-item videos">
+                    <video class="gallery-video" autoplay muted loop playsinline
+                        poster="gallery-images/coffee-life-house-cover.jpg">
+                        <source src="videos/hero-welcome.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-text">
+                            <h3>Welcome to Coffee Life House</h3>
+                            <p>Located opposite the Police Barracks, Jinja, every aroma tells a story.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMAGE CARDS -->
+                <div class="gallery-item images">
+                    <img src="gallery-images/coffee-life2.jpeg" alt="Freshly brewed coffee art" />
+                    <div class="overlay"><span class="caption">Morning Aroma, brewed with passion</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/stephen-family.jpeg" alt="Stephen's Family" />
+                    <div class="overlay"><span class="caption">The CEO’s family, where warmth, grace, and togetherness
+                            inspire every cup we serve.</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/lounge-view.jpeg" alt="Lounge view" />
+                    <div class="overlay"><span class="caption">The Lounge, comfort meets elegance</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/chefs1.jpeg" alt="Chef preparing coffee" />
+                    <div class="overlay"><span class="caption">Craft & Care, in every cup & plate</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/manager-staff.jpeg" alt="Staff" />
+                    <div class="overlay"><span class="caption">Our Team, the heart behind the experience</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/space2.jpeg" alt="Space well arranged" />
+                    <div class="overlay"><span class="caption">Total comforts with warm welcomes that make you feel at
+                            home</span></div>
+                </div>
+
+                <div class="gallery-item images">
+                    <img src="gallery-images/three-waitress.jpeg" alt="Smiling waitresses" />
+                    <div class="overlay"><span class="caption">Warm welcomes, smiles that brew happiness</span></div>
+                </div>
+
+                <!-- SECOND VIDEO -->
+                <div class="gallery-item video-item videos">
+                    <video class="gallery-video" controls poster="gallery-images/coffee-vibe-cover.jpg">
+                        <source src="videos/dances.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay dark">
+                        <div class="video-text">
+                            <h3>Coffee Life Cafe Vibes</h3>
+                            <p>Experience our people, our rhythm, our craft, the heartbeat of Jinja’s café scene.</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end of gallery-grid -->
+        </section>
+
+
+
+        <section id="contact" class="contact container"
+            style="padding:2rem; max-width:1200px; margin:0 auto; font-family:system-ui, sans-serif; background:#1a1a1a;">
+
+            <h2 style="color:#FFD66B; text-align:center; margin-bottom:2rem; font-size:2rem; font-weight:700;">
+                Contact & Locations
+            </h2>
+
+            <div class="contact-grid"
+                style="display:grid; gap:2rem; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));">
+
+                <!-- Contact Info -->
+                <div class="contact-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#FFD66B;">Contact Us</h4>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>Phone:</strong> 0746 888 730 / 0784
+                        305 795
+                    </p>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>Email:</strong>
+                        <a href="mailto:food@coffeelife.cafe"
+                            style="color:#FFD66B; text-decoration:none;">food@coffeelife.cafe</a>
+                    </p>
+                    <p style="color:#eee; font-size:0.95rem;"><strong>WhatsApp:</strong>
+                        <a href="https://wa.me/+256709691395" target="_blank"
+                            style="color:#FFD66B; text-decoration:none;">+256709691395</a>
+                    </p>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">
+                        For deliveries, press <strong>Order Now</strong> or build your order in the cart and
+                        then
+                        press
+                        "Order Now on WhatsApp".
+                    </p>
+                    <div style="margin-top:0.5rem;">
+                        <a href="https://wa.me/+256709691395" class="btn" target="_blank"
+                            style="display:inline-block;padding:0.5rem 1rem;border-radius:8px;background:#FFD66B;color:#111;text-decoration:none;font-weight:600;margin-right:0.5rem;">
+                            ☕ Notify Coffee Life on WhatsApp
+                        </a>
+                        <a href="tel:+256746888730" class="btn btn-outline"
+                            style="display:inline-block;padding:0.5rem 1rem;border-radius:8px;border:1px solid #FFD66B;color:#FFD66B;text-decoration:none;font-weight:600;">
+                            Call Us
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Locations List -->
+                <div class="contact-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#FFD66B;">Our Cafe Locations</h4>
+                    <ol style="padding-left:1.2rem; margin:0; color:#eee; font-size:0.95rem;">
+                        <li><strong>Jinja Roundabout (HQ):</strong> Total Energies, Opposite Gadhafi Police
+                            Barracks
+                        </li>
+                        <li>Total Lakeview, Mailo Mbili, Jinja</li>
+                        <li>Ggaba Road, Opposite University of East Africa, Kansanga</li>
+                    </ol>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">
+                        Opening hours: Daily 06:30 — 22:00
+                    </p>
+                </div>
+
+                <!-- Embedded Live Map -->
+                <div class="contact-card map-card"
+                    style="background:rgba(255,255,255,0.05); padding:1.5rem; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
+                    <h4 style="font-size:1.2rem; margin-bottom:1rem; color:#FFD66B;">Find Us on Map</h4>
+                    <div class="map-preview" style="width:100%; height:400px; border-radius:12px; overflow:hidden;">
+                        <!-- Google Maps Embed for Jinja Roundabout HQ -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.5801925847026!2d33.19645241525984!3d0.4397469999050262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbf2f8c84b48f%3A0x86d4b1e1f0801c5b!2sTotal%20Energies%20Jinja%20Roundabout!5e0!3m2!1sen!2sug!4v1697926312345!5m2!1sen!2sug"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">
+                        📍 All Coffee Life branches are pinned with directions enabled.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="site-footer" id="footer">
+            <div class="container footer-inner">
+
+                <!-- ===== LEFT COLUMN: Logo, About, Vision & Values ===== -->
+                <div class="footer-left">
+                    <a class="brand-footer" href="#top">
+                        <img src="images/logo.jpg" alt="Coffee Life Logo" />
+                    </a>
+
+                    <p class="about-footer">
+                        Coffee Life Cafe is where flavor, comfort, and craft meetspecialty coffee, wholesome
+                        meals,
+                        and
+                        a
+                        cozy workspace for dreamers and doers.
+                    </p>
+
+                    <div class="vision-mission">
+                        <h4>Our Vision</h4>
+                        <p>To be the cozy hub accross the entire Uganda where people gather to eat, meet,
+                            and work
+                            fueled by
+                            great coffee and community spirit.</p>
+                    </div>
+
+                    <div class="values">
+                        <h4>Our Values</h4>
+                        <ul>
+                            <li>☕ Passion for Coffee & Quality</li>
+                            <li>🤝 Friendly Service</li>
+                            <li>💡 Creativity & Growth</li>
+                        </ul>
+                    </div>
+
+                    <p class="copyright">
+                        © <span id="year"></span> Coffee Life Cafe
+                    </p>
+                    <p class="designed">
+                        Designed & Managed by <a href="https://wa.me/256772514889" target="_blank"
+                            rel="noopener"><strong>Reagan Otema</strong></a>
+                    </p>
+                </div>
+
+                <!-- ===== MIDDLE COLUMN: Contact & WhatsApp Form ===== -->
+                <div class="footer-mid">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +256 746 888 730</p>
+                    <p><i class="fas fa-phone"></i> +256 784 305 795</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:food@coffeelife.cafe">food@coffeelife.cafe</a>
+                    </p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Locations:</strong> Total Roundabout •
+                        Total
+                        Lakeview • Gabba Road</p>
+
+                    <h4>Our Promise</h4>
+                    <p>High-quality ingredients, quick delivery, friendly service, and an inviting
+                        atmosphere that’s
+                        our daily promise to you.</p>
+
+                    <div class="footer-whatsapp-order">
+                        <h4>Send Us a WhatsApp Message</h4>
+                        <form id="whatsapp-order-form">
+                            <input type="text" id="custName" placeholder="Your Name" required />
+                            <input type="text" id="custLocation" placeholder="Your Location" required />
+                            <textarea id="custOrder" rows="3" placeholder="What would you like to order?"
+                                required></textarea>
+                            <button type="submit" class="btn-whatsapp-send-footer">
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ===== RIGHT COLUMN: Socials, QR & Newsletter ===== -->
+                <div class="footer-right">
+                    <h4>Follow Us</h4>
+                    <div class="socials">
+                        <a href="https://wa.me/+256709691395" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://youtube.com/@coffeeliferestaurant?si=eIK99O41xRzXB_H4/" target="_blank"><i
+                                class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/coffee_life_jinja02?igsh=b21mOXNld3pjOXcy" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@coffee.life.jinja?_t=ZM-90ZDfIagG1T&_r=1" target="_blank"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/share/1BGUixCgi8/?mibextid=wwXIfr" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/coffeelife33184?s=21" target="_blank"><i
+                                class="fab fa-x-twitter"></i></a>
+                    </div>
+
+                    <div class="footer-qr">
+                        <h4>Menu QR Code</h4>
+                        <a href="https://coffeelife.cafe" target="_blank" class="qr-btn" rel="noopener">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://cofeelife.cafe/#menu"
+                                alt="Scan to view Coffee Life menu" />
+                        </a>
+                    </div>
+
+
+                    <div class="newsletter">
+                        <h4>Stay Updated</h4>
+                        <form id="newsletter-form">
+                            <input type="email" id="newsletter-email" placeholder="Your email address" required />
+                            <button type="submit" class="btn-subscribe">
+                                <i class="fas fa-paper-plane"></i> Subscribe
+                            </button>
+                        </form>
+                        <p class="small-text">No spam, just coffee news ☕</p>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+        <body>
+
+            <!-- ==============================
+         JS FILES — CORE SITE SCRIPTS
+         ============================== -->
+            <script src="js/cart.js"></script>
+            <script src="js/footer-qr.js"></script>
+            <script src="js/footer.js"></script>
+            <script src="js/global.js"></script>
+            <script src="js/hero.js"></script>
+            <script src="js/home.js"></script>
+            <script src="js/location.js"></script>
+            <script src="js/main.js"></script>
+            <script src="js/menu.js"></script>
+            <script src="js/navbar.js"></script>
+            <script src="js/gallery.js"></script>
+            <script src="js/whatsapp.js"></script>
+            <script src="js/apps.js"></script>
+            <script src="js/payments.js"></script>
+
+
+            <!-- ==============================
+     <!-- ✅ COFFEE LIFE CAFE — GLOBAL CART, WHATSAPP ORDER & PWA -->
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+
+                    /* ======================
+                       🌐 GLOBAL CART SYSTEM
+                    ======================= */
+                    let cart = [];
+
+                    function addToCart(name, price) {
+                        const existing = cart.find(item => item.name === name);
+                        if (existing) existing.qty += 1;
+                        else cart.push({ name, price, qty: 1 });
+
+                        const cartBtn = document.querySelector('.cart-btn');
+                        if (cartBtn) {
+                            cartBtn.classList.add('shake');
+                            setTimeout(() => cartBtn.classList.remove('shake'), 600);
+                        }
+
+                        if (window.Toastify) {
+                            Toastify({
+                                text: `✅ "${name}" added to cart!`,
+                                duration: 3000,
+                                gravity: "top",
+                                position: "right",
+                            }).showToast();
+                        } else {
+                            alert(`✅ "${name}" added to cart!`);
+                        }
+                    }
+
+                    function getTotal() {
+                        return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+                    }
+
+                    function generateOrderMessage(name, location, notes) {
+                        if (cart.length === 0) return "No items selected.";
+                        let msg = `*☕ COFFEE LIFE ORDER*%0A`;
+                        msg += `👤 Name: ${name}%0A📍 Location: ${location}%0A%0A🛒 *Items Ordered:*%0A`;
+                        cart.forEach(item => msg += `- ${item.name} (x${item.qty}) — UGX ${item.price * item.qty}%0A`);
+                        msg += `%0A💰 *Total:* UGX ${getTotal()}%0A🗒️ Notes: ${notes || "None"}`;
+                        return msg;
+                    }
+
+                    /* ======================
+               /* 📦 WHATSAPP ORDER FORM ======================= */
+                    const LOCATION_CONTACTS = {
+                        "jinja-highway": "+256752746763",
+                        "jinja-lakeview": "+256750038032",
+                        "kampala-kasangalinke": "+256783070102"
+                    };
+
+                    // Function to generate WhatsApp message
+                    function generateOrderMessage(name, location, notes) {
+                        return encodeURIComponent(
+                            `Hello, my name is ${name}. I'm from ${location}. Order/Notes: ${notes}`
+                        );
+                    }
+
+                    // Function to send WhatsApp message
+                    function sendWhatsAppMessage() {
+                        const name = document.getElementById("custName")?.value.trim();
+                        const location = document.getElementById("custLocation")?.value.trim();
+                        const notes = document.getElementById("custOrder")?.value.trim();
+
+                        if (!name) return alert("Please enter your name.");
+                        if (!location) return alert("Please select a location.");
+
+                        const whatsappNumber = LOCATION_CONTACTS[location];
+                        if (!whatsappNumber) return alert("No WhatsApp number available for this location.");
+
+                        const url = `https://wa.me/${whatsappNumber}?text=${generateOrderMessage(name, location, notes)}`;
+                        window.open(url, "_blank");
+                    }
+
+                    // Attach event listener if form exists
+                    const form = document.getElementById("whatsapp-order-form");
+                    if (form) {
+                        form.addEventListener("submit", (e) => {
+                            e.preventDefault();
+                            sendWhatsAppMessage();
+                        });
+                    }
+
+                    // Optional: auto-send on location change (mobile-friendly)
+                    // document.getElementById("custLocation")?.addEventListener("change", sendWhatsAppMessage);
+
+
+                    /* ======================
+                       🧭 SMOOTH SCROLL LINKS
+                    ======================= */
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', e => {
+                            e.preventDefault();
+                            const target = document.querySelector(anchor.getAttribute('href'));
+                            if (target) target.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    });
+
+                    /* ======================
+                       📞 FLOATING WHATSAPP BUTTON
+                    ======================= */
+                    const whatsappBtn = document.querySelector('.whatsapp-btn');
+                    if (whatsappBtn) {
+                        whatsappBtn.addEventListener('click', () => {
+                            const phone = '+256709691395';
+                            const message = encodeURIComponent('Hello CoffeeLife, I would like to place an order!');
+                            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                        });
+                    }
+
+                    /* ======================
+                       📲 PWA INSTALL HANDLER
+                    ======================= */
+                    let deferredPrompt;
+                    const installBtn = document.createElement('button');
+                    installBtn.textContent = 'Install CoffeeLife App';
+                    installBtn.className = 'btn-install';
+                    Object.assign(installBtn.style, {
+                        position: 'fixed',
+                        bottom: '80px',
+                        right: '20px',
+                        zIndex: '1000',
+                        background: 'linear-gradient(45deg, #b85c38, #d8a35f)',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '10px 18px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+                        display: 'none'
+                    });
+                    document.body.appendChild(installBtn);
+
+                    window.addEventListener('beforeinstallprompt', (e) => {
+                        e.preventDefault();
+                        deferredPrompt = e;
+                        installBtn.style.display = 'block'; // Show button
+                        setTimeout(() => deferredPrompt?.prompt(), 1000); // Auto prompt
+                    });
+
+                    installBtn.addEventListener('click', async () => {
+                        installBtn.style.display = 'none';
+                        deferredPrompt.prompt();
+                        await deferredPrompt.userChoice;
+                        deferredPrompt = null;
+                    });
+
+                    window.addEventListener('appinstalled', () => {
+                        console.log('✅ CoffeeLife App installed successfully!');
+                    });
+
+                    /* ======================
+                       🔧 SERVICE WORKER
+                    ======================= */
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('/sw.js')
+                            .then(reg => console.log('✅ Service Worker Registered:', reg))
+                            .catch(err => console.error('❌ Service Worker Registration Failed:', err));
+                    }
+                });
+            </script>
+            <!-- Tooltip / Notification -->
+            <div id="add-tooltip" class="add-tooltip">Item added! Check your cart for payment details.</div>
+
+
+</html>
