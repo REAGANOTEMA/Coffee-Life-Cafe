@@ -1,103 +1,123 @@
-/* ================= CART ITEMS ================= */
-.cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 15px;
-    margin-bottom: 12px;
-    background: #fff8f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s ease;
+/* ================= GENERAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.cart-item:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+body {
+    background: #fdfaf6;
+    color: #333;
+    line-height: 1.5;
 }
 
-.cart-item img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 12px;
+h1,
+h2,
+h3,
+h4 {
+    color: #2b2b2b;
 }
 
-.cart-item-info {
-    flex: 1;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.cart-item-info strong {
-    display: block;
-    font-size: 1rem;
-    color: #4b2e1f;
+/* ================= HERO ================= */
+.hero-section {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, #b85c38, #d8a35f);
+    color: #fff;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.cart-item-info p {
-    color: #ffb300;
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
     font-weight: 600;
-    margin-top: 4px;
-}
-
-/* ================= CART CONTROLS ================= */
-.cart-item-controls button {
-    padding: 6px 12px;
-    margin: 0 2px;
-    border-radius: 6px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
-    font-weight: 600;
+    transition: all 0.3s ease;
     background: #6b3c1f;
     color: #fff;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px #4b2e1f;
+    text-align: center;
 }
 
-.cart-item-controls button:hover {
-    transform: scale(1.1);
+.btn:hover {
+    background: #8b4b2b;
+    transform: scale(1.05);
+}
+
+.btn-3d {
     box-shadow: 0 6px #4b2e1f;
 }
 
-.cart-item-controls button:active {
-    transform: translateY(2px);
+.btn-3d:active {
     box-shadow: 0 2px #4b2e1f;
+    transform: translateY(4px);
 }
 
-/* Add a subtle shake animation for feedback */
-@keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-3px);
-    }
-
-    50% {
-        transform: translateX(3px);
-    }
-
-    75% {
-        transform: translateX(-3px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+/* ================= LAYOUT ================= */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
-.cart-item-controls .shake {
-    animation: shake 0.4s ease;
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-/* ================= HIGHLIGHT SPECIAL ITEMS ================= */
-.cart-item.special {
-    border: 2px solid gold;
-    box-shadow: 0 0 20px gold;
-    transition: all 1s ease;
+.panel {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* ================= CART SUMMARY ================= */
+.card h2,
+.card h3 {
+    margin-bottom: 1rem;
+    color: #4b2e1f;
+}
+
+/* ================= MENU GRID ================= */
+.menu-section {
+    margin-top: 2rem;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ================= CART ================= */
+#cartItems {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
 .cart-summary {
     margin-top: 1rem;
     border-top: 2px solid #6b3c1f;
@@ -118,41 +138,56 @@
     color: #4b2e1f;
 }
 
-/* ================= PAYMENT BUTTONS ================= */
+/* ================= PAYMENT OPTIONS ================= */
+.payment-options {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
 .payment-option {
-    padding: 0.8rem 1rem;
-    border-radius: 10px;
+    flex: 1;
     text-align: center;
-    font-weight: 600;
+}
+
+#merchantCard {
     background: #fff2e6;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
 }
 
-.payment-option.selected {
-    border-color: #ffb300;
-    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.5);
-    transform: scale(1.05);
+#merchantCard .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
-.payment-option:hover {
-    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
-    transform: scale(1.02);
+#paymentNumber {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
 }
 
-/* ================= FLOATING CART BUTTON ================= */
+/* ================= FLOATING BUTTONS ================= */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    z-index: 9999;
+}
+
 .floating-buttons .btn {
     box-shadow: 0 6px #4b2e1f;
-    transition: all 0.3s ease;
 }
 
-.floating-buttons .btn:hover {
-    transform: scale(1.1) rotate(-2deg);
-    box-shadow: 0 8px #4b2e1f;
-}
-
-/* ================= TOAST ================= */
+/* ================= TOAST/NOTIFICATIONS ================= */
 #toast {
     position: fixed;
     top: 20px;
@@ -173,21 +208,19 @@
     transform: translateY(0);
 }
 
-/* ================= RESPONSIVE CART ================= */
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1100px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 600px) {
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
+    .hero-section h1 {
+        font-size: 1.8rem;
     }
 
-    .cart-item img {
-        margin-bottom: 8px;
-    }
-
-    .cart-item-controls {
-        margin-top: 6px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+    .hero-section p {
+        font-size: 1rem;
     }
 }
