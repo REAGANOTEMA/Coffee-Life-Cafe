@@ -1,10 +1,9 @@
-// ==================== LUXURY HERO - FINAL PRODUCTION JS ====================
+// ==================== LUXURY HERO - FINAL IMAGE SLIDES JS ====================
 (() => {
-  const VIDEO_FILES = ["videos/hero-welcome.mp4"];
-  const SLIDE_INTERVAL = 9000;       // slide images change every 6s
-  const SHAKE_INTERVAL = 3000;       // shake every 3s
+  const SLIDE_INTERVAL = 20000;       // 20 seconds per slide
+  const SHAKE_INTERVAL = 3000;        // shake every 3s
   const SHAKE_DURATION = 900;
-  const LIGHT_INTERVAL = 5000;       // glow every 5s
+  const LIGHT_INTERVAL = 5000;        // glow every 5s
   const SPARKLE_COUNT = 35;
   const FOOD_ICON_COUNT = 20;
 
@@ -13,7 +12,6 @@
 
   const slideshowWrap = heroSection.querySelector(".hero-slideshow");
   const slides = slideshowWrap ? Array.from(slideshowWrap.querySelectorAll(".hero-slide")) : [];
-  const heroContent = heroSection.querySelector(".hero-content");
   const heroBtn = heroSection.querySelector(".hero-btn.order-btn");
   const sparkleLayer = heroSection.querySelector(".hero-luxury-glow");
   const heroBg = heroSection.querySelector(".hero-background");
@@ -23,43 +21,7 @@
   const heroNoteEl = heroSection.querySelector(".hero-note");
 
   // ==================== UTILITY ====================
-  const safePlay = v => { if (!v) return; v.play?.().catch(() => { }); };
   const addThenRemove = (el, cls, duration) => { if (!el) return; el.classList.add(cls); setTimeout(() => el.classList.remove(cls), duration); };
-
-  // ==================== VIDEO SETUP ====================
-  const videoEls = heroSection.querySelectorAll("video.hero-video");
-  let currentVideoIndex = 0;
-
-  videoEls.forEach((v, i) => {
-    v.muted = true;
-    v.playsInline = true;
-    v.preload = "auto";
-    if (VIDEO_FILES[i]) v.src = VIDEO_FILES[i];
-    v.style.opacity = i === 0 ? "1" : "0";
-    v.style.transition = "opacity 1.2s ease-in-out";
-    v.loop = false;
-
-    v.addEventListener("ended", () => {
-      currentVideoIndex = (i + 1) % videoEls.length;
-      playVideoIndex(currentVideoIndex);
-    });
-  });
-
-  function playVideoIndex(index) {
-    videoEls.forEach((v, j) => {
-      if (j === index) {
-        v.style.opacity = "1";
-        v.setAttribute("aria-hidden", "false");
-        safePlay(v);
-      } else {
-        v.style.opacity = "0";
-        v.pause();
-        try { v.currentTime = 0; } catch (e) { }
-        v.setAttribute("aria-hidden", "true");
-      }
-    });
-  }
-  if (videoEls.length) playVideoIndex(0);
 
   // ==================== SLIDESHOW ====================
   slides.forEach((s, i) => {
@@ -68,16 +30,16 @@
     s.style.left = "0";
     s.style.width = "100%";
     s.style.height = "100%";
-    s.style.objectFit = "cover";
+    s.style.backgroundSize = "cover";
+    s.style.backgroundPosition = "center";
     s.style.opacity = "0";
-    s.style.transition = "opacity 1s ease-in-out, transform 12s ease-in-out";
+    s.style.transition = "opacity 1.5s ease-in-out, transform 12s ease-in-out";
     s.dataset.slideIndex = i;
     s.setAttribute("aria-hidden", "true");
-    const imgPreload = new Image();
-    imgPreload.src = s.src || s.dataset.src;
   });
 
   let slideIndex = 0, slideTimer = null;
+
   function showSlide(i) {
     slides.forEach((s, idx) => {
       if (idx === i) {
@@ -85,6 +47,18 @@
         s.style.zIndex = "2";
         s.style.transform = "translateY(0)";
         s.setAttribute("aria-hidden", "false");
+
+        // Animate slide text
+        const textEl = s.querySelector(".hero-slide-text");
+        if (textEl) {
+          textEl.style.opacity = "0";
+          textEl.style.transform = "translateY(20px)";
+          setTimeout(() => {
+            textEl.style.transition = "all 1.5s ease-in-out";
+            textEl.style.opacity = "1";
+            textEl.style.transform = "translateY(0)";
+          }, 300);
+        }
       } else {
         s.style.opacity = "0";
         s.style.zIndex = "1";
@@ -92,6 +66,7 @@
       }
     });
   }
+
   function nextSlide() {
     if (slides.length) {
       slideIndex = (slideIndex + 1) % slides.length;
@@ -108,26 +83,7 @@
       else if (!slideTimer) { slideTimer = setInterval(nextSlide, SLIDE_INTERVAL); }
     });
   }
-
-  function startSlideshowFromVideo() {
-    videoEls.forEach(v => { v.style.opacity = "0"; v.setAttribute("aria-hidden", "true"); });
-    setTimeout(() => {
-      if (slideshowWrap) slideshowWrap.style.opacity = "1";
-      startSlideshow();
-    }, 350);
-  }
-
-  if (videoEls.length) {
-    const fallbackTimer = setTimeout(() => {
-      const first = videoEls[0];
-      if (!first || first.currentTime < 0.5) startSlideshowFromVideo();
-    }, 15000);
-
-    videoEls.forEach(v => v.addEventListener("ended", () => {
-      clearTimeout(fallbackTimer);
-      startSlideshowFromVideo();
-    }));
-  } else startSlideshow();
+  startSlideshow();
 
   // ==================== SPARKLES ====================
   if (sparkleLayer && !sparkleLayer.dataset.initialized) {
@@ -179,7 +135,7 @@
   });
   function animateSubtitleGradient() {
     subtitleWords.forEach(w => {
-      w.style.background = `linear-gradient(90deg,#ffffff,#ffffff)`; // pure white for "order. savor. enjoy"
+      w.style.background = `linear-gradient(90deg,#ffffff,#ffffff)`;
       w.style.webkitBackgroundClip = "text";
       w.style.backgroundClip = "text";
       w.style.color = "transparent";
@@ -201,10 +157,10 @@
 
   // ==================== HERO NOTE ROTATOR ====================
   const heroNotes = [
-    "Indulge in the perfect cup, delight in every dessert, and cherish every moment.",
-    "Savor handcrafted pastries, premium coffee, and moments that inspire.",
-    "Every sip, every bite, every smile – Coffee Life Cafe awaits you.",
-    "Relax, connect, and enjoy gourmet treats in a cozy atmosphere."
+    "Indulge in the perfect bite, delight in every dish, and savor moments of pure culinary joy.",
+    "Savor handcrafted meals, premium drinks, and experiences that leave unforgettable memories.",
+    "Every flavor, every texture, every aroma – Coffee Life Cafe welcomes you.",
+    "Relax, enjoy, and experience gourmet dishes served with passion and love."
   ];
   let currentNote = 0;
   function showNextHeroNote() {
@@ -220,8 +176,12 @@
 
   // ==================== ORDER NOW BUTTON ====================
   if (heroBtn) {
-    // Link to menu section on index.html
-    heroBtn.setAttribute("href", "index.html#menu");
+    // Smooth scroll to menu header
+    heroBtn.addEventListener("click", e => {
+      e.preventDefault();
+      const menu = document.querySelector("#menu");
+      if (menu) menu.scrollIntoView({ behavior: "smooth" });
+    });
 
     // Shake animation
     setInterval(() => addThenRemove(heroBtn, "btn-shake", SHAKE_DURATION), SHAKE_INTERVAL);
