@@ -128,29 +128,38 @@
     </head>
 
 <body>
-    <!-- ===== FINAL STATIC LUXURY CINEMATIC HEADER HTML (FIXED) ===== -->
+    <!-- ===== ULTRA-LUXURY HEADER HTML ===== -->
     <header class="site-header" id="mainHeader" role="banner">
         <div class="container nav-inner">
 
-            <!-- BRAND / LOGO (JS will inject circle logo + slogan here) -->
-            <a class="logo" href="#home" aria-label="Coffee Life home"></a>
+            <!-- ===== BRAND / LOGO ===== -->
+            <a class="logo" href="#home" aria-label="Coffee Life home">
+                <div class="luxury-logo-circle">
+                    <img src="images/logo.jpg" alt="Coffee Life Logo">
+                </div>
+                <div class="luxury-copy">
+                    <span class="luxury-slogan">Moments Begin with Coffee</span>
+                    <span class="luxury-slogan-sub">Where Comfort Meets Flavor</span>
+                </div>
+            </a>
 
-            <!-- NAVIGATION -->
+            <!-- ===== NAVIGATION ===== -->
             <nav class="nav" role="navigation" aria-label="Main navigation">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#menu" class="nav-link">Menu</a></li>
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
+                <div class="nav-links">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#menu" class="nav-link">Menu</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
 
-                <!-- ACTIONS (CART + HAMBURGER) -->
+                <!-- ===== ACTIONS ===== -->
                 <div class="nav-actions">
-                    <!-- CART ICON -->
+                    <!-- Cart -->
                     <div class="cart-icon" aria-label="Shopping cart">
-                        🛒 <span id="cart-count" class="cart-count-badge">0</span>
+                        🛒 <span class="cart-count-badge">0</span>
                     </div>
 
-                    <!-- HAMBURGER FOR MOBILE -->
+                    <!-- Hamburger -->
                     <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
                         <span class="bar"></span>
                         <span class="bar"></span>
@@ -160,7 +169,7 @@
             </nav>
         </div>
 
-        <!-- MOBILE MENU -->
+        <!-- ===== MOBILE MENU ===== -->
         <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
             <a href="#home" class="mobile-link">Home</a>
             <a href="#menu" class="mobile-link">Menu</a>
@@ -168,8 +177,6 @@
             <a href="#contact" class="mobile-link">Contact</a>
         </div>
     </header>
-
-
 
     <!-- Optional: Background hero animation -->
     <div class="header-bg-anim"></div>
@@ -197,112 +204,98 @@
                     <!-- Slide 1: Chicken & Chips -->
                     <div class="hero-slide" style="background-image: url('images/chicken-hero1.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Playfair Display', serif;">
-                            Enjoy our golden crispy chicken paired with perfectly seasoned fries, bursting with flavors
-                            that
-                            delight every bite and create unforgettable culinary memories.
+                            Golden crispy chicken with seasoned fries, bursting with flavors.
                         </div>
                     </div>
 
                     <!-- Slide 2: Burger -->
                     <div class="hero-slide" style="background-image: url('images/burger-hero2.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Poppins', sans-serif;">
-                            Indulge in our juicy gourmet burger, layered with fresh vegetables, melted cheese, and
-                            secret
-                            sauces, delivering a mouthwatering experience that satisfies your cravings fully.
+                            Juicy gourmet burger with fresh vegetables, cheese, and sauces.
                         </div>
                     </div>
 
                     <!-- Slide 3: Juices -->
                     <div class="hero-slide" style="background-image: url('images/juie.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Open Sans', sans-serif;">
-                            Refresh your senses with vibrant, natural fruit juices, packed with vitamins and bursting
-                            with
-                            refreshing flavors that energize your body and brighten your day instantly.
+                            Refreshing natural fruit juices, full of vitamins and flavor.
                         </div>
                     </div>
 
                     <!-- Slide 4: Coffee & Ice Cream (Mocha) -->
                     <div class="hero-slide" style="background-image: url('images/mocha.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Playfair Display', serif;">
-                            Savor the perfect mocha coffee topped with creamy ice cream, a harmonious blend of rich
-                            aroma
-                            and sweet indulgence that delights every coffee lover instantly.
+                            Perfect mocha coffee topped with creamy ice cream indulgence.
                         </div>
                     </div>
 
                     <!-- Slide 5: Roasted Beef -->
                     <div class="hero-slide" style="background-image: url('images/roasted-beef.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Poppins', sans-serif;">
-                            Taste our succulent roasted beef, expertly seasoned and cooked to perfection, served with
-                            savory
-                            sides that elevate your dining experience to an unforgettable level of delight.
+                            Succulent roasted beef with savory sides cooked to perfection.
                         </div>
                     </div>
 
-                    <!-- Slide 6: Fried Fish & Chips with Drinks -->
+                    <!-- Slide 6: Fried Fish & Chips -->
                     <div class="hero-slide" style="background-image: url('images/fish-chips.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Open Sans', sans-serif;">
-                            Relish golden fried fish accompanied by crispy fries and a refreshing drink, a combination
-                            that
-                            brings seaside flavors to your table, perfect for family and friends alike.
+                            Crispy fried fish with fries and refreshing drink combination.
                         </div>
                     </div>
 
                     <!-- Slide 7: Pizza -->
                     <div class="hero-slide" style="background-image: url('menu-images/pizza-festival-medium.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Playfair Display', serif;">
-                            Delight in our hot, cheesy pizza topped with fresh ingredients and herbs, delivering an
-                            aromatic, mouthwatering experience that satisfies your taste buds with every delicious
-                            slice.
+                            Hot cheesy pizza with fresh ingredients, herbs, and flavors.
                         </div>
                     </div>
 
                     <!-- Slide 8: Ugandan Local Food -->
                     <div class="hero-slide" style="background-image: url('images/ugandan-food.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Poppins', sans-serif;">
-                            Experience authentic Ugandan delicacies served with love and tradition, colorful and
-                            flavorful
-                            meals that showcase the heart of Uganda in every mouthwatering bite.
+                            Authentic Ugandan delicacies, colorful meals showcasing local tradition.
                         </div>
                     </div>
 
                     <!-- Slide 9: African Tea -->
                     <div class="hero-slide" style="background-image: url('images/african-tea.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Open Sans', sans-serif;">
-                            Sip our aromatic African tea, brewed to perfection with subtle spices, creating a warm,
-                            soothing, and energizing beverage that comforts your soul and invigorates your spirit.
+                            Aromatic African tea brewed perfectly with subtle comforting spices.
                         </div>
                     </div>
 
                     <!-- Slide 10: Hot Chocolate -->
                     <div class="hero-slide" style="background-image: url('images/hot-chocolate.jpg');">
                         <div class="hero-slide-text cinematic-text" style="font-family: 'Playfair Display', serif;">
-                            Indulge in decadent hot chocolate, rich and creamy, crafted to perfection to warm your heart
-                            and
-                            delight your taste buds, a luxurious treat for chocolate lovers.
+                            Decadent hot chocolate, creamy and rich, a chocolate lover's delight.
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Hero Content (Optional Static) -->
+                <!-- Hero Content -->
                 <div class="hero-inner container">
                     <div class="hero-content" data-animate="fade-in-up">
                         <h1 class="hero-title">
-                            <span class="hero-title-text">WELCOME TO OUR RESTAURANT</span>
+                            <span class="hero-title-text" style="font-family: 'Playfair Display', serif;">
+                                WELCOME TO OUR RESTAURANT
+                            </span>
                             <span class="hero-title-shimmer"></span>
                         </h1>
-                        <a href="index.html#menu" class="hero-btn order-btn">ORDER NOW</a>
+                        <a href="#menu" class="hero-btn order-btn" style="font-family: 'Poppins', sans-serif;">
+                            ORDER NOW
+                        </a>
                     </div>
                 </div>
 
                 <!-- Scroll Down Indicator -->
-                <a class="scroll-down" href="index.html#menu" aria-label="Scroll to menu">
+                <a class="scroll-down" href="#menu" aria-label="Scroll to menu">
                     <span class="scroll-icon">↓</span>
                 </a>
 
                 <!-- Parallax / Floating Food Elements -->
                 <div class="hero-parallax" aria-hidden="true"></div>
+
             </section>
         </main>
 

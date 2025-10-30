@@ -4,123 +4,193 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Poppins', sans-serif;
     color: #fff;
 }
 
-/* ------------------ SLIDES ------------------ */
-.hero-slideshow {
+/* Background Layers */
+.hero-background {
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.hero-luxury-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+/* ==================== HERO SLIDES ==================== */
+.hero-slideshow {
+    position: absolute;
     width: 100%;
     height: 100%;
     z-index: 1;
 }
 
 .hero-slide {
-    position: absolute;
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out, transform 12s ease-in-out;
 }
 
 .hero-slide-text {
     position: absolute;
     bottom: 15%;
-    left: 10%;
-    max-width: 40%;
-    font-size: 1.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 1.5rem;
     line-height: 1.4;
-    font-weight: 600;
     color: #fff;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideTextFade 1.5s forwards;
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+    transition: all 1.5s ease-in-out;
+    z-index: 6;
+    animation: slide-text-fade 1.5s ease-in-out;
 }
 
-@keyframes slideTextFade {
-    to {
+/* Text Animation */
+@keyframes slide-text-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* ------------------ HERO CONTENT ------------------ */
+/* Hero Inner Content */
 .hero-inner {
     position: relative;
-    z-index: 5;
+    z-index: 10;
     text-align: center;
     width: 100%;
-    pointer-events: none;
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
     text-transform: uppercase;
-    pointer-events: auto;
-}
-
-.hero-subtitle {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    pointer-events: auto;
-}
-
-.hero-subtitle span {
-    display: inline-block;
-    white-space: nowrap;
-    transition: all 1s ease-in-out;
-}
-
-.hero-note {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
     color: #fff;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    pointer-events: auto;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
+    margin-bottom: 30px;
+    animation: title-slide 5s infinite alternate;
 }
 
-/* ------------------ ORDER BUTTON ------------------ */
+.hero-title-shimmer {
+    display: block;
+    height: 4px;
+    width: 80px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 50%, rgba(255, 255, 255, 0) 100%);
+    margin: 0 auto;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes title-slide {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+/* ==================== ORDER NOW BUTTON ==================== */
 .hero-btn.order-btn {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    padding: 1rem 2rem;
-    background: linear-gradient(90deg, #f4c27d, #f5a623);
+    display: inline-block;
+    padding: 18px 50px;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(145deg, #b85c38, #ff9068);
     border: none;
     border-radius: 12px;
-    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    text-decoration: none;
-    transition: all 0.4s ease-in-out;
-    pointer-events: auto;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    position: relative;
+    perspective: 1000px;
+    transition: all 0.3s ease;
 }
 
-.hero-btn.order-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.45);
+/* 3D Effect */
+.hero-btn.order-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) inset;
+    transform: translateZ(-10px);
+    z-index: -1;
 }
 
+/* Button Glow Animation */
+.btn-light {
+    animation: glow 1.2s ease-in-out forwards;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px #fff, 0 0 20px #ff9068, 0 0 30px #b85c38;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #fff, 0 0 40px #ff9068, 0 0 60px #b85c38;
+    }
+
+    100% {
+        box-shadow: 0 0 10px #fff, 0 0 20px #ff9068, 0 0 30px #b85c38;
+    }
+}
+
+/* Button Shake Animation */
 .btn-shake {
     animation: shake 0.9s ease-in-out;
 }
@@ -133,147 +203,120 @@
     }
 
     25% {
-        transform: translateX(-5px);
+        transform: translateX(-6px);
     }
 
     50% {
-        transform: translateX(5px);
+        transform: translateX(6px);
     }
 
     75% {
-        transform: translateX(-5px);
+        transform: translateX(-4px);
     }
 }
 
-.btn-light {
-    box-shadow: 0 0 25px rgba(255, 223, 0, 0.8);
-    transition: box-shadow 1.2s ease-in-out;
-}
-
-/* ------------------ SPARKLES ------------------ */
-.hero-luxury-glow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    z-index: 3;
-}
-
+/* ==================== SPARKLES ==================== */
 .hero-sparkle {
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
+    background: #fff;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    filter: drop-shadow(0 0 6px #fff);
-    animation: sparkleMove 4s infinite alternate;
+    opacity: 0.8;
+    animation: sparkle 3s infinite;
 }
 
-@keyframes sparkleMove {
-    0% {
-        transform: translateY(0) translateX(0);
+@keyframes sparkle {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
         opacity: 0.8;
     }
 
     50% {
-        transform: translateY(-8px) translateX(5px);
-        opacity: 1;
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0.3;
+    }
+}
+
+/* ==================== FLOATING FOOD ICONS ==================== */
+.hero-food-decor {
+    position: absolute;
+    color: #fff;
+    pointer-events: none;
+    z-index: 3;
+    user-select: none;
+    animation: float 8s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(5px) rotate(15deg);
     }
 
     100% {
-        transform: translateY(0) translateX(0);
-        opacity: 0.8;
+        transform: translateY(0) translateX(0) rotate(0deg);
     }
 }
 
-/* ------------------ FLOATING FOOD ICONS ------------------ */
-.hero-background {
+/* ==================== SCROLL DOWN ICON ==================== */
+.scroll-down {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    pointer-events: none;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    z-index: 10;
+    animation: bounce 2s infinite;
 }
 
-.hero-food-decor {
-    position: absolute;
-    font-size: 24px;
-    opacity: 0.3;
-    pointer-events: none;
-    transition: transform 3s ease-in-out;
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-15px);
+    }
 }
 
-/* ------------------ RESPONSIVE ------------------ */
-@media (max-width: 1200px) {
-    .hero-title {
-        font-size: 3rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.5rem;
-    }
-
+/* ==================== MEDIA QUERIES ==================== */
+@media screen and (max-width: 768px) {
     .hero-slide-text {
-        font-size: 1.6rem;
-        max-width: 50%;
+        font-size: 1.2rem;
+        max-width: 90%;
+        bottom: 12%;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-btn.order-btn {
+        padding: 15px 35px;
+        font-size: 1.1rem;
     }
 }
 
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2.4rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.3rem;
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-
+@media screen and (max-width: 480px) {
     .hero-slide-text {
-        font-size: 1.3rem;
-        max-width: 70%;
-        left: 5%;
+        font-size: 1rem;
         bottom: 10%;
     }
 
-    .hero-note {
-        font-size: 1rem;
-        max-width: 90%;
-    }
-
-    .hero-btn.order-btn {
-        font-size: 1.2rem;
-        padding: 0.9rem 1.8rem;
-    }
-}
-
-@media (max-width: 480px) {
     .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .hero-slide-text {
-        font-size: 1.1rem;
-        max-width: 90%;
-        left: 5%;
-        bottom: 8%;
-    }
-
-    .hero-note {
-        font-size: 0.95rem;
+        font-size: 1.8rem;
     }
 
     .hero-btn.order-btn {
+        padding: 12px 28px;
         font-size: 1rem;
-        padding: 0.8rem 1.5rem;
     }
 }
