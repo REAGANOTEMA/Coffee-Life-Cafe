@@ -225,3 +225,56 @@ a {
     height: 130px;
   }
 }
+
+/* ================= MENU CATEGORY TABS ================= */
+.menu-cats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.menu-cat {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background: linear-gradient(145deg, #fdf6ed, #f6e2d6);
+  color: #4b2e1f;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px #c5a88c, -4px -4px 10px #fff;
+  transition: 0.3s ease, transform 0.1s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  font-family: 'Playfair Display', serif;
+}
+
+.menu-cat::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 6px;
+  background: linear-gradient(90deg, #ffd7a0, #ffb26b);
+  border-radius: 3px;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.menu-cat:hover {
+  transform: translateY(-3px);
+  box-shadow: 2px 2px 6px #c5a88c, -2px -2px 6px #fff;
+}
+
+.menu-cat.active,
+.menu-cat:active {
+  background: linear-gradient(145deg, #fce8d6, #f6d4bb);
+  box-shadow: inset 4px 4px 10px #c5a88c, inset -4px -4px 10px #fff;
+}
+
+.menu-cat.active::after {
+  opacity: 1;
+}
