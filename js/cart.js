@@ -140,6 +140,7 @@
     if (existing) existing.qty += 1;
     else window.CoffeeLife.cart.push({ ...item, qty: 1 });
     persistCart(); renderCart(); showToast(`${item.name} added`);
+    showGoToPayment(); // ✅ Trigger pointer after adding
   };
 
   window.CoffeeLife.addToCart = addToCart;
@@ -195,6 +196,53 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
     window.CoffeeLife.cart = []; persistCart(); renderCart();
   });
+
+  /* ================= GO TO PAYMENT POINTER ================= */
+  const showGoToPayment = () => {
+    let pointer = document.querySelector('#goToPaymentPointer');
+    if (!pointer) {
+      pointer = document.createElement('div');
+      pointer.id = 'goToPaymentPointer';
+      pointer.innerHTML = `<div class="pointer-bubble">👉 <strong>Proceed to Payment</strong></div>`;
+      document.body.appendChild(pointer);
+
+      Object.assign(pointer.style, {
+        position: 'fixed',
+        bottom: '80px',
+        right: '20px',
+        zIndex: '9999',
+        cursor: 'pointer',
+      });
+
+      const bubble = pointer.querySelector('.pointer-bubble');
+      Object.assign(bubble.style, {
+        background: '#ffb300',
+        color: '#000',
+        fontWeight: 'bold',
+        padding: '10px 16px',
+        borderRadius: '30px',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+        animation: 'pulse 1.2s infinite',
+      });
+
+      bubble.addEventListener('click', () => {
+        window.location.href = 'payment.html';
+      });
+
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 0.9; }
+          50% { transform: scale(1.1); opacity: 1; }
+          100% { transform: scale(1); opacity: 0.9; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    pointer.style.display = 'block';
+    setTimeout(() => { pointer.style.display = 'none'; }, 7000);
+  };
 
   /* ================= INITIALIZATION ================= */
   loadCart();

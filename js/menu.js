@@ -1,4 +1,4 @@
-// ================= FINAL MENU.JS =================
+// ================= FINAL MENU.JS (MAGICAL VERSION) =================
 (() => {
   'use strict';
 
@@ -17,16 +17,33 @@
 
   const formatUGX = (v) => (Number(v) || 0).toLocaleString() + ' UGX';
 
+  // ======= TOAST =======
+  const toastEl = document.createElement('div');
+  toastEl.id = 'magic-toast';
+  Object.assign(toastEl.style, {
+    position: 'fixed', bottom: '20px', right: '20px', zIndex: '9999',
+    background: '#ffb300', color: '#000', padding: '10px 18px',
+    borderRadius: '25px', fontWeight: 'bold', opacity: 0, transition: '0.5s',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+  });
+  document.body.appendChild(toastEl);
+  const showToast = (msg) => {
+    toastEl.textContent = msg;
+    toastEl.style.opacity = '1';
+    setTimeout(() => toastEl.style.opacity = '0', 2500);
+  };
+
   // ======= ADD ITEM TO CART =======
   const addToCart = (item) => {
     const existing = cart.find(i => i.id === item.id);
-    if (existing) {
-      existing.qty += 1;
-    } else {
-      cart.push({ ...item, qty: 1 });
-    }
+    if (existing) existing.qty += 1;
+    else cart.push({ ...item, qty: 1 });
     saveCart();
     renderCart();
+    showToast(`${item.name} added!`);
+    animateCartBadge();
+    showGoToPaymentPointer();
+    launchConfetti();
   };
 
   // ======= REMOVE ITEM =======
@@ -36,7 +53,26 @@
     renderCart();
   };
 
-  // ======= RENDER CART FOR DISPLAY =======
+  // ======= CART BADGE ANIMATION =======
+  const animateCartBadge = () => {
+    let badge = document.querySelector('#cartBadge');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.id = 'cartBadge';
+      Object.assign(badge.style, {
+        position: 'fixed', top: '20px', right: '20px', background: 'red',
+        color: '#fff', width: '28px', height: '28px', borderRadius: '50%',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontWeight: 'bold', fontSize: '14px', zIndex: '9999', transition: '0.3s'
+      });
+      document.body.appendChild(badge);
+    }
+    badge.textContent = cart.reduce((a, b) => a + b.qty, 0);
+    badge.style.transform = 'scale(1.3)';
+    setTimeout(() => badge.style.transform = 'scale(1)', 300);
+  };
+
+  // ======= RENDER CART =======
   const renderCart = () => {
     const cartContainer = document.getElementById('cartItems');
     if (!cartContainer) return;
@@ -58,6 +94,10 @@
       div.style.display = 'flex';
       div.style.alignItems = 'center';
       div.style.marginBottom = '10px';
+      div.style.opacity = 0;
+      div.style.transform = 'translateX(50px)';
+      div.style.transition = 'all 0.6s ease';
+
       div.innerHTML = `
         <img src="${item.img}" alt="${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;margin-right:10px;">
         <div style="flex:1">
@@ -73,17 +113,19 @@
       `;
       cartContainer.appendChild(div);
 
+      setTimeout(() => { div.style.opacity = 1; div.style.transform = 'translateX(0)'; }, 50);
+
       // Event listeners
       div.querySelector('.minus').addEventListener('click', () => {
         item.qty -= 1;
         if (item.qty <= 0) removeFromCart(item.id);
-        else { saveCart(); renderCart(); }
+        else { saveCart(); renderCart(); animateCartBadge(); }
       });
       div.querySelector('.plus').addEventListener('click', () => {
         item.qty += 1;
-        saveCart(); renderCart();
+        saveCart(); renderCart(); animateCartBadge();
       });
-      div.querySelector('.remove').addEventListener('click', () => removeFromCart(item.id));
+      div.querySelector('.remove').addEventListener('click', () => { removeFromCart(item.id); animateCartBadge(); });
     });
 
     // Update totals
@@ -110,132 +152,83 @@
     });
   });
 
-  // ======= OPTIONAL: SMOOTH SCROLL FOR CATEGORY TABS =======
-  document.querySelectorAll('.menu-cat').forEach(tab => {
-    tab.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(tab.getAttribute('href'));
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
+  // ======= CHECKOUT POINTER MAGIC =======
+  const showGoToPaymentPointer = () => {
+    let pointer = document.querySelector('#goToPaymentPointer');
+    if (!pointer) {
+      pointer = document.createElement('div');
+      pointer.id = 'goToPaymentPointer';
+      pointer.innerHTML = `<div class="pointer-bubble">👉 <strong>Checkout Now!</strong></div>`;
+      document.body.appendChild(pointer);
 
-  // ======= MAGICAL MENU ORGANIZER =======
-  const organizeMenu = () => {
-    const categoryMap = {
-      'goat-stew': 'local-food',
-      'chicken-stew': 'local-food',
-      'beef-stew-local': 'local-food',
-      'beans-or-peas': 'local-food',
-      'chicken-pilau': 'local-food',
-      'goats-pilau': 'local-food',
-      'beef-pilau-local': 'local-food',
+      Object.assign(pointer.style, {
+        position: 'fixed', bottom: '80px', right: '20px', zIndex: '9999', cursor: 'pointer'
+      });
+      const bubble = pointer.querySelector('.pointer-bubble');
+      Object.assign(bubble.style, {
+        background: '#ffb300', color: '#000', fontWeight: 'bold', padding: '10px 16px',
+        borderRadius: '30px', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', animation: 'pulse 1.2s infinite'
+      });
 
-      'special-festival-pizza': 'pizzas',
+      bubble.addEventListener('click', () => {
+        window.location.href = 'payment.html';
+      });
 
-      'vegetable-curry': 'curries',
-      'chicken-curry': 'curries',
-      'beef-curry': 'curries',
-      'fish-curry': 'curries',
-      'thai-peanut-chicken-curry': 'curries',
-
-      'chicken-burger': 'burgers',
-      'beef-burger': 'burgers',
-      'vegan-burger': 'burgers',
-
-      'vegetable-sandwich': 'sandwiches',
-      'beef-steak-sandwich': 'sandwiches',
-      'chicken-sandwich': 'sandwiches',
-      'chicken-mayo-sandwich': 'sandwiches',
-      'cheese-sandwich': 'sandwiches',
-      'original-club-sandwich': 'sandwiches',
-
-      'carrot-ginger-soup': 'lunch-dinner',
-      'tomato-soup': 'lunch-dinner',
-      'vegetable-soup': 'lunch-dinner',
-      'coffee-life-platter': 'lunch-dinner',
-      'burger-promotion': 'lunch-dinner',
-      'whole-chicken': 'lunch-dinner',
-      'chicken-goat-biryani': 'lunch-dinner',
-
-      'house-coffee': 'beverages',
-      'espresso': 'beverages',
-      'americano': 'beverages',
-      'latte': 'beverages',
-      'cappuccino': 'beverages',
-      'mocha': 'beverages',
-      'vanilla-latte': 'beverages',
-      'white-chocolate': 'beverages',
-      'african-tea': 'beverages',
-      'hot-chocolate': 'beverages',
-      'iced-mocha': 'beverages',
-      'regular-juice': 'beverages',
-      'signature-apple-juice': 'beverages',
-      'banana-caramel': 'beverages',
-      'mango-smoothie': 'beverages',
-      'soda': 'beverages',
-      'water': 'beverages'
-    };
-
-    // Ensure each category has a .menu-grid
-    document.querySelectorAll('.menu-category').forEach(cat => {
-      if (!cat.querySelector('.menu-grid')) {
-        const grid = document.createElement('div');
-        grid.classList.add('menu-grid');
-        cat.appendChild(grid);
-      }
-    });
-
-    // Move items to their target categories with fade-in
-    document.querySelectorAll('.menu-item').forEach(item => {
-      const id = item.dataset.id;
-      for (let key in categoryMap) {
-        if (id.startsWith(key)) {
-          const targetCat = document.getElementById(categoryMap[key]);
-          if (targetCat) {
-            const grid = targetCat.querySelector('.menu-grid');
-            grid.appendChild(item);
-            item.style.transition = 'all 0.8s ease';
-            item.style.opacity = 0;
-            setTimeout(() => item.style.opacity = 1, 100 + Math.random() * 300); // stagger fade
-          }
-          break;
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 0.9; }
+          50% { transform: scale(1.1); opacity: 1; }
+          100% { transform: scale(1); opacity: 0.9; }
         }
-      }
-    });
+      `;
+      document.head.appendChild(style);
+    }
 
-    // Sort items inside each category by price descending
-    document.querySelectorAll('.menu-category').forEach(cat => {
-      const grid = cat.querySelector('.menu-grid');
-      const items = Array.from(grid.querySelectorAll('.menu-item'));
-      items.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
-      items.forEach(i => grid.appendChild(i));
-    });
+    pointer.style.display = 'block';
+    setTimeout(() => { pointer.style.display = 'none'; }, 7000);
+  };
 
-    // Highlight specials
-    const specialIds = ['burger-promotion', 'coffee-life-platter', 'whole-chicken'];
-    specialIds.forEach(id => {
-      const el = document.querySelector(`.menu-item[data-id="${id}"]`);
-      if (el) {
-        el.style.border = '2px solid gold';
-        el.style.boxShadow = '0 0 20px gold';
-        el.style.transition = 'all 1s ease';
-      }
-    });
+  // ======= CONFETTI MAGIC WHEN ITEM ADDED =======
+  const launchConfetti = () => {
+    const confettiContainer = document.createElement('div');
+    confettiContainer.style.position = 'fixed';
+    confettiContainer.style.top = '0';
+    confettiContainer.style.left = '0';
+    confettiContainer.style.width = '100%';
+    confettiContainer.style.height = '100%';
+    confettiContainer.style.pointerEvents = 'none';
+    confettiContainer.style.zIndex = '9998';
+    document.body.appendChild(confettiContainer);
 
-    console.log("✨ Magical Menu Organizer activated! ✨");
+    for (let i = 0; i < 20; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.left = `${Math.random() * 100}%`;
+      confetti.style.top = '-10px';
+      confetti.style.opacity = 0.8;
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      confetti.style.transition = 'all 1s linear';
+      confettiContainer.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.style.top = `${window.innerHeight + 20}px`;
+        confetti.style.transform = `rotate(${Math.random() * 720}deg)`;
+      }, 50);
+
+      setTimeout(() => confetti.remove(), 1200);
+    }
+
+    setTimeout(() => confettiContainer.remove(), 1500);
   };
 
   // ======= INIT =======
   loadCart();
   renderCart();
-  organizeMenu();
+  animateCartBadge();
 
-  // Make cart globally accessible if needed
   window.CoffeeLifeCart = { addToCart, removeFromCart, renderCart, cart };
-
 })();

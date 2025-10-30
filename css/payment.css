@@ -1,226 +1,255 @@
-/* ================= GENERAL RESET ================= */
-* {
+/* ================= PAYMENT.CSS ================= */
+
+/* --- Reset & Base --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background: #fdfaf6;
+    background: #f8f8f8;
     color: #333;
-    line-height: 1.5;
 }
 
 h1,
 h2,
-h3,
-h4 {
-    color: #2b2b2b;
+h3 {
+    margin: 0.5em 0;
+    font-weight: 600;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
 }
 
-/* ================= HERO ================= */
+/* --- Hero Section --- */
 .hero-section {
     text-align: center;
-    padding: 3rem 1rem;
-    background: linear-gradient(135deg, #b85c38, #d8a35f);
-    color: #fff;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
 }
 
 .hero-section h1 {
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    color: #ffb300;
 }
 
 .hero-section p {
     font-size: 1.2rem;
-    font-weight: 500;
+    color: #555;
 }
 
-/* ================= BUTTONS ================= */
-.btn {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    font-weight: 600;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #6b3c1f;
-    color: #fff;
-    text-align: center;
-}
-
-.btn:hover {
-    background: #8b4b2b;
-    transform: scale(1.05);
-}
-
-.btn-3d {
-    box-shadow: 0 6px #4b2e1f;
-}
-
-.btn-3d:active {
-    box-shadow: 0 2px #4b2e1f;
-    transform: translateY(4px);
-}
-
-/* ================= LAYOUT ================= */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
+/* --- Panels & Cards --- */
 .grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .panel {
-    background: #fff8f0;
-    padding: 1.5rem;
-    border-radius: 15px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    flex: 1 1 350px;
 }
 
-.card h2,
-.card h3 {
-    margin-bottom: 1rem;
-    color: #4b2e1f;
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
 }
 
-/* ================= MENU GRID ================= */
-.menu-section {
-    margin-top: 2rem;
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
 }
 
+.btn-3d {
+    background: linear-gradient(145deg, #ffb300, #ffa500);
+    color: #000;
+    box-shadow: 0 4px 0 #c47f00;
+}
+
+.btn-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #c47f00;
+}
+
+/* --- Menu Grid --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
 }
 
-/* ================= CART ================= */
-#cartItems {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-}
-
-.cart-summary {
-    margin-top: 1rem;
-    border-top: 2px solid #6b3c1f;
-    padding-top: 1rem;
-    font-weight: 600;
+/* --- Cart Items --- */
+.cart-item {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff8e1;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
 }
 
+.cart-item:hover {
+    transform: translateX(5px);
+}
+
+.cart-item img {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* --- Cart Summary --- */
 .cart-summary div {
     display: flex;
     justify-content: space-between;
+    margin: 6px 0;
 }
 
 .cart-summary strong {
     font-size: 1.1rem;
-    color: #4b2e1f;
 }
 
-/* ================= PAYMENT OPTIONS ================= */
+/* --- Payment Options --- */
 .payment-options {
     display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.payment-option {
-    flex: 1;
-    text-align: center;
+.payment-option.selected {
+    background: #ffb300 !important;
+    color: #000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* --- Merchant Card --- */
 #merchantCard {
-    background: #fff2e6;
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
 }
 
 #merchantCard .actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-#paymentNumber {
+/* --- Input --- */
+.btn-input {
     width: 100%;
-    padding: 0.6rem;
-    border-radius: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    margin-bottom: 1rem;
+    margin: 10px 0;
+    font-size: 1rem;
 }
 
-/* ================= FLOATING BUTTONS ================= */
+/* --- Floating Buttons --- */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .floating-buttons .btn {
-    box-shadow: 0 6px #4b2e1f;
+    background: #25d366;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* ================= TOAST/NOTIFICATIONS ================= */
+.floating-buttons .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* --- Toast --- */
 #toast {
     position: fixed;
     top: 20px;
-    right: 20px;
-    background: #6b3c1f;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: #333;
     color: #fff;
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 12px;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 9999;
+    font-weight: bold;
 }
 
-#toast.show {
-    opacity: 1;
-    transform: translateY(0);
+/* --- Cart Badge --- */
+#cartBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: red;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    transition: transform 0.3s ease;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 1100px) {
+/* --- Checkout Pointer --- */
+#checkoutPointer .pointer-bubble {
+    background: #ffb300;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: pulse 1.2s infinite;
+    cursor: pointer;
+}
+
+/* --- Pulse Animation --- */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
     .grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .hero-section h1 {
-        font-size: 1.8rem;
+        flex-direction: column;
     }
 
-    .hero-section p {
-        font-size: 1rem;
+    .panel {
+        flex: 1 1 100%;
     }
 }

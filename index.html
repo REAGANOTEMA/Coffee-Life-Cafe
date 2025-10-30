@@ -2160,7 +2160,52 @@
             <script src="js/whatsapp.js"></script>
             <script src="js/apps.js"></script>
             <script src="js/payment.js"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    // Make sure CoffeeLife object exists
+                    if (!window.CoffeeLife) window.CoffeeLife = {};
+                    if (!window.CoffeeLife.addToCart) {
+                        // If payment.js hasn't defined it yet, create a placeholder
+                        window.CoffeeLife.addToCart = item => {
+                            const cart = JSON.parse(localStorage.getItem("COFFEE_CART") || "[]");
+                            const existing = cart.find(i => i.id === item.id);
+                            if (existing) existing.qty += 1;
+                            else cart.push({ ...item, qty: 1 });
+                            localStorage.setItem("COFFEE_CART", JSON.stringify(cart));
+                        };
+                    }
 
+                    // Attach event listeners to all "Add" buttons
+                    document.querySelectorAll(".btn-add").forEach(btn => {
+                        btn.addEventListener("click", e => {
+                            e.preventDefault();
+                            const itemEl = btn.closest(".menu-item");
+                            if (!itemEl) return;
+
+                            const item = {
+                                id: itemEl.dataset.id,
+                                name: itemEl.dataset.name,
+                                price: parseInt(itemEl.dataset.price) || 0,
+                                img: itemEl.querySelector("img, video source")?.src || "menu-images/placeholder.jpg"
+                            };
+
+                            // Add to cart (localStorage)
+                            window.CoffeeLife.addToCart(item);
+
+                            // Optional tooltip feedback
+                            const tooltip = document.getElementById("add-tooltip");
+                            if (tooltip) {
+                                tooltip.textContent = `${item.name} added to cart!`;
+                                tooltip.classList.add("show");
+                                setTimeout(() => tooltip.classList.remove("show"), 2000);
+                            }
+
+                            // Redirect to payment.html
+                            setTimeout(() => window.location.href = "payment.html", 800);
+                        });
+                    });
+                });
+            </script>
 
             <!-- ==============================
      <!-- ✅ COFFEE LIFE CAFE — GLOBAL CART, WHATSAPP ORDER & PWA -->
