@@ -52,6 +52,7 @@
         const saved = localStorage.getItem(STORAGE_KEY);
         cart = saved ? JSON.parse(saved) : [];
     };
+
     const showToast = (msg, duration = 2500) => {
         if (!toastEl) return alert(msg);
         toastEl.textContent = msg;
@@ -59,9 +60,10 @@
         toastEl.style.transform = 'translateY(0)';
         setTimeout(() => {
             toastEl.style.opacity = '0';
-            toastEl.style.transform = 'translateY(-20px)';
+            toastEl.style.transform = 'translateY(20px)';
         }, duration);
     };
+
     const copyToClipboard = async text => {
         try { await navigator.clipboard.writeText(text); return true; }
         catch {

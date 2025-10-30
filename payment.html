@@ -37,7 +37,6 @@
         </section>
 
         <div class="grid" role="region" aria-label="Checkout grid">
-
             <!-- Branch & Delivery -->
             <section class="panel" aria-labelledby="branch-title">
                 <div class="card" role="group" aria-labelledby="branch-title">
@@ -125,6 +124,32 @@
                 </div>
             </aside>
         </div>
+
+        <!-- 🌟 Customer Feedback Section -->
+        <section id="feedback-section" class="feedback-section">
+            <div class="card feedback-card">
+                <h2>Share Your Experience 💬</h2>
+                <p>We value your experience — help us make every Coffee Life visit even more exceptional.</p>
+
+                <form id="feedbackForm" class="feedback-form">
+                    <input type="text" id="fbName" class="btn-input" placeholder="Your Name (optional)">
+                    <input type="email" id="fbEmail" class="btn-input" placeholder="Your Email (optional)">
+                    <select id="fbRating" class="btn-input">
+                        <option value="">Rate your experience ⭐</option>
+                        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ Great</option>
+                        <option value="3">⭐⭐⭐ Good</option>
+                        <option value="2">⭐⭐ Fair</option>
+                        <option value="1">⭐ Poor</option>
+                    </select>
+                    <textarea id="fbMessage" class="btn-input" rows="4"
+                        placeholder="Tell us what you loved or how we can improve..."></textarea>
+                    <button type="submit" class="btn btn-3d" id="fbSubmit">Submit Feedback</button>
+                </form>
+
+                <div id="fbToast" class="toast" aria-live="assertive"></div>
+            </div>
+        </section>
     </main>
 
     <!-- WhatsApp Floating Button -->
@@ -147,12 +172,41 @@
     <script src="js/form.js" defer></script>
 
     <script>
+        // Branch control
         function checkBranch(value) {
             if (value !== 'jinja-highway') {
                 alert('This branch is not available yet.');
                 document.getElementById('location-group').value = 'jinja-highway';
             }
         }
+
+        // Feedback system
+        document.addEventListener('DOMContentLoaded', () => {
+            const fbForm = document.getElementById('feedbackForm');
+            const fbToast = document.getElementById('fbToast');
+
+            fbForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const name = document.getElementById('fbName').value.trim();
+                const email = document.getElementById('fbEmail').value.trim();
+                const rating = document.getElementById('fbRating').value;
+                const message = document.getElementById('fbMessage').value.trim();
+
+                if (!rating && !message) {
+                    fbToast.textContent = "Please share at least a rating or a comment!";
+                } else {
+                    fbToast.textContent = "Thank you for your feedback ☕ We truly appreciate your time!";
+                    fbForm.reset();
+                }
+
+                fbToast.style.opacity = '1';
+                fbToast.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    fbToast.style.opacity = '0';
+                    fbToast.style.transform = 'translateY(-20px)';
+                }, 3000);
+            });
+        });
     </script>
 </body>
 

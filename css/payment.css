@@ -1,167 +1,275 @@
-/* ================= PAYMENT.CSS ================= */
+/* ===========================
+   COFFEE LIFE — PAYMENT.CSS
+   =========================== */
 
-/* --- Reset & Base --- */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ---- GLOBAL ---- */
+:root {
+    --primary: #ffb300;
+    --dark: #1a1a1a;
+    --light: #fff;
+    --accent: #9c27b0;
+    --success: #4caf50;
+    --danger: #e53935;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --radius: 16px;
+    --transition: all 0.3s ease-in-out;
+}
+
+* {
     margin: 0;
     padding: 0;
-    background: #f8f8f8;
-    color: #333;
+    box-sizing: border-box;
+    font-family: "Poppins", "Segoe UI", "Noto Sans", sans-serif;
+    scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3 {
-    margin: 0.5em 0;
-    font-weight: 600;
+body {
+    background: linear-gradient(135deg, #fff7e0, #ffecc0);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
 }
 
-.container {
-    width: 95%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px 0;
-}
-
-/* --- Hero Section --- */
+/* ---- HERO ---- */
 .hero-section {
+    background: url("../images/hero-bg.jpg") center/cover no-repeat;
     text-align: center;
-    margin-bottom: 30px;
+    padding: 80px 20px;
+    color: var(--light);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    margin: 20px auto;
+    max-width: 1200px;
+    position: relative;
+}
+
+.hero-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: var(--radius);
+}
+
+.hero-section h1,
+.hero-section p {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-section h1 {
     font-size: 2.5rem;
-    color: #ffb300;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
 }
 
 .hero-section p {
     font-size: 1.2rem;
-    color: #555;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    animation: fadeInText 2s ease-out;
 }
 
-/* --- Panels & Cards --- */
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- BUTTONS ---- */
+.btn {
+    background: var(--primary);
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    box-shadow: 0 5px 0 #d49600, var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #d49600, var(--shadow);
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #d49600;
+}
+
+/* 3D Button Effect */
+.btn-3d {
+    background: linear-gradient(145deg, #ffd54f, #ffa000);
+    color: #000;
+    border: none;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-3d::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: skewX(-25deg);
+    transition: 0.6s;
+}
+
+.btn-3d:hover::before {
+    left: 100%;
+}
+
+/* ---- GRID LAYOUT ---- */
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .panel {
-    flex: 1 1 350px;
+    background: var(--light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
 }
 
 .card {
-    background: #fff;
+    background: #fffaf0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    margin-bottom: 20px;
 }
 
-/* --- Buttons --- */
-.btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-decoration: none;
+.card h2,
+.card h3 {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+/* ---- MENU ---- */
+.menu-section {
     text-align: center;
+    margin: 40px auto;
+    padding: 20px;
 }
 
-.btn-3d {
-    background: linear-gradient(145deg, #ffb300, #ffa500);
-    color: #000;
-    box-shadow: 0 4px 0 #c47f00;
+.menu-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.btn-3d:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #c47f00;
-}
-
-/* --- Menu Grid --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
-/* --- Cart Items --- */
-.cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff8e1;
-    border-radius: 12px;
-    padding: 10px;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
+.menu-item {
+    background: var(--light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
 }
 
-.cart-item:hover {
-    transform: translateX(5px);
+.menu-item:hover {
+    transform: scale(1.03);
 }
 
-.cart-item img {
-    border-radius: 8px;
-    width: 60px;
-    height: 60px;
+.menu-item img {
+    width: 100%;
+    height: 150px;
     object-fit: cover;
 }
 
-/* --- Cart Summary --- */
+.menu-item .btn {
+    margin: 10px 0;
+}
+
+/* ---- CART ---- */
+.cart-item {
+    background: #fffdf4;
+    border-radius: var(--radius);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary {
+    border-top: 2px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
 .cart-summary div {
     display: flex;
     justify-content: space-between;
-    margin: 6px 0;
+    padding: 4px 0;
+    font-weight: 600;
 }
 
-.cart-summary strong {
-    font-size: 1.1rem;
-}
-
-/* --- Payment Options --- */
-.payment-options {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-}
-
-.payment-option.selected {
-    background: #ffb300 !important;
-    color: #000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* --- Merchant Card --- */
-#merchantCard {
-    background: #fff3cd;
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 10px;
-}
-
-#merchantCard .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-/* --- Input --- */
-.btn-input {
+/* ---- SELECT & INPUT ---- */
+select,
+input {
     width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: var(--radius);
     border: 1px solid #ccc;
-    margin: 10px 0;
+    margin-bottom: 10px;
     font-size: 1rem;
+    transition: var(--transition);
 }
 
-/* --- Floating Buttons --- */
+select:focus,
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.5);
+}
+
+/* ---- TOAST ---- */
+#toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--dark);
+    color: var(--light);
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+    z-index: 9999;
+    font-weight: 600;
+}
+
+/* ---- FLOATING BUTTONS ---- */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
@@ -169,87 +277,83 @@ h3 {
     z-index: 999;
 }
 
-.floating-buttons .btn {
-    background: #25d366;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+.floating-buttons a {
+    display: inline-block;
+    margin-top: 10px;
 }
 
-.floating-buttons .btn:hover {
-    transform: translateY(-2px);
-}
+/* ---- ANIMATIONS ---- */
+@keyframes glowPulse {
 
-/* --- Toast --- */
-#toast {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    background: #333;
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 12px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 9999;
-    font-weight: bold;
-}
-
-/* --- Cart Badge --- */
-#cartBadge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: red;
-    color: #fff;
-    border-radius: 50%;
-    font-weight: bold;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    transition: transform 0.3s ease;
-}
-
-/* --- Checkout Pointer --- */
-#checkoutPointer .pointer-bubble {
-    background: #ffb300;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    animation: pulse 1.2s infinite;
-    cursor: pointer;
-}
-
-/* --- Pulse Animation --- */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.9;
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(255, 179, 0, 0.6);
     }
 
     50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0.9;
+        box-shadow: 0 0 25px rgba(255, 179, 0, 0.9);
     }
 }
 
-/* --- Responsive --- */
+.btn-glow {
+    animation: glowPulse 1.5s infinite alternate;
+}
+
+/* ---- MOBILE ---- */
 @media (max-width: 768px) {
     .grid {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
-    .panel {
-        flex: 1 1 100%;
+    .hero-section {
+        padding: 60px 10px;
     }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* ---- CONFETTI / POINTER SUPPORT ---- */
+#checkoutPointer {
+    animation: bouncePointer 1s infinite;
+}
+
+@keyframes bouncePointer {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ---- EXTRAS ---- */
+.btn-input {
+    display: block;
+    margin: 10px 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.btn-input::placeholder {
+    color: #999;
 }
