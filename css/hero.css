@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: center;
     color: #fff;
+    background: #000;
+    /* fallback background */
 }
 
 /* Background Layers */
@@ -55,6 +57,11 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 12s ease-in-out;
 }
 
 .hero-slide-text {
@@ -71,6 +78,7 @@
     transition: all 1.5s ease-in-out;
     z-index: 6;
     animation: slide-text-fade 1.5s ease-in-out;
+    font-family: 'Georgia', serif;
 }
 
 /* Text Animation */
@@ -141,7 +149,6 @@
 .hero-btn.order-btn {
     display: inline-block;
     padding: 18px 50px;
-    margin-top: 20px;
     font-size: 1.3rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -152,12 +159,14 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     z-index: 10;
-    position: relative;
+    position: fixed;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
     perspective: 1000px;
     transition: all 0.3s ease;
 }
 
-/* 3D Effect */
 .hero-btn.order-btn::before {
     content: '';
     position: absolute;
@@ -291,7 +300,6 @@
 @media screen and (max-width: 768px) {
     .hero-slide-text {
         font-size: 1.2rem;
-        max-width: 90%;
         bottom: 12%;
     }
 
