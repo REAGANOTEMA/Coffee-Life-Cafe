@@ -25,8 +25,8 @@
 
         <!-- Navigation Buttons -->
         <div class="nav-actions">
-            <a href="index.html#menu" class="btn btn-3d">← Back to Menu</a>
-            <a href="index.html#menu" class="btn btn-3d">+ Add More Items</a>
+            <a href="index.html#menu" class="btn btn-3d go-back">← Back to Menu</a>
+            <a href="index.html#menu" class="btn btn-3d add-items">+ Add More Items</a>
         </div>
 
         <div class="grid" role="region" aria-label="Checkout grid">
@@ -34,7 +34,6 @@
             <section class="panel" aria-labelledby="delivery-title">
                 <div class="card">
                     <h2 id="delivery-title">Select Branch & Delivery Area</h2>
-
                     <label for="location-group">Branch:</label>
                     <select id="location-group" onchange="checkBranch(this.value)">
                         <option value="jinja-highway" selected>Coffee Life Café Jinja Highway</option>
@@ -79,8 +78,8 @@
                     <div id="payment-section" aria-labelledby="payment-title">
                         <h3 id="payment-title">Choose Payment Method</h3>
                         <div class="payment-options" role="tablist">
-                            <button class="btn btn-3d payment-option" data-provider="mtn">MTN</button>
-                            <button class="btn btn-3d payment-option" data-provider="airtel">Airtel</button>
+                            <button class="btn btn-3d payment-option mtn" data-provider="mtn">MTN</button>
+                            <button class="btn btn-3d payment-option airtel" data-provider="airtel">Airtel</button>
                         </div>
 
                         <div id="merchantCard" aria-live="polite">
@@ -94,11 +93,11 @@
                             </div>
 
                             <div class="actions">
-                                <button class="btn btn-3d" id="copyMerchant">Copy Code</button>
-                                <button class="btn btn-3d" id="showUSSD">Show Instructions</button>
-                                <button class="btn btn-3d copy-individual" data-code="971714" data-network="MTN">Copy
-                                    MTN</button>
-                                <button class="btn btn-3d copy-individual" data-code="4393386"
+                                <button class="btn btn-3d copy-individual mtn" id="copyMerchant">Copy Code</button>
+                                <button class="btn btn-3d mtn" id="showUSSD">Show Instructions</button>
+                                <button class="btn btn-3d copy-individual mtn" data-code="971714"
+                                    data-network="MTN">Copy MTN</button>
+                                <button class="btn btn-3d copy-individual airtel" data-code="4393386"
                                     data-network="Airtel">Copy Airtel</button>
                             </div>
 
@@ -179,7 +178,8 @@
             const fbForm = document.getElementById('feedbackForm');
             const fbToast = document.getElementById('fbToast');
 
-            fbForm.addEventListener('submit', () => {
+            fbForm.addEventListener('submit', (e) => {
+                e.preventDefault();
                 fbToast.textContent = "Thank you for your feedback ☕ Your message has been sent to Coffee Life.";
                 fbToast.style.opacity = '1';
                 fbToast.style.transform = 'translateY(0)';
@@ -187,6 +187,7 @@
                     fbToast.style.opacity = '0';
                     fbToast.style.transform = 'translateY(-20px)';
                 }, 3000);
+                fbForm.reset();
             });
         });
     </script>

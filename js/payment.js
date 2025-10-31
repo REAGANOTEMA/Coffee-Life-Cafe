@@ -7,7 +7,6 @@
     const MTN_MERCHANT = '971714';
     const AIRTEL_MERCHANT = '4393386';
     const STORAGE_KEY = 'COFFEE_CART';
-
     const DELIVERY_AREAS = {
         "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
         "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
@@ -15,7 +14,6 @@
         "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
         "Namuleesa": 4000
     };
-
     const USSD_TEMPLATES = {
         mtn: amount => `*165*3*${MTN_MERCHANT}*${amount}#`,
         airtel: amount => `*185*9*${AIRTEL_MERCHANT}*${amount}#`
@@ -26,61 +24,21 @@
     const qsa = s => Array.from(document.querySelectorAll(s));
     const formatUGX = v => (Number(v) || 0).toLocaleString() + ' UGX';
 
-    const toastEl = qs('#toast') || (() => {
-        const t = document.createElement('div');
-        t.id = 'toast';
-        t.setAttribute('aria-live', 'polite');
-        Object.assign(t.style, {
-            position: 'fixed', right: '20px', bottom: '24px', padding: '10px 14px',
-            borderRadius: '12px', background: '#111', color: '#fff',
-            zIndex: 99999, opacity: 0, transform: 'translateY(20px)',
-            transition: 'all .28s ease'
-        });
-        document.body.appendChild(t);
-        return t;
-    })();
-
-    const showToast = (msg, duration = 3000) => {
-        toastEl.textContent = msg;
-        toastEl.style.opacity = '1';
-        toastEl.style.transform = 'translateY(0)';
-        clearTimeout(showToast._t);
-        showToast._t = setTimeout(() => {
-            toastEl.style.opacity = '0';
-            toastEl.style.transform = 'translateY(20px)';
-        }, duration);
-    };
-
     const speak = (text, opts = {}) => {
-        try {
-            if (!('speechSynthesis' in window)) return;
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.rate = opts.rate || 1.0;
-            utter.pitch = opts.pitch || 1.0;
-            utter.volume = opts.volume || 1.0;
-            const voices = window.speechSynthesis.getVoices();
-            const prefer = voices.find(v => /en-?gb/i.test(v.lang)) || voices.find(v => /en-?us/i.test(v.lang)) || voices[0];
-            if (prefer) utter.voice = prefer;
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(utter);
-        } catch (e) { console.warn('Speech failed', e); }
+        if (!('speechSynthesis' in window)) return;
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = opts.rate || 1.0;
+        utter.pitch = opts.pitch || 1.0;
+        utter.volume = opts.volume || 1.0;
+        const voices = window.speechSynthesis.getVoices();
+        utter.voice = voices.find(v => /en-?gb/i.test(v.lang)) || voices.find(v => /en-?us/i.test(v.lang)) || voices[0];
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utter);
     };
 
-    const copyToClipboard = async (text) => {
-        try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                await navigator.clipboard.writeText(text);
-                return true;
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-                return true;
-            }
-        } catch { return false; }
+    const copyToClipboard = async text => {
+        try { await navigator.clipboard.writeText(text); return true; }
+        catch { return false; }
     };
 
     /* ==== CSS FX ==== */
@@ -89,7 +47,7 @@
         const style = document.createElement('style');
         style.id = 'payment-js-styles';
         style.textContent = `
-        .btn-3d { position:relative; transform-style: preserve-3d; transition: transform .18s ease, box-shadow .18s ease; }
+        .btn-3d { position:relative; transform-style: preserve-3d; transition: transform .18s ease, box-shadow .18s ease; cursor:pointer; }
         .btn-3d::after { content:''; position:absolute; left:6px; right:6px; bottom:-6px; height:8px; border-radius:8px; background: rgba(0,0,0,0.12); z-index:-1; transform-origin:center; transition: transform .18s ease, opacity .18s ease; }
         .btn-3d:active { transform: translateY(4px) scale(.995); }
         @keyframes pf-light {0% { box-shadow: 0 6px 18px rgba(255,179,0,0.06); transform: translateY(0); } 50% { box-shadow: 0 12px 28px rgba(255,200,0,0.12); transform: translateY(-2px); } 100% { box-shadow: 0 6px 18px rgba(255,179,0,0.06); transform: translateY(0); } }
@@ -132,22 +90,16 @@
 
     /* ==== CART HELPERS ==== */
     const getCart = () => {
-        try {
-            if (window.CoffeeLife && Array.isArray(window.CoffeeLife.cart)) return window.CoffeeLife.cart;
-            const saved = localStorage.getItem(STORAGE_KEY);
-            return saved ? JSON.parse(saved) : [];
-        } catch { return []; }
+        try { return window.CoffeeLife?.cart || JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+        catch { return []; }
     };
-
     const calcSubtotal = () => getCart().reduce((s, i) => s + (Number(i.price) || 0) * (Number(i.qty) || 0), 0);
     const getDeliveryFeeValue = () => DELIVERY_AREAS[deliverySelect?.value] || 0;
-
     const updateDeliveryFeeDisplay = () => {
         if (deliveryFeeEl) deliveryFeeEl.textContent = formatUGX(getDeliveryFeeValue());
         if (deliveryFeeSummaryEl) deliveryFeeSummaryEl.textContent = formatUGX(getDeliveryFeeValue());
         updateTotals();
     };
-
     const updateTotals = () => {
         const subtotal = calcSubtotal();
         const delivery = getDeliveryFeeValue();
@@ -156,19 +108,13 @@
     };
 
     /* ==== PAYMENT PROVIDER ==== */
-    const setSelectedProvider = (provider) => {
+    const setSelectedProvider = provider => {
         selectedProvider = provider || null;
         if (merchantProviderEl) merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
-        if (merchantCodeEl) merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` :
-            selectedProvider === 'airtel' ? `Airtel: ${AIRTEL_MERCHANT}` :
-                `MTN: ${MTN_MERCHANT} • Airtel: ${AIRTEL_MERCHANT}`;
-        paymentOptions.forEach(b => {
-            const is = b.dataset.provider === provider;
-            b.classList.toggle('selected', is);
-            b.setAttribute('aria-pressed', is ? 'true' : 'false');
-        });
+        if (merchantCodeEl) merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` : selectedProvider === 'airtel' ? `Airtel: ${AIRTEL_MERCHANT}` : `MTN: ${MTN_MERCHANT} • Airtel: ${AIRTEL_MERCHANT}`;
+        paymentOptions.forEach(b => { const is = b.dataset.provider === provider; b.classList.toggle('selected', is); b.setAttribute('aria-pressed', is ? 'true' : 'false'); });
         showToast(selectedProvider ? `${selectedProvider.toUpperCase()} selected` : 'Provider cleared');
-        speak(selectedProvider ? `You selected ${selectedProvider.toUpperCase()} as your payment provider.` : `No payment provider selected.`);
+        speak(selectedProvider ? `You selected ${selectedProvider.toUpperCase()} as your payment provider.` : 'No payment provider selected.');
     };
 
     const wireCopyButtons = () => {
@@ -186,7 +132,7 @@
             const total = calcSubtotal() + getDeliveryFeeValue();
             const ussd = selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn(total) : USSD_TEMPLATES.airtel(total);
             copyToClipboard(ussd).then(ok => {
-                if (ok) showToast('USSD copied — paste in phone'); speak(`Dial ${ussd} to pay ${formatUGX(total)}.`)
+                if (ok) { showToast('USSD copied — paste in phone'); speak(`Dial ${ussd} to pay ${formatUGX(total)}.`); }
             });
         });
     };
@@ -205,10 +151,9 @@
         const total = subtotal + delivery;
 
         let paymentNote = `Payment method: ${selectedProvider ? selectedProvider.toUpperCase() : 'Cash'}.`;
-        if (selectedProvider) paymentNote += ` Pay ${formatUGX(total)} with USSD ${selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn(total) : USSD_TEMPLATES.airtel(total)}.`;
+        if (selectedProvider) paymentNote += ` Pay ${formatUGX(total)} using USSD ${selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn(total) : USSD_TEMPLATES.airtel(total)}.`;
 
-        const itemsText = cart.map((it, i) => `${i + 1}. ${it.name} x${it.qty} = ${formatUGX((it.price || 0) * (it.qty || 0))}`).join('\n');
-
+        const itemsText = cart.map((i, j) => `${j + 1}. ${i.name} x${i.qty} = ${formatUGX((i.price || 0) * (i.qty || 0))}`).join('\n');
         const message = [
             '✨ Coffee Life Order ✨',
             `👤 Customer: ${name}`,
@@ -227,25 +172,18 @@
         ].join('\n');
 
         window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-        showToast('Order opened in WhatsApp'); speak('Order ready in WhatsApp. Send to complete.');
+        showToast('Order opened in WhatsApp'); speak('Order prepared. Please check WhatsApp and send to complete your order.');
 
-        if (window.CoffeeLife?.cart) {
-            window.CoffeeLife.cart = [];
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(window.CoffeeLife.cart)); } catch { }
-            window.CoffeeLife.renderCart?.();
-        }
+        if (window.CoffeeLife?.cart) { window.CoffeeLife.cart = []; localStorage.setItem(STORAGE_KEY, JSON.stringify([])); window.CoffeeLife.renderCart?.(); }
     };
 
     /* ==== CALL SUPPORT ==== */
-    const callSupport = () => {
-        speak('Connecting you to customer support.');
-        try { window.location.href = 'tel:+256709691395'; } catch { alert('Call +256709691395'); }
-    };
+    const callSupport = () => { speak('Connecting you to customer support.'); try { window.location.href = 'tel:+256709691395'; } catch { alert('Call +256709691395'); } };
 
     /* ==== BUTTON FX ==== */
     let lightingInterval = null, shakeInterval = null;
     const startButtonEffects = () => {
-        const allButtons = () => Array.from(document.querySelectorAll('.btn-3d, .btn'));
+        const allButtons = () => Array.from(document.querySelectorAll('.btn-3d,.btn'));
         if (lightingInterval) clearInterval(lightingInterval);
         if (shakeInterval) clearInterval(shakeInterval);
         allButtons().forEach(b => b.classList.add('btn-3d'));
@@ -255,15 +193,47 @@
     const pauseButtonEffects = () => { if (lightingInterval) clearInterval(lightingInterval); if (shakeInterval) clearInterval(shakeInterval); };
     const resumeButtonEffects = () => startButtonEffects();
 
+    /* ==== VOICE ITEM GUIDANCE ==== */
+    const guideItems = () => {
+        const items = getCart();
+        if (!items.length) return;
+        const itemNames = items.map(i => `${i.qty} ${i.name}`).join(', ');
+        speak(`You have added: ${itemNames}. After paying using the code, click WhatsApp confirm to send your order to the chef.`);
+    };
+
+    /* ==== TOAST ==== */
+    const toastEl = qs('#toast') || (() => {
+        const t = document.createElement('div');
+        t.id = 'toast';
+        t.setAttribute('aria-live', 'polite');
+        Object.assign(t.style, { position: 'fixed', right: '20px', bottom: '24px', padding: '10px 14px', borderRadius: '12px', background: '#111', color: '#fff', zIndex: 99999, opacity: 0, transform: 'translateY(20px)', transition: 'all .28s ease' });
+        document.body.appendChild(t);
+        return t;
+    })();
+    const showToast = (msg, duration = 3000) => {
+        toastEl.textContent = msg;
+        toastEl.style.opacity = '1';
+        toastEl.style.transform = 'translateY(0)';
+        setTimeout(() => { toastEl.style.opacity = '0'; toastEl.style.transform = 'translateY(20px)'; }, duration);
+    };
+
     /* ==== INIT ==== */
     const init = () => {
         injectStyles();
         cacheSelectors();
-        if (deliverySelect) deliverySelect.addEventListener('change', () => { updateDeliveryFeeDisplay(); speak(`Delivery: ${deliverySelect.value} Fee: ${formatUGX(getDeliveryFeeValue())}`) });
+
+        // === LOUD WELCOME MESSAGE ===
+        const welcomeMessage = "Welcome to Coffee Life website. Feel free to look for and order anything and we will deliver to your doorstep.";
+        speak(welcomeMessage, { rate: 1, pitch: 1, volume: 2.0 });
+
+        if (deliverySelect) deliverySelect.addEventListener('change', () => { updateDeliveryFeeDisplay(); speak(`Delivery: ${deliverySelect.value} Fee: ${formatUGX(getDeliveryFeeValue())}`); });
         updateDeliveryFeeDisplay();
-        paymentOptions.forEach(btn => { btn.addEventListener('click', () => setSelectedProvider(btn.dataset.provider)); btn.addEventListener('mouseover', () => speak(`Tip: ${btn.title || btn.textContent || 'press this button'}`)) });
+        paymentOptions.forEach(btn => {
+            btn.addEventListener('click', () => setSelectedProvider(btn.dataset.provider));
+            btn.addEventListener('mouseover', () => speak(`Tip: ${btn.title || btn.textContent || 'press this button'}`));
+        });
         wireCopyButtons();
-        whatsappBtn?.addEventListener('click', () => { speak('Preparing your order for WhatsApp'); setTimeout(sendWhatsAppOrder, 300) });
+        whatsappBtn?.addEventListener('click', () => { speak('Preparing your order for WhatsApp'); setTimeout(sendWhatsAppOrder, 300); });
         callSupportBtn?.addEventListener('click', () => callSupport());
         paymentOptions.forEach(b => b.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); b.click(); } }));
         paymentNumberEl?.addEventListener('focus', () => speak('Enter the phone number used for payment.'));
@@ -271,7 +241,11 @@
         document.addEventListener('focusin', pauseButtonEffects);
         document.addEventListener('focusout', resumeButtonEffects);
         document.addEventListener('mousemove', resumeButtonEffects);
+
+        // Speak item guidance on tabbing into add items
+        qsa('.add-to-cart').forEach(btn => btn.addEventListener('focus', guideItems));
     };
 
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+
 })();
