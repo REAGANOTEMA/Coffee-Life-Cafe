@@ -1,5 +1,5 @@
 /* =========================================
-   ULTRA-LUXURY CINEMATIC HEADER CSS
+   ULTRA-LUXURY CINEMATIC HEADER CSS - FINAL PERFECT
 ========================================= */
 
 /* RESET */
@@ -23,9 +23,9 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding: 1rem 2rem;
     display: flex;
     justify-content: center;
@@ -38,6 +38,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 /* LOGO */
@@ -49,13 +50,14 @@ body {
 }
 
 .luxury-logo-circle {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 1rem;
     flex-shrink: 0;
     border: 2px solid #f7b733;
+    box-shadow: 0 0 20px rgba(247, 183, 51, 0.6);
 }
 
 .luxury-logo-circle img {
@@ -78,16 +80,18 @@ body {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
+    text-shadow: 1px 1px 3px #000, 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .luxury-slogan-sub {
     font-size: 0.75rem;
     color: #ccc;
+    text-shadow: 1px 1px 2px #000;
 }
 
 /* TV-like marquee effect for slogan */
 .luxury-slogan {
-    animation: marquee 10s linear infinite;
+    animation: marquee 12s linear infinite;
 }
 
 @keyframes marquee {
@@ -116,10 +120,19 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.8px;
     position: relative;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px #000;
+    perspective: 500px;
+}
+
+/* 3D hover effect for nav links */
+.nav-link:hover {
+    color: #f7b733;
+    transform: rotateX(10deg) translateY(-3px) scale(1.05);
+    text-shadow: 2px 2px 6px #000, 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .nav-link::after {
@@ -131,10 +144,6 @@ body {
     height: 2px;
     background: #f7b733;
     transition: width 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #f7b733;
 }
 
 .nav-link:hover::after {
@@ -150,8 +159,9 @@ body {
 
 .cart-icon {
     position: relative;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     cursor: pointer;
+    text-shadow: 1px 1px 3px #000;
 }
 
 .cart-count-badge {
@@ -160,10 +170,11 @@ body {
     right: -10px;
     background: #f7b733;
     color: #000;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: bold;
     border-radius: 50%;
-    padding: 2px 5px;
+    padding: 3px 6px;
+    box-shadow: 0 0 6px rgba(247, 183, 51, 0.7);
 }
 
 /* HAMBURGER */
@@ -177,14 +188,14 @@ body {
 }
 
 .bar {
-    width: 25px;
-    height: 2px;
+    width: 28px;
+    height: 3px;
     background: #fff;
     transition: all 0.3s ease;
 }
 
 .hamburger.active .bar:nth-child(1) {
-    transform: rotate(45deg) translateY(7px);
+    transform: rotate(45deg) translateY(8px);
 }
 
 .hamburger.active .bar:nth-child(2) {
@@ -192,7 +203,7 @@ body {
 }
 
 .hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translateY(-7px);
+    transform: rotate(-45deg) translateY(-8px);
 }
 
 /* MOBILE MENU */
@@ -217,11 +228,13 @@ body {
     font-size: 1.1rem;
     width: 100%;
     text-align: center;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .mobile-link:hover {
     background: rgba(247, 183, 51, 0.2);
+    transform: translateY(-2px);
 }
 
 /* CINEMATIC ANIMATIONS */
@@ -276,7 +289,7 @@ body {
     }
 }
 
-/* GOLD PARTICLES CONTAINER (empty div, can animate later) */
+/* GOLD PARTICLES */
 .luxury-particle-container {
     position: absolute;
     top: 0;
@@ -298,11 +311,11 @@ body {
     }
 
     .luxury-slogan {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .luxury-slogan-sub {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -314,5 +327,13 @@ body {
 
     .luxury-logo-circle {
         margin-bottom: 0.5rem;
+    }
+
+    .nav-actions {
+        gap: 0.5rem;
+    }
+
+    .nav-inner {
+        flex-wrap: wrap;
     }
 }
