@@ -1,5 +1,5 @@
 /* =========================================
-   ULTRA-LUXURY CINEMATIC HEADER CSS - FINAL PERFECT
+   ULTRA-LUXURY CINEMATIC HEADER CSS - FINAL WHITE HEADER
 ========================================= */
 
 /* RESET */
@@ -12,7 +12,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: #0d0d0d;
-    color: #fff;
+    color: #000;
+    /* text readable on white header */
     overflow-x: hidden;
 }
 
@@ -23,13 +24,14 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    background: #ffffff;
+    /* white header */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem 2rem;
     display: flex;
     justify-content: center;
     animation: fadeInHeader 1s ease forwards;
+    color: #000;
 }
 
 .nav-inner {
@@ -46,7 +48,7 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #fff;
+    color: #000;
 }
 
 .luxury-logo-circle {
@@ -57,7 +59,7 @@ body {
     margin-right: 1rem;
     flex-shrink: 0;
     border: 2px solid #f7b733;
-    box-shadow: 0 0 20px rgba(247, 183, 51, 0.6);
+    box-shadow: 0 0 15px rgba(247, 183, 51, 0.5);
 }
 
 .luxury-logo-circle img {
@@ -80,16 +82,16 @@ body {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
-    text-shadow: 1px 1px 3px #000, 2px 2px 6px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .luxury-slogan-sub {
     font-size: 0.75rem;
-    color: #ccc;
-    text-shadow: 1px 1px 2px #000;
+    color: #555;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* TV-like marquee effect for slogan */
+/* TV-like marquee effect */
 .luxury-slogan {
     animation: marquee 12s linear infinite;
 }
@@ -117,22 +119,21 @@ body {
 }
 
 .nav-link {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.8px;
     position: relative;
     transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px #000;
     perspective: 500px;
 }
 
-/* 3D hover effect for nav links */
+/* 3D Hover effect for links */
 .nav-link:hover {
     color: #f7b733;
     transform: rotateX(10deg) translateY(-3px) scale(1.05);
-    text-shadow: 2px 2px 6px #000, 3px 3px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .nav-link::after {
@@ -161,7 +162,6 @@ body {
     position: relative;
     font-size: 1.4rem;
     cursor: pointer;
-    text-shadow: 1px 1px 3px #000;
 }
 
 .cart-count-badge {
@@ -174,7 +174,7 @@ body {
     font-weight: bold;
     border-radius: 50%;
     padding: 3px 6px;
-    box-shadow: 0 0 6px rgba(247, 183, 51, 0.7);
+    box-shadow: 0 0 6px rgba(247, 183, 51, 0.5);
 }
 
 /* HAMBURGER */
@@ -190,7 +190,7 @@ body {
 .bar {
     width: 28px;
     height: 3px;
-    background: #fff;
+    background: #000;
     transition: all 0.3s ease;
 }
 
@@ -211,7 +211,7 @@ body {
     display: none;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 0, 0, 0.95);
+    background: #fff;
     position: absolute;
     top: 100%;
     width: 100%;
@@ -223,13 +223,12 @@ body {
 
 .mobile-link {
     padding: 0.8rem 1rem;
-    color: #fff;
+    color: #000;
     text-decoration: none;
     font-size: 1.1rem;
     width: 100%;
     text-align: center;
     transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px #000;
 }
 
 .mobile-link:hover {
@@ -248,56 +247,6 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-@keyframes fadeSlideIn {
-    0% {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* BACKGROUND HERO ANIMATION */
-.header-bg-anim {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(270deg, #f7b733, #fc4a1a);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-    z-index: -1;
-}
-
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* GOLD PARTICLES */
-.luxury-particle-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
 }
 
 /* MEDIA QUERIES */
