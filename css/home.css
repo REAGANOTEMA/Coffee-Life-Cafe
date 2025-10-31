@@ -1,172 +1,190 @@
-:root {
-    --white: #ffffff;
-    --black: #111111;
-    --gold: #d4af37;
-    /* luxurious gold */
-    --accent: #f5e6a1;
+/* =========================================
+   ULTRA-LUXURY CINEMATIC HEADER CSS
+========================================= */
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* =========================
-   SITE HEADER
-========================= */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* HEADER BASE */
 .site-header {
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 120px;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    z-index: 9999;
-    background: var(--white);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.4s ease-in-out;
+    justify-content: center;
+    animation: fadeInHeader 1s ease forwards;
 }
 
-/* =========================
-   LOGO + SLOGAN
-========================= */
-.logo-wrapper,
+.nav-inner {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LOGO */
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
 }
 
-.logo-circle {
-    width: 60px;
-    height: 60px;
+.luxury-logo-circle {
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid var(--black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    border: 2px solid #f7b733;
 }
 
-.logo-circle img {
+.luxury-logo-circle img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.7s ease;
 }
 
-.logo-text {
+.luxury-copy {
     display: flex;
     flex-direction: column;
-    line-height: 1.1;
+    overflow: hidden;
 }
 
 .luxury-slogan {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: var(--gold);
-    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f7b733;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
 }
 
 .luxury-slogan-sub {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--black);
+    font-size: 0.75rem;
+    color: #ccc;
 }
 
-/* =========================
-   NAVIGATION LINKS
-========================= */
-.nav-links {
+/* TV-like marquee effect for slogan */
+.luxury-slogan {
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* NAVIGATION */
+.nav {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
-    margin-left: auto;
-    font-weight: 900;
+    gap: 2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
 }
 
 .nav-link {
-    color: var(--black);
+    color: #fff;
     text-decoration: none;
-    font-size: 1.15rem;
-    padding: 12px 18px;
-    border-radius: 14px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    transition: all 0.4s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
     position: relative;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transform: translateZ(0);
-}
-
-.nav-link:hover {
-    transform: translateY(-4px) scale(1.05);
-    background: var(--gold);
-    color: var(--black);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+    transition: color 0.3s ease;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -6px;
-    left: 50%;
-    width: 0;
-    height: 4px;
-    background: var(--black);
-    border-radius: 4px;
-    transform: translateX(-50%);
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #f7b733;
     transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #f7b733;
 }
 
 .nav-link:hover::after {
     width: 100%;
 }
 
-/* =========================
-   CART ICON
-========================= */
-.nav-actions .cart-icon {
-    position: relative;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+/* NAV ACTIONS */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.nav-actions .cart-count-badge {
+.cart-icon {
+    position: relative;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.cart-count-badge {
     position: absolute;
     top: -8px;
     right: -10px;
-    background: var(--black);
-    color: var(--white);
-    font-size: 0.75rem;
-    font-weight: 700;
+    background: #f7b733;
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: bold;
     border-radius: 50%;
-    padding: 2px 6px;
+    padding: 2px 5px;
 }
 
-/* =========================
-   HAMBURGER MENU
-========================= */
+/* HAMBURGER */
 .hamburger {
     display: none;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
+    background: none;
+    border: none;
     cursor: pointer;
 }
 
-.hamburger .bar {
-    width: 28px;
-    height: 3px;
-    background: var(--black);
-    border-radius: 2px;
-    transition: all 0.35s cubic-bezier(.2, .9, .2, 1);
+.bar {
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
 }
 
 .hamburger.active .bar:nth-child(1) {
-    transform: rotate(45deg) translateY(10px);
+    transform: rotate(45deg) translateY(7px);
 }
 
 .hamburger.active .bar:nth-child(2) {
@@ -174,60 +192,103 @@
 }
 
 .hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translateY(-10px);
+    transform: rotate(-45deg) translateY(-7px);
 }
 
-/* =========================
-   MOBILE MENU
-========================= */
+/* MOBILE MENU */
 .mobile-menu {
     display: none;
     flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.95);
     position: absolute;
-    top: 120px;
-    left: 0;
+    top: 100%;
     width: 100%;
-    background: var(--white);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    padding: 10px 0;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+    left: 0;
+    gap: 1rem;
+    padding: 1rem 0;
     z-index: 999;
 }
 
-.mobile-menu.active {
-    display: flex;
-}
-
 .mobile-link {
-    color: var(--black);
-    font-weight: 700;
-    padding: 1rem;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    width: 100%;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease;
 }
 
 .mobile-link:hover {
-    background: var(--black);
-    color: var(--white);
+    background: rgba(247, 183, 51, 0.2);
 }
 
-/* =========================
-   CINEMATIC / ANIMATIONS
-========================= */
-.logo-wrapper:hover .logo-circle {
-    transform: scale(1.05) rotate(-3deg);
+/* CINEMATIC ANIMATIONS */
+@keyframes fadeInHeader {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.nav-link,
-.mobile-link,
-.cart-icon {
-    transition: all 0.4s ease;
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1024px) {
+/* BACKGROUND HERO ANIMATION */
+.header-bg-anim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #f7b733, #fc4a1a);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* GOLD PARTICLES CONTAINER (empty div, can animate later) */
+.luxury-particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 900px) {
     .nav-links {
         display: none;
     }
@@ -235,42 +296,23 @@
     .hamburger {
         display: flex;
     }
-}
-
-@media (max-width: 768px) {
-    .site-header {
-        padding: 0 3%;
-        height: 100px;
-    }
-
-    .logo-circle {
-        width: 50px;
-        height: 50px;
-    }
 
     .luxury-slogan {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
 
     .luxury-slogan-sub {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 }
 
-/* =========================
-   3D BUTTON / NAV EFFECT
-========================= */
-.nav-link,
-.mobile-link {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
+@media (max-width: 600px) {
+    .logo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.nav-link:hover,
-.mobile-link:hover {
-    transform: translateY(-5px) rotateX(5deg) scale(1.06);
-    box-shadow: 0 15px 28px rgba(0, 0, 0, 0.3);
-    background: var(--gold);
-    color: var(--black);
+    .luxury-logo-circle {
+        margin-bottom: 0.5rem;
+    }
 }

@@ -3,14 +3,14 @@
 ========================================= */
 (function () {
     const NAV_ITEMS = [
-        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: '#home' },
-        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: '#menu' },
-        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: '#gallery' },
-        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: '#contact' }
+        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: 'index.html#home' },
+        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: 'index.html#menu' },
+        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: 'index.html#gallery' },
+        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: 'index.html#contact' }
     ];
 
     const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
-    const header = document.querySelector('.site-header');
+    const header = document.getElementById('mainHeader');
     if (!header) return;
 
     const logo = header.querySelector('.logo');
@@ -20,6 +20,7 @@
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
+
     function updateCartCount() {
         const total = window.cart.reduce((sum, item) => sum + (item.qty || 0), 0);
         if (cartIcon) cartIcon.textContent = total;
@@ -72,7 +73,9 @@
 
         // Update logo slogan
         const slogan = header.querySelector('.luxury-slogan');
+        const subSlogan = header.querySelector('.luxury-slogan-sub');
         if (slogan) slogan.textContent = (lang === 'ar') ? 'اللحظات تبدأ بالقهوة' : 'Moments Begin with Coffee';
+        if (subSlogan) subSlogan.textContent = (lang === 'ar') ? 'حيث الراحة تلتقي بالنكهة' : 'Where Comfort Meets Flavor';
     }
     setLanguage(DEFAULT_LANG);
 
@@ -97,11 +100,19 @@
     // ==================== SMOOTH SCROLL ====================
     function smoothScrollToTarget(el) {
         el.addEventListener('click', e => {
+            const href = el.getAttribute('href');
+            if (!href.includes('#')) return; // ignore external links
             e.preventDefault();
-            const targetId = el.getAttribute('href').substring(1);
+            const targetId = href.split('#')[1];
             const target = document.getElementById(targetId);
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.scrollTo({
+                    top: target.offsetTop - header.offsetHeight,
+                    behavior: 'smooth'
+                });
+            } else {
+                // fallback to index.html link
+                window.location.href = href;
             }
         });
     }
@@ -128,12 +139,22 @@
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Animate logo
+        // Animate logo and slogans
         if (logo) {
             logo.style.transition = 'transform 0.7s ease';
             logo.style.transform = 'translateY(-5px)';
             setTimeout(() => logo.style.transform = 'translateY(0)', 300);
         }
+        const slogans = header.querySelectorAll('.luxury-slogan, .luxury-slogan-sub');
+        slogans.forEach((s, idx) => {
+            s.style.transition = `transform 0.7s ease ${idx * 0.1}s, opacity 0.7s ease ${idx * 0.1}s`;
+            s.style.transform = 'translateY(-10px)';
+            s.style.opacity = '0';
+            setTimeout(() => {
+                s.style.transform = 'translateY(0)';
+                s.style.opacity = '1';
+            }, 300);
+        });
     }
     animateHeaderCinematic();
 
