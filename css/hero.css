@@ -10,7 +10,6 @@
     justify-content: center;
     color: #fff;
     background: #000;
-    /* fallback background */
 }
 
 /* Background Layers */
@@ -64,21 +63,42 @@
     transition: opacity 1.5s ease-in-out, transform 12s ease-in-out;
 }
 
-.hero-slide-text {
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
+/* ==================== HERO INNER CONTENT ==================== */
+.hero-inner {
+    position: relative;
+    z-index: 10;
     text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    /* spacing between title and slide text */
+}
+
+/* Hero Title */
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
+    animation: title-slide 5s infinite alternate;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Hero Slide Text Below Title */
+.hero-slide-text {
     font-size: 1.5rem;
     line-height: 1.4;
     color: #fff;
     max-width: 90%;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
     transition: all 1.5s ease-in-out;
-    z-index: 6;
     animation: slide-text-fade 1.5s ease-in-out;
     font-family: 'Georgia', serif;
+    opacity: 0;
 }
 
 /* Text Animation */
@@ -94,43 +114,7 @@
     }
 }
 
-/* Hero Inner Content */
-.hero-inner {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    width: 100%;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
-    margin-bottom: 30px;
-    animation: title-slide 5s infinite alternate;
-}
-
-.hero-title-shimmer {
-    display: block;
-    height: 4px;
-    width: 80px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 50%, rgba(255, 255, 255, 0) 100%);
-    margin: 0 auto;
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
-    }
-}
-
+/* Hero Title Slide Animation */
 @keyframes title-slide {
     0% {
         transform: translateX(-10px);
@@ -296,15 +280,14 @@
     }
 }
 
-/* ==================== MEDIA QUERIES ==================== */
+/* ==================== RESPONSIVE HERO ==================== */
 @media screen and (max-width: 768px) {
-    .hero-slide-text {
-        font-size: 1.2rem;
-        bottom: 12%;
-    }
-
     .hero-title {
         font-size: 2.2rem;
+    }
+
+    .hero-slide-text {
+        font-size: 1.2rem;
     }
 
     .hero-btn.order-btn {
@@ -314,13 +297,12 @@
 }
 
 @media screen and (max-width: 480px) {
-    .hero-slide-text {
-        font-size: 1rem;
-        bottom: 10%;
-    }
-
     .hero-title {
         font-size: 1.8rem;
+    }
+
+    .hero-slide-text {
+        font-size: 1rem;
     }
 
     .hero-btn.order-btn {
