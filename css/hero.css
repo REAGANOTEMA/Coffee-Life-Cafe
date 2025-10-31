@@ -10,36 +10,27 @@
     justify-content: center;
     color: #fff;
     background: #000;
+    /* fallback */
 }
 
-/* Background Layers */
-.hero-background {
+/* ==================== BACKGROUND LAYERS ==================== */
+.hero-background,
+.hero-overlay,
+.hero-luxury-glow {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
 .hero-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.45);
-    top: 0;
-    left: 0;
     z-index: 2;
 }
 
 .hero-luxury-glow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
-    top: 0;
-    left: 0;
     z-index: 5;
 }
 
@@ -63,45 +54,20 @@
     transition: opacity 1.5s ease-in-out, transform 12s ease-in-out;
 }
 
-/* ==================== HERO INNER CONTENT ==================== */
-.hero-inner {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    /* spacing between title and slide text */
-}
-
-/* Hero Title */
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7);
-    animation: title-slide 5s infinite alternate;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Hero Slide Text Below Title */
 .hero-slide-text {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     line-height: 1.4;
     color: #fff;
-    max-width: 90%;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
-    transition: all 1.5s ease-in-out;
-    animation: slide-text-fade 1.5s ease-in-out;
-    font-family: 'Georgia', serif;
+    max-width: 80%;
+    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+    font-weight: 700;
     opacity: 0;
+    margin-top: 15px;
+    text-align: center;
+    transition: all 1.5s ease-in-out;
 }
 
-/* Text Animation */
+/* Cinematic text animation */
 @keyframes slide-text-fade {
     0% {
         opacity: 0;
@@ -114,7 +80,50 @@
     }
 }
 
-/* Hero Title Slide Animation */
+/* ==================== HERO INNER CONTENT ==================== */
+.hero-inner {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    /* spacing between title and slide texts */
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    margin-bottom: 10px;
+    animation: title-slide 5s infinite alternate;
+    font-family: 'Playfair Display', serif;
+}
+
+.hero-title-shimmer {
+    display: block;
+    height: 4px;
+    width: 80px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 50%, rgba(255, 255, 255, 0) 100%);
+    margin: 0 auto;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 @keyframes title-slide {
     0% {
         transform: translateX(-10px);
@@ -134,13 +143,13 @@
     display: inline-block;
     padding: 18px 50px;
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     color: #fff;
     background: linear-gradient(145deg, #b85c38, #ff9068);
     border: none;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     z-index: 10;
     position: fixed;
@@ -159,12 +168,11 @@
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5) inset;
     transform: translateZ(-10px);
     z-index: -1;
 }
 
-/* Button Glow Animation */
 .btn-light {
     animation: glow 1.2s ease-in-out forwards;
 }
@@ -183,7 +191,6 @@
     }
 }
 
-/* Button Shake Animation */
 .btn-shake {
     animation: shake 0.9s ease-in-out;
 }
@@ -211,8 +218,8 @@
 /* ==================== SPARKLES ==================== */
 .hero-sparkle {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     background: #fff;
     border-radius: 50%;
     opacity: 0.8;
@@ -280,14 +287,14 @@
     }
 }
 
-/* ==================== RESPONSIVE HERO ==================== */
+/* ==================== RESPONSIVE ==================== */
 @media screen and (max-width: 768px) {
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
 
     .hero-slide-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     .hero-btn.order-btn {
@@ -298,7 +305,7 @@
 
 @media screen and (max-width: 480px) {
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .hero-slide-text {
