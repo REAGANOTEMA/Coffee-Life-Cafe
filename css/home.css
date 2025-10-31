@@ -287,3 +287,104 @@ body {
         padding: 0.35rem 0.6rem;
     }
 }
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    flex-shrink: 0;
+}
+
+.luxury-logo-circle {
+    width: 70px;
+    /* increased size for clarity */
+    height: 70px;
+    /* increased size for clarity */
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    border: 3px solid #f7b733;
+    /* slightly thicker for elegance */
+    box-shadow: 0 0 16px rgba(247, 183, 51, 0.5);
+    /* stronger glow for visibility */
+}
+
+.luxury-logo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* ensures full logo visible */
+    transition: transform 0.7s ease;
+}
+
+/* LOGO TEXT/SLOGAN */
+.luxury-copy {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.luxury-slogan {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f7b733;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.luxury-slogan-sub {
+    font-size: 0.8rem;
+    color: #555;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* MEDIA QUERIES FOR MOBILE */
+@media (max-width: 900px) {
+    .luxury-logo-circle {
+        width: 60px;
+        height: 60px;
+        border-width: 2px;
+        box-shadow: 0 0 12px rgba(247, 183, 51, 0.4);
+    }
+
+    .luxury-slogan {
+        font-size: 0.85rem;
+    }
+
+    .luxury-slogan-sub {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .logo {
+        flex-direction: column;
+        align-items: center;
+        /* centered for mobile */
+        gap: 0.3rem;
+    }
+
+    .luxury-logo-circle {
+        width: 55px;
+        height: 55px;
+        margin: 0;
+        border-width: 2px;
+        box-shadow: 0 0 10px rgba(247, 183, 51, 0.35);
+    }
+
+    .luxury-slogan {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .luxury-slogan-sub {
+        font-size: 0.6rem;
+        text-align: center;
+    }
+}
