@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Coffee Life Cafe Elite Payment Experience</title>
-    <meta name="description" content="Coffee Life — The Most Exclusive Coffee Checkout Experience">
+    <title>Coffee Life — Elite Payment Experience</title>
+    <meta name="description" content="Coffee Life — Premium Coffee Checkout and Feedback Experience">
     <link rel="icon" href="images/logo.jpg" type="image/x-icon">
 
     <!-- CSS Links -->
@@ -16,37 +16,30 @@
 </head>
 
 <body>
-    <!-- HERO -->
     <main class="container">
+        <!-- HERO -->
         <section class="hero-section" aria-labelledby="hero-title">
             <h1 id="hero-title">Elite Checkout Experience</h1>
             <p>Seamless • Premium • Exclusive</p>
         </section>
 
-        <!-- Back to Home -->
-        <div style="text-align:center; margin-top:20px;">
-            <a href="index.html" class="btn btn-3d">← Back to Home</a>
+        <!-- Navigation Buttons -->
+        <div class="nav-actions">
+            <a href="index.html#menu" class="btn btn-3d">← Back to Menu</a>
+            <a href="index.html#menu" class="btn btn-3d">+ Add More Items</a>
         </div>
 
-        <!-- Menu Items -->
-        <section id="menuItemsContainer" class="menu-section">
-            <h2>Menu</h2>
-            <div class="menu-grid" id="menuGrid">
-                <!-- JS will populate menu items here -->
-            </div>
-        </section>
-
         <div class="grid" role="region" aria-label="Checkout grid">
-            <!-- Branch & Delivery -->
-            <section class="panel" aria-labelledby="branch-title">
-                <div class="card" role="group" aria-labelledby="branch-title">
-                    <h2 id="branch-title">Select Branch & Delivery Area</h2>
+            <!-- Delivery Selection -->
+            <section class="panel" aria-labelledby="delivery-title">
+                <div class="card">
+                    <h2 id="delivery-title">Select Branch & Delivery Area</h2>
 
                     <label for="location-group">Branch:</label>
                     <select id="location-group" onchange="checkBranch(this.value)">
-                        <option value="jinja-highway" selected>Coffee Life Cafe Jinja Highway</option>
-                        <option value="kampala">Coffee Life Cafe Kampala (Coming Soon)</option>
-                        <option value="jinja-lakeview">Coffee Life Cafe Jinja Lakeview (Coming Soon)</option>
+                        <option value="jinja-highway" selected>Coffee Life Café Jinja Highway</option>
+                        <option value="kampala">Coffee Life Café Kampala (Coming Soon)</option>
+                        <option value="jinja-lakeview">Coffee Life Café Jinja Lakeview (Coming Soon)</option>
                     </select>
 
                     <label for="delivery-zone">Delivery Area:</label>
@@ -70,13 +63,11 @@
                 </div>
             </section>
 
-            <!-- Cart & Payment -->
+            <!-- CART & PAYMENT -->
             <aside class="panel" aria-labelledby="cart-title">
                 <div class="card">
                     <h2 id="cart-title">Your Cart</h2>
-                    <div id="cartItems" aria-live="polite">
-                        <!-- JS will populate cart items here -->
-                    </div>
+                    <div id="cartItems" aria-live="polite"></div>
 
                     <div class="cart-summary">
                         <div><span>Subtotal</span> <span id="cartSubtotal">0 UGX</span></div>
@@ -84,13 +75,12 @@
                         <div><strong>Total</strong> <strong id="cartTotal">0 UGX</strong></div>
                     </div>
 
+                    <!-- PAYMENT OPTIONS -->
                     <div id="payment-section" aria-labelledby="payment-title">
                         <h3 id="payment-title">Choose Payment Method</h3>
                         <div class="payment-options" role="tablist">
-                            <button class="btn btn-3d payment-option" data-provider="mtn"
-                                aria-pressed="false">MTN</button>
-                            <button class="btn btn-3d payment-option" data-provider="airtel"
-                                aria-pressed="false">Airtel</button>
+                            <button class="btn btn-3d payment-option" data-provider="mtn">MTN</button>
+                            <button class="btn btn-3d payment-option" data-provider="airtel">Airtel</button>
                         </div>
 
                         <div id="merchantCard" aria-live="polite">
@@ -115,7 +105,9 @@
                             <p>Tip: After sending payment, tap <strong>Confirm & Send via WhatsApp</strong>.</p>
                         </div>
 
-                        <input type="text" class="btn-input" id="paymentNumber" placeholder="Enter your payment number">
+                        <input type="tel" class="btn-input" id="paymentNumber" inputmode="numeric"
+                            placeholder="Enter your payment number">
+
                         <div class="actions">
                             <button class="btn btn-3d" id="whatsapp-confirm">Confirm & Send via WhatsApp</button>
                             <button class="btn btn-3d" id="callSupport">Call Support</button>
@@ -125,16 +117,18 @@
             </aside>
         </div>
 
-        <!-- 🌟 Customer Feedback Section -->
+        <!-- FEEDBACK SECTION -->
         <section id="feedback-section" class="feedback-section">
             <div class="card feedback-card">
                 <h2>Share Your Experience 💬</h2>
                 <p>We value your experience — help us make every Coffee Life visit even more exceptional.</p>
 
-                <form id="feedbackForm" class="feedback-form">
-                    <input type="text" id="fbName" class="btn-input" placeholder="Your Name (optional)">
-                    <input type="email" id="fbEmail" class="btn-input" placeholder="Your Email (optional)">
-                    <select id="fbRating" class="btn-input">
+                <form id="feedbackForm" class="feedback-form"
+                    action="mailto:food@coffeelife.cafe?subject=Coffee Life Customer Feedback" method="POST"
+                    enctype="text/plain">
+                    <input type="text" id="fbName" name="Name" class="btn-input" placeholder="Your Name (optional)">
+                    <input type="email" id="fbEmail" name="Email" class="btn-input" placeholder="Your Email (optional)">
+                    <select id="fbRating" name="Rating" class="btn-input">
                         <option value="">Rate your experience ⭐</option>
                         <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
                         <option value="4">⭐⭐⭐⭐ Great</option>
@@ -142,7 +136,7 @@
                         <option value="2">⭐⭐ Fair</option>
                         <option value="1">⭐ Poor</option>
                     </select>
-                    <textarea id="fbMessage" class="btn-input" rows="4"
+                    <textarea id="fbMessage" name="Message" class="btn-input" rows="4"
                         placeholder="Tell us what you loved or how we can improve..."></textarea>
                     <button type="submit" class="btn btn-3d" id="fbSubmit">Submit Feedback</button>
                 </form>
@@ -152,17 +146,17 @@
         </section>
     </main>
 
-    <!-- WhatsApp Floating Button -->
+    <!-- Floating WhatsApp Button -->
     <div class="floating-buttons">
         <a href="https://wa.me/256709691395" target="_blank" rel="noopener" class="btn btn-3d" id="waFloat">
-            Order on WhatsApp
+            💬 Order on WhatsApp
         </a>
     </div>
 
     <div id="toast" aria-live="assertive"></div>
 
     <noscript>
-        <div>JavaScript is required for full functionality.</div>
+        <div class="nojs-warning">JavaScript is required for full functionality.</div>
     </noscript>
 
     <!-- JS Links -->
@@ -180,25 +174,13 @@
             }
         }
 
-        // Feedback system
+        // Feedback confirmation toast (client-side)
         document.addEventListener('DOMContentLoaded', () => {
             const fbForm = document.getElementById('feedbackForm');
             const fbToast = document.getElementById('fbToast');
 
-            fbForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const name = document.getElementById('fbName').value.trim();
-                const email = document.getElementById('fbEmail').value.trim();
-                const rating = document.getElementById('fbRating').value;
-                const message = document.getElementById('fbMessage').value.trim();
-
-                if (!rating && !message) {
-                    fbToast.textContent = "Please share at least a rating or a comment!";
-                } else {
-                    fbToast.textContent = "Thank you for your feedback ☕ We truly appreciate your time!";
-                    fbForm.reset();
-                }
-
+            fbForm.addEventListener('submit', () => {
+                fbToast.textContent = "Thank you for your feedback ☕ Your message has been sent to Coffee Life.";
                 fbToast.style.opacity = '1';
                 fbToast.style.transform = 'translateY(0)';
                 setTimeout(() => {
