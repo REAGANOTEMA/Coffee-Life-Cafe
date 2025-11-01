@@ -131,18 +131,16 @@
     <!-- ===== ULTRA-LUXURY CINEMATIC HEADER HTML ===== -->
     <header class="site-header" id="mainHeader" role="banner">
         <!-- ===== HEADER PATTERN BACKGROUND ===== -->
-        <div class="header-pattern" style="background-image: url('images/header.webp');"></div>
+        <div class="header-pattern-layer" style="background-image: url('images/header.webp');"></div>
 
         <div class="container nav-inner">
-
             <!-- ===== BRAND / LOGO ===== -->
             <a class="logo" href="index.html#home" aria-label="Coffee Life home">
                 <div class="luxury-logo-circle">
                     <img src="images/logo.jpg" alt="Coffee Life Logo">
                 </div>
                 <div class="luxury-copy">
-                    <span class="luxury-slogan">Moments Begin with Coffee</span>
-                    <span class="luxury-slogan-sub">Where Comfort Meets Flavor</span>
+                    <span class="luxury-slogan">Eat. Meet. Work.</span>
                 </div>
             </a>
 
@@ -174,7 +172,7 @@
             </nav>
         </div>
 
-        <!-- ===== MOBILE MENU INLINE UNDER HEADER ===== -->
+        <!-- ===== MOBILE MENU UNDER HEADER ===== -->
         <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
             <a href="index.html#home" class="mobile-link">Home</a>
             <a href="index.html#menu" class="mobile-link">Menu</a>
@@ -183,35 +181,33 @@
         </div>
     </header>
 
-    <!-- Background hero animation -->
-    <div class="header-bg-anim"></div>
-
     <!-- Floating gold particles -->
     <div class="luxury-particle-container"></div>
-    <!-- ===== END CINEMATIC HEADER HTML ===== -->
+</body>
 
-    <!-- ===== BASIC HAMBURGER FUNCTIONALITY ===== -->
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
 
-        hamburger.addEventListener('click', () => {
-            const isActive = mobileMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            mobileMenu.style.display = isActive ? 'flex' : 'none';
-            mobileMenu.setAttribute('aria-hidden', !isActive);
-            hamburger.setAttribute('aria-expanded', isActive);
+<!-- ===== BASIC HAMBURGER FUNCTIONALITY ===== -->
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        const isActive = mobileMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        mobileMenu.style.display = isActive ? 'flex' : 'none';
+        mobileMenu.setAttribute('aria-hidden', !isActive);
+        hamburger.setAttribute('aria-expanded', isActive);
+    });
+
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            mobileMenu.style.display = 'none';
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
         });
-
-        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                mobileMenu.style.display = 'none';
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 
 

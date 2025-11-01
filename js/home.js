@@ -17,6 +17,8 @@
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
+    const patternLayer = header.querySelector('.header-pattern-layer');
+    const slogan = header.querySelector('.luxury-slogan');
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
@@ -25,12 +27,14 @@
         if (cartIcon) cartIcon.textContent = total;
     }
     updateCartCount();
+
     window.globalAddToCart = function (item) {
         const existing = window.cart.find(i => i.id === item.id);
         if (existing) existing.qty++;
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
+
     window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
@@ -48,21 +52,15 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
-        // Desktop nav
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
-        // Mobile nav
         const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
         mobileLinks.forEach((link, idx) => {
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
-        // Logo slogans
-        const slogan = header.querySelector('.luxury-slogan');
-        const subSlogan = header.querySelector('.luxury-slogan-sub');
-        if (slogan) slogan.textContent = (lang === 'ar') ? 'اللحظات تبدأ بالقهوة' : 'Moments Begin with Coffee';
-        if (subSlogan) subSlogan.textContent = (lang === 'ar') ? 'حيث الراحة تلتقي بالنكهة' : 'Where Comfort Meets Flavor';
+        slogan.textContent = (lang === 'ar') ? 'كُل. قابل. اعمل.' : 'Eat. Meet. Work.';
     }
     setLanguage(DEFAULT_LANG);
 
@@ -97,67 +95,43 @@
                     top: target.offsetTop - header.offsetHeight,
                     behavior: 'smooth'
                 });
-            } else window.location.href = href;
+            } else {
+                window.location.href = href;
+            }
         });
     }
     document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(smoothScrollToTarget);
 
     // ==================== CINEMATIC ANIMATIONS ====================
-    function animateHeaderCinematic() {
+    function animateHeader() {
+        // Floating background pattern like live TV
+        if (patternLayer) {
+            const offsetX = Math.sin(Date.now() / 2000) * 10;
+            const offsetY = Math.cos(Date.now() / 3000) * 10;
+            patternLayer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        // Logo floating animation
+        if (logo) {
+            const floatY = Math.sin(Date.now() / 1500) * 2;
+            logo.style.transform = `translateY(${floatY}px)`;
+        }
+
+        // Nav links 3D hover effect
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
-            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s`;
-            link.style.transform = 'translateY(-10px)';
-            link.style.opacity = '0';
-            setTimeout(() => { link.style.transform = 'translateY(0)'; link.style.opacity = '1'; }, 100);
+            link.style.transition = `transform 0.5s ease ${idx * 0.05}s, opacity 0.5s ease ${idx * 0.05}s`;
+            link.style.transform = 'translateZ(0px)';
+            link.style.opacity = '1';
         });
-        if (cartIcon) { cartIcon.style.transition = 'transform 0.5s ease'; cartIcon.style.transform = 'scale(0.7)'; setTimeout(() => cartIcon.style.transform = 'scale(1)', 200); }
-        if (logo) { logo.style.transition = 'transform 0.7s ease'; logo.style.transform = 'translateY(-5px)'; setTimeout(() => logo.style.transform = 'translateY(0)', 300); }
-        const slogans = header.querySelectorAll('.luxury-slogan, .luxury-slogan-sub');
-        slogans.forEach((s, idx) => {
-            s.style.transition = `transform 0.7s ease ${idx * 0.1}s, opacity 0.7s ease ${idx * 0.1}s`;
-            s.style.transform = 'translateY(-10px)';
-            s.style.opacity = '0';
-            setTimeout(() => { s.style.transform = 'translateY(0)'; s.style.opacity = '1'; }, 300);
-        });
+
+        // Title moving like live TV
+        if (slogan) {
+            const tvMove = Math.sin(Date.now() / 500) * 1.5; // slight horizontal jitter
+            slogan.style.transform = `translateX(${tvMove}px)`;
+        }
+
+        requestAnimationFrame(animateHeader);
     }
-    animateHeaderCinematic();
-    window.addEventListener('scroll', animateHeaderCinematic);
-
-    // ==================== HEADER PATTERN FLOATING IMAGES ====================
-    const patternContainer = document.createElement('div');
-    patternContainer.className = 'header-pattern-layer';
-    header.appendChild(patternContainer);
-
-    const PATTERN_COUNT = 30;
-    const patternImgSrc = 'images/header.webp';
-    const patterns = [];
-
-    for (let i = 0; i < PATTERN_COUNT; i++) {
-        const img = document.createElement('img');
-        img.src = patternImgSrc;
-        img.className = 'pattern-tile';
-        const size = Math.random() * 25 + 20;
-        img.style.width = `${size}px`;
-        img.style.height = `${size}px`;
-        img.style.top = `${Math.random() * 100}%`;
-        img.style.left = `${Math.random() * 100}%`;
-        img.style.opacity = Math.random() * 0.5 + 0.3;
-        img.style.position = 'absolute';
-        img.style.transition = 'transform 5s ease-in-out';
-        patternContainer.appendChild(img);
-        patterns.push(img);
-    }
-
-    function animatePatterns() {
-        patterns.forEach(img => {
-            const offsetX = Math.random() * 40 - 20;
-            const offsetY = Math.random() * 40 - 20;
-            const rotation = Math.random() * 360;
-            img.style.transform = `translate(${offsetX}px,${offsetY}px) rotate(${rotation}deg)`;
-        });
-        requestAnimationFrame(animatePatterns);
-    }
-    animatePatterns();
-
+    animateHeader();
 })();
