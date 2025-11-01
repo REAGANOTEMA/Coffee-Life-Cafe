@@ -1,14 +1,15 @@
-/* ========================================= 
+/* =========================================
    ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
 ========================================= */
 (function () {
     const NAV_ITEMS = [
-        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: '#home' },
-        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: '#menu' },
-        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: '#gallery' },
-        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: '#contact' }
+        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: 'index.html#home' },
+        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: 'index.html#menu' },
+        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: 'index.html#gallery' },
+        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: 'index.html#contact' }
     ];
 
+    const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
     const header = document.getElementById('mainHeader');
     if (!header) return;
 
@@ -17,10 +18,8 @@
     const slogan = header.querySelector('.luxury-slogan');
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    const cartIcon = header.querySelector('.cart-count-badge');
+    const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
     const navLinks = header.querySelectorAll('.nav-link');
-
-    const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
@@ -30,14 +29,14 @@
     }
     updateCartCount();
 
-    window.globalAddToCart = function(item) {
+    window.globalAddToCart = function (item) {
         const existing = window.cart.find(i => i.id === item.id);
         if (existing) existing.qty++;
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
 
-    window.globalRemoveFromCart = function(id) {
+    window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
         window.cart[index].qty--;
@@ -54,8 +53,14 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
+
+        // Update nav links
         navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
-        mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
+        mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
+            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
+        });
+
+        // Update title & slogan
         if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
         if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
     }
@@ -63,10 +68,10 @@
 
     // ==================== MOBILE MENU TOGGLE ====================
     hamburger.addEventListener('click', () => {
-        const active = mobileMenu.classList.toggle('active');
+        const isActive = mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        mobileMenu.style.display = active ? 'flex' : 'none';
-        hamburger.setAttribute('aria-expanded', active);
+        mobileMenu.style.display = isActive ? 'flex' : 'none';
+        hamburger.setAttribute('aria-expanded', isActive);
     });
 
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
@@ -86,17 +91,23 @@
             e.preventDefault();
             const target = document.getElementById(href.split('#')[1]);
             if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
+            else window.location.href = href;
         });
     });
 
-    // ==================== 3D NAV BUTTON ANIMATION ====================
-    function animateNavButtons() {
+    // ==================== CINEMATIC HEADER ANIMATIONS ====================
+    function animateHeaderElements() {
+        // Nav links 3D button animation
         navLinks.forEach((link, idx) => {
-            link.style.transition = `transform 0.8s ease ${idx*0.1}s, box-shadow 0.3s ease`;
+            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.3s ease`;
             link.style.transform = 'translateY(-15px) rotateX(15deg)';
+            link.style.opacity = '0';
             setTimeout(() => {
                 link.style.transform = 'translateY(0) rotateX(0)';
+                link.style.opacity = '1';
             }, 100);
+
+            // Hover 3D effect
             link.addEventListener('mouseenter', () => {
                 link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
                 link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
@@ -106,28 +117,36 @@
                 link.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
             });
         });
-    }
 
-    // ==================== HEADER ELEMENTS ANIMATION ====================
-    function animateHeaderElements() {
-        // Logo
-        if (logo) logo.style.transform = 'translateY(0) scale(1)';
-        // Title & slogan opacity
-        if (title) title.style.opacity = 1;
-        if (slogan) slogan.style.opacity = 1;
-        animateNavButtons();
+        // Logo animation
+        if (logo) {
+            logo.style.transition = 'transform 0.7s ease';
+            logo.style.transform = 'translateY(-5px) scale(0.95)';
+            setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
+        }
+
+        // Cart animation
+        if (cartIcon) {
+            cartIcon.style.transition = 'transform 0.5s ease';
+            cartIcon.style.transform = 'scale(0.7)';
+            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
+        }
+
+        // Title opacity (moving handled separately)
+        if (title) title.style.opacity = '1';
+        if (slogan) slogan.style.opacity = '1';
     }
     animateHeaderElements();
     window.addEventListener('scroll', animateHeaderElements);
 
-    // ==================== TV-STYLE TITLE SLIDE ====================
-    let pos = 0, dir = 1;
+    // ==================== TV-STYLE HORIZONTAL TITLE SLIDE ====================
+    let position = 0, direction = 1;
     function animateTitleSlide() {
         if (!title) return;
-        const maxSlide = 20; // horizontal movement in pixels
-        pos += dir * 0.6; // speed
-        if (pos > maxSlide || pos < -maxSlide) dir *= -1;
-        title.style.transform = `translateX(${pos}px)`;
+        const maxSlide = 20; // horizontal movement in px
+        position += direction * 0.6; // speed
+        if (position > maxSlide || position < -maxSlide) direction *= -1;
+        title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
