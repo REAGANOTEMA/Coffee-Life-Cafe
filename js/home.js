@@ -28,7 +28,6 @@
         if (cartIcon) cartIcon.textContent = total;
     }
     updateCartCount();
-
     window.globalAddToCart = function (item) {
         const existing = window.cart.find(i => i.id === item.id);
         if (existing) existing.qty++;
@@ -49,7 +48,6 @@
         const newLang = (localStorage.getItem('luxury_lang') || DEFAULT_LANG) === 'en' ? 'ar' : 'en';
         setLanguage(newLang);
     });
-
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
         navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
@@ -89,7 +87,6 @@
 
     // ==================== CINEMATIC HEADER ANIMATIONS ====================
     function animateHeaderElements() {
-        // Nav links 3D HD button animation
         navLinks.forEach((link, idx) => {
             link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.5s ease`;
             link.style.transform = 'translateY(-15px) rotateX(15deg)';
@@ -98,7 +95,6 @@
                 link.style.transform = 'translateY(0) rotateX(0)';
                 link.style.opacity = '1';
             }, 100);
-            // Hover effect for 3D button feel
             link.addEventListener('mouseenter', () => {
                 link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
                 link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
@@ -109,27 +105,22 @@
             });
         });
 
-        // Logo animation
         if (logo) {
             logo.style.transition = 'transform 0.7s ease';
             logo.style.transform = 'translateY(-5px) scale(0.95)';
             setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
         }
 
-        // Cart
         if (cartIcon) {
             cartIcon.style.transition = 'transform 0.5s ease';
             cartIcon.style.transform = 'scale(0.7)';
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Title cinematic
         if (title) {
             title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
             title.style.opacity = '1';
         }
-
-        // Slogan cinematic
         if (slogan) {
             slogan.style.transition = 'opacity 1s ease';
             slogan.style.opacity = '1';
@@ -142,11 +133,12 @@
     let position = 0, direction = 1;
     function animateTitleSlide() {
         if (!title) return;
-        const maxSlide = 20; // full horizontal movement
-        position += direction * 0.6; // sliding speed
+        const maxSlide = 20;
+        position += direction * 0.6;
         if (position > maxSlide || position < -maxSlide) direction *= -1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
+
 })();
