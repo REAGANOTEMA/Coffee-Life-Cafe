@@ -20,7 +20,6 @@
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
-
     function updateCartCount() {
         const total = window.cart.reduce((sum, item) => sum + (item.qty || 0), 0);
         if (cartIcon) cartIcon.textContent = total;
@@ -33,7 +32,6 @@
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
-
     window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
@@ -43,35 +41,15 @@
     };
 
     // ==================== LANGUAGE SWITCH ====================
-    const langBtn = document.createElement('button');
-    langBtn.className = 'lang-toggle';
-    langBtn.textContent = '🌐';
-    langBtn.style.background = 'none';
-    langBtn.style.border = 'none';
-    langBtn.style.cursor = 'pointer';
-    header.querySelector('.nav-actions').appendChild(langBtn);
-
+    const langBtn = header.querySelector('.lang-toggle');
     langBtn.addEventListener('click', () => {
         const newLang = (localStorage.getItem('luxury_lang') || DEFAULT_LANG) === 'en' ? 'ar' : 'en';
         setLanguage(newLang);
     });
-
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
-
-        // Update desktop nav links
-        const navLinks = header.querySelectorAll('.nav-link');
-        navLinks.forEach((link, idx) => {
-            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-        });
-
-        // Update mobile nav links
-        const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
-        mobileLinks.forEach((link, idx) => {
-            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-        });
-
-        // Update logo slogans
+        header.querySelectorAll('.nav-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
+        mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         const slogan = header.querySelector('.luxury-slogan');
         const subSlogan = header.querySelector('.luxury-slogan-sub');
         if (slogan) slogan.textContent = (lang === 'ar') ? 'اللحظات تبدأ بالقهوة' : 'Moments Begin with Coffee';
@@ -87,7 +65,6 @@
         mobileMenu.setAttribute('aria-hidden', !isActive);
         hamburger.setAttribute('aria-expanded', isActive);
     });
-
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
@@ -97,69 +74,75 @@
         });
     });
 
-    // ==================== SMOOTH SCROLL & CROSS-PAGE ====================
+    // ==================== SMOOTH SCROLL ====================
     function smoothScrollToTarget(el) {
         el.addEventListener('click', e => {
             const href = el.getAttribute('href');
-            if (!href.includes('#')) return; // external link
+            if (!href.includes('#')) return;
             e.preventDefault();
-            const targetId = href.split('#')[1];
-            const target = document.getElementById(targetId);
-
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - header.offsetHeight,
-                    behavior: 'smooth'
-                });
-            } else {
-                // fallback to index.html
-                window.location.href = href;
-            }
+            const target = document.getElementById(href.split('#')[1]);
+            if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
+            else window.location.href = href;
         });
     }
-
     document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(smoothScrollToTarget);
 
-    // ==================== CINEMATIC HEADER ANIMATIONS ====================
+    // ==================== CINEMATIC HEADER ANIMATION ====================
     function animateHeaderCinematic() {
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
             link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s`;
-            link.style.transform = 'translateY(-10px)';
+            link.style.transform = 'translateY(-15px) rotateX(10deg)';
             link.style.opacity = '0';
-            setTimeout(() => {
-                link.style.transform = 'translateY(0)';
-                link.style.opacity = '1';
-            }, 100);
+            setTimeout(() => { link.style.transform = 'translateY(0) rotateX(0)'; link.style.opacity = '1'; }, 100);
         });
-
-        if (cartIcon) {
-            cartIcon.style.transition = 'transform 0.5s ease';
-            cartIcon.style.transform = 'scale(0.7)';
-            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
-        }
-
-        if (logo) {
-            logo.style.transition = 'transform 0.7s ease';
-            logo.style.transform = 'translateY(-5px)';
-            setTimeout(() => logo.style.transform = 'translateY(0)', 300);
-        }
-
+        if (cartIcon) { cartIcon.style.transform = 'scale(0.7) rotateY(0deg)'; setTimeout(() => cartIcon.style.transform = 'scale(1) rotateY(0deg)', 200); }
+        if (logo) { logo.style.transform = 'translateY(-5px) rotateY(0deg)'; setTimeout(() => logo.style.transform = 'translateY(0) rotateY(0deg)', 300); }
         const slogans = header.querySelectorAll('.luxury-slogan, .luxury-slogan-sub');
         slogans.forEach((s, idx) => {
-            s.style.transition = `transform 0.7s ease ${idx * 0.1}s, opacity 0.7s ease ${idx * 0.1}s`;
-            s.style.transform = 'translateY(-10px)';
+            s.style.transform = 'translateY(-10px) rotateX(0deg)';
             s.style.opacity = '0';
-            setTimeout(() => {
-                s.style.transform = 'translateY(0)';
-                s.style.opacity = '1';
-            }, 300);
+            setTimeout(() => { s.style.transform = 'translateY(0) rotateX(0deg)'; s.style.opacity = '1'; }, 300);
         });
     }
     animateHeaderCinematic();
+    window.addEventListener('scroll', animateHeaderCinematic);
 
-    // Re-animate header on scroll for cinematic effect
-    window.addEventListener('scroll', () => {
-        animateHeaderCinematic();
-    });
+    // ==================== HEADER PATTERN ANIMATION ====================
+    const patternContainer = document.createElement('div');
+    patternContainer.className = 'header-pattern-layer';
+    header.appendChild(patternContainer);
+    const patternCount = 100;
+    const patternImages = [];
+    for (let i = 0; i < patternCount; i++) {
+        const img = document.createElement('img');
+        img.src = 'images/header.png';
+        img.className = 'pattern-tile';
+        img.style.position = 'absolute';
+        img.style.width = `${Math.random() * 25 + 20}px`;
+        img.style.height = `${Math.random() * 25 + 20}px`;
+        img.style.top = `${Math.random() * 100}%`;
+        img.style.left = `${Math.random() * 100}%`;
+        img.style.opacity = (0.05 + Math.random() * 0.4).toString();
+        img.style.transition = 'transform 6s ease-in-out';
+        patternContainer.appendChild(img);
+        patternImages.push(img);
+    }
+    function animatePattern() {
+        patternImages.forEach(img => {
+            const dx = (Math.random() - 0.5) * 20;
+            const dy = (Math.random() - 0.5) * 20;
+            img.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 15 - 7}deg)`;
+        });
+    }
+    setInterval(animatePattern, 3500);
+
+    // ==================== SUBTLE LOGO & SLOGAN FLOAT ====================
+    let floatDir = 1;
+    setInterval(() => {
+        if (logo) logo.style.transform = `translateY(${floatDir * 2}px)`;
+        header.querySelectorAll('.luxury-slogan, .luxury-slogan-sub').forEach(s => s.style.transform = `translateY(${floatDir}px)`);
+        floatDir *= -1;
+    }, 2000);
+
 })();
