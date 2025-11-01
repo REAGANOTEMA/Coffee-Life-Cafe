@@ -10,9 +10,8 @@
     const DELIVERY_AREAS = {
         "Jinja Town": 2000, "Milo Mbili": 2000, "Walukuba West": 2000,
         "Walukuba East": 3000, "Mafubira": 3000, "Mpumudde": 3000,
-        "Bugembe": 3000, "Nile": 3000, "Makerere": 3000,
-        "Kira Road": 3000, "Masese": 4000, "Wakitaka": 4000,
-        "Namuleesa": 4000
+        "Bugembe": 3000, "Nile": 3000, "Makerere": 3000, "Kira Road": 3000,
+        "Masese": 4000, "Wakitaka": 4000, "Namuleesa": 4000
     };
     const USSD_TEMPLATES = {
         mtn: amount => `*165*3*${MTN_MERCHANT}*${amount}#`,
@@ -44,7 +43,7 @@
     const toastEl = qs('#toast');
     const callSupportBtn = qs('#callSupport');
 
-    /* ================= UTILS ================= */
+    /* ================= UTILITIES ================= */
     const formatUGX = v => (Number(v) || 0).toLocaleString() + ' UGX';
 
     const persistCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(window.CoffeeLife.cart));
@@ -91,6 +90,11 @@
         }
     };
 
+    const shakeButton = btn => {
+        btn.classList.add('btn-shake');
+        setTimeout(() => btn.classList.remove('btn-shake'), 600);
+    };
+
     /* ================= CART ================= */
     const calcSubtotal = () => window.CoffeeLife.cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
@@ -110,18 +114,18 @@
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
-                <img src="${item.img || 'menu-images/placeholder.jpg'}" alt="${item.name}" class="cart-item-img">
-                <div class="cart-item-info">
-                    <strong>${item.name}</strong>
-                    <p>${formatUGX(item.price)} x ${item.qty}</p>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="qty-btn minus btn-circle shake">−</button>
-                    <span class="qty">${item.qty}</span>
-                    <button class="qty-btn plus btn-circle shake">+</button>
-                    <button class="remove btn-circle shake">🗑</button>
-                </div>
-            `;
+        <img src="${item.img || 'menu-images/placeholder.jpg'}" alt="${item.name}" class="cart-item-img">
+        <div class="cart-item-info">
+            <strong>${item.name}</strong>
+            <p>${formatUGX(item.price)} x ${item.qty}</p>
+        </div>
+        <div class="cart-item-controls">
+            <button class="qty-btn minus btn-3d">−</button>
+            <span class="qty">${item.qty}</span>
+            <button class="qty-btn plus btn-3d">+</button>
+            <button class="remove btn-3d">🗑</button>
+        </div>
+      `;
             cartItemsContainer.appendChild(div);
 
             div.querySelector('.minus').addEventListener('click', () => {
@@ -131,7 +135,7 @@
                 if (it.qty <= 0) window.CoffeeLife.cart = window.CoffeeLife.cart.filter(i => i.id !== it.id);
                 persistCart();
                 renderCart();
-                showToast('Quantity reduced', true);
+                showToast('Quantity reduced');
             });
 
             div.querySelector('.plus').addEventListener('click', () => {
@@ -140,14 +144,14 @@
                 it.qty += 1;
                 persistCart();
                 renderCart();
-                showToast('Quantity increased', true);
+                showToast('Quantity increased');
             });
 
             div.querySelector('.remove').addEventListener('click', () => {
                 window.CoffeeLife.cart = window.CoffeeLife.cart.filter(i => i.id !== item.id);
                 persistCart();
                 renderCart();
-                showToast(`${item.name} removed`, true);
+                showToast(`${item.name} removed`);
             });
         });
 
@@ -164,56 +168,61 @@
         if (deliveryFeeSummaryEl) deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
         renderCart();
     };
-
     deliverySelect?.addEventListener('change', () => {
         updateDeliveryFee();
-        speak(`You selected ${deliverySelect.value}. Delivery fee updated.`);
+        speak(`Delivery area selected: ${deliverySelect.value}.`);
     });
+    updateDeliveryFee();
 
     /* ================= PAYMENT PROVIDER ================= */
     const setSelectedProvider = provider => {
-        selectedProvider = provider || null;
+        selectedProvider = provider;
         paymentOptions.forEach(btn => btn.classList.toggle('selected', btn.dataset.provider === provider));
-        if (merchantProviderEl)
-            merchantProviderEl.textContent = provider ? provider.toUpperCase() : 'None';
-        if (merchantCodeEl)
-            merchantCodeEl.textContent = provider === 'mtn' ? MTN_MERCHANT :
+        merchantProviderEl.textContent = provider ? provider.toUpperCase() : 'None';
+        merchantCodeEl.textContent =
+            provider === 'mtn' ? MTN_MERCHANT :
                 provider === 'airtel' ? AIRTEL_MERCHANT :
                     `${MTN_MERCHANT} / ${AIRTEL_MERCHANT}`;
 
-        if (provider) {
-            const guide = provider === 'mtn'
-                ? `Dial *165*3*${MTN_MERCHANT}*amount#`
-                : `Dial *185*9*${AIRTEL_MERCHANT}*amount#`;
-            speak(`Great! You selected ${provider.toUpperCase()}. To pay, dial ${guide}. Once payment is done, confirm on WhatsApp.`);
-            showToast(`${provider.toUpperCase()} selected.`, false);
-        }
+        const message = provider === 'mtn'
+            ? 'You selected MTN Mobile Money. Dial star one six five, star three, star nine seven one seven one four, then the amount, and press hash.'
+            : 'You selected Airtel Money. Dial star one eight five, star nine, star four three nine three three eight six, then the amount, and press hash.';
+        speak(message);
+        showToast(`${provider.toUpperCase()} selected`, false);
     };
-    paymentOptions.forEach(btn => btn.addEventListener('click', () => setSelectedProvider(btn.dataset.provider)));
+
+    paymentOptions.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setSelectedProvider(btn.dataset.provider);
+            shakeButton(btn);
+        });
+    });
 
     /* ================= COPY & USSD ================= */
-    copyMerchantBtn?.addEventListener('click', async () => {
+    copyMerchantBtn?.addEventListener('click', async e => {
         if (await copyToClipboard(merchantCodeEl.textContent)) {
-            showToast('Merchant code copied. Proceed to payment.', true);
+            shakeButton(e.currentTarget);
+            showToast('Merchant code copied! Proceed to payment.');
         }
     });
 
-    showUSSDBtn?.addEventListener('click', () => {
-        if (!selectedProvider) return showToast('Select a payment provider first.', true);
+    showUSSDBtn?.addEventListener('click', e => {
+        if (!selectedProvider) return showToast('Please select a payment provider first.');
         const total = calcSubtotal() + DELIVERY_FEE;
-        const ussd = selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn(total) : USSD_TEMPLATES.airtel(total);
-        speak(`Please dial ${ussd.replace(/\*/g, 'star ').replace(/#/g, ' hash')} to complete payment.`);
-        alert(`Dial this USSD on your phone:\n${ussd}\n\nAfter payment, confirm via WhatsApp.`);
+        const ussd = selectedProvider === 'mtn'
+            ? USSD_TEMPLATES.mtn(total)
+            : USSD_TEMPLATES.airtel(total);
+        speak(`Please dial ${ussd.replace(/\*/g, 'star ').replace(/#/g, ' hash')} on your phone.`);
+        shakeButton(e.currentTarget);
+        alert(`Dial this USSD on your phone:\n${ussd}\nThen return to confirm via WhatsApp.`);
     });
 
     /* ================= WHATSAPP CONFIRM ================= */
-    whatsappBtn?.addEventListener('click', () => {
-        if (!window.CoffeeLife.cart.length) return showToast('Your cart is empty.', true);
-        if (!selectedProvider) return showToast('Please select a payment provider.', true);
-
+    whatsappBtn?.addEventListener('click', e => {
+        if (!window.CoffeeLife.cart.length) return showToast('Your cart is empty.');
+        if (!selectedProvider) return showToast('Please select a payment provider.');
         const number = qs('#paymentNumber')?.value || '';
-        if (!number || number.length < 9) return showToast('Enter a valid payment number.', true);
-
+        if (!number || number.length < 9) return showToast('Enter a valid payment number.');
         const area = deliverySelect?.value || 'Unknown';
         const subtotal = calcSubtotal();
         const total = subtotal + DELIVERY_FEE;
@@ -223,71 +232,20 @@
         msg += `\nSubtotal: ${formatUGX(subtotal)}\nDelivery: ${formatUGX(DELIVERY_FEE)}\nTotal: ${formatUGX(total)}\n\nPayment via ${selectedProvider.toUpperCase()} (${number})\nDelivery Area: ${area}\n\nThank you for choosing Coffee Life Café — where every sip is a smile! ☕✨`;
 
         window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        speak('WhatsApp message ready. Kindly confirm your order so our chefs can start crafting your meal.');
+        shakeButton(e.currentTarget);
+        showToast('WhatsApp message ready — confirm your order.', false);
+        speak('Perfect! WhatsApp message ready. Kindly confirm your payment so our chefs can start crafting your order.');
     });
 
     /* ================= CALL SUPPORT ================= */
-    callSupportBtn?.addEventListener('click', () => {
-        speak('Connecting you to Coffee Life Café support now.');
+    callSupportBtn?.addEventListener('click', e => {
+        shakeButton(e.currentTarget);
+        speak('Connecting you to Coffee Life Café support. Please hold...');
         window.location.href = `tel:${SUPPORT_NUMBER}`;
-    });
-
-    /* ================= WELCOME SEQUENCE ================= */
-    window.addEventListener('load', () => {
-        speak(`Dear customer, welcome to Coffee Life Café payment center. 
-        Let's complete your order together. First, please select your delivery location. 
-        Then choose your payment provider — either MTN or Airtel. 
-        Finally, confirm your order on WhatsApp. Let's get started.`);
     });
 
     /* ================= INIT ================= */
     loadCart();
     renderCart();
+    speak('Dear customer, welcome to Coffee Life Café payment center. Please choose your delivery area, select your payment provider, and confirm your order when ready.');
 })();
-// === Payment Option Selection Fix ===
-document.querySelectorAll('.payment-option').forEach(option => {
-    option.addEventListener('click', function () {
-        // Remove previous selection
-        document.querySelectorAll('.payment-option').forEach(btn => {
-            btn.classList.remove('selected');
-        });
-
-        // Add to clicked option
-        this.classList.add('selected');
-
-        // Update payment provider variable
-        const provider = this.classList.contains('mtn') ? 'MTN' : 'AIRTEL';
-        localStorage.setItem('paymentProvider', provider);
-
-        // Voice guide or toast feedback
-        const msg = `You selected ${provider}. Please proceed below.`;
-        speakGuide(msg);
-        showToast(msg);
-
-        // Optional: visually confirm with shake and glow
-        this.classList.add('btn-glow');
-        setTimeout(() => this.classList.remove('btn-glow'), 1200);
-    });
-});
-
-// === Toast ===
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
-    }, 2500);
-}
-
-// === Voice Guidance ===
-function speakGuide(text) {
-    if (!('speechSynthesis' in window)) return;
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'en-US';
-    utter.rate = 1;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utter);
-}
