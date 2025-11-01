@@ -324,6 +324,7 @@
         <div id="menu-container">
             <!-- JS will dynamically append items here into their categories -->
         </div>
+
         <!-- ================= LIGHT BITES ================= -->
         <section id="light-bites" class="menu-category" data-category="light-bites">
             <h3>Light Bites</h3>
@@ -435,6 +436,7 @@
                     </div>
                 </article>
 
+                <!-- Burger Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -456,14 +458,33 @@
                     </div>
                 </article>
 
-
             </div>
         </section>
+
+        <!-- ================= COMPANION MODAL (hidden by default) ================= -->
+        <div id="companionModal" class="cf-modal-backdrop">
+            <div class="cf-modal">
+                <h3>Select Companion</h3>
+                <div id="companionList"></div>
+                <div class="cf-actions">
+                    <button class="cf-cancel">Cancel</button>
+                    <button class="cf-confirm">Continue to Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ZOOM OVERLAY (hidden by default) ================= -->
+        <div id="zoomOverlay" class="zoom-overlay">
+            <div id="zoomContent"></div>
+        </div>
+
 
         <!-- ================= BREAKFAST MENU ================= -->
         <section id="breakfast" class="menu-category" data-category="breakfast">
             <h3>Breakfast Menu</h3>
             <div class="menu-grid">
+
+                <!-- Burger Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -472,7 +493,6 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
                         <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
@@ -486,8 +506,7 @@
                     </div>
                 </article>
 
-
-                <!-- Pancake Breakfast -->
+                <!-- Pancake Breakfast Combo -->
                 <article class="menu-item" data-id="pancake-breakfast" data-name="Pancake Breakfast Combo"
                     data-price="27000">
                     <div class="menu-media"><img src="menu-images/breakfast-pancake.jpg" alt="Pancake Breakfast"></div>
@@ -525,7 +544,7 @@
                     <div class="menu-media"><img src="menu-images/breakfast-stack.jpg" alt="Stack Breakfast"></div>
                     <div class="menu-body">
                         <h4>Stack Breakfast Combo</h4>
-                        <p class="desc">Tender grilled chicken/steak served on layered potatoes, spinach & mushrooms.
+                        <p class="desc">Tender grilled chicken or steak served on layered potatoes, spinach & mushrooms.
                         </p>
                         <div class="meta">
                             <div class="price">27,000 UGX</div>
@@ -540,11 +559,10 @@
                 <article class="menu-item" data-id="chicken-egg-breakfast" data-name="Chicken & Egg Breakfast Combo"
                     data-price="27000">
                     <div class="menu-media"><img src="menu-images/breakfast-chicken-egg.jpg"
-                            alt="Chicken & Egg Breakfast">
-                    </div>
+                            alt="Chicken & Egg Breakfast"></div>
                     <div class="menu-body">
                         <h4>Chicken & Egg Breakfast Combo</h4>
-                        <p class="desc">Eggs of choice, sausages, bread crumbed chicken & home fries.</p>
+                        <p class="desc">Eggs of choice, sausages, breaded chicken & home fries.</p>
                         <div class="meta">
                             <div class="price">27,000 UGX</div>
                             <div class="actions">
@@ -633,42 +651,41 @@
                         </div>
                     </div>
                 </article>
-                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
-                    data-price="25000">
-                    <div class="menu-media">
-                        <video autoplay muted loop playsinline>
-                            <source src="videos/burger.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="menu-body">
-                        <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
-                        <div class="meta">
-                            <div class="price">25,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add"
-                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
 
-
-                <p class="note">Top up your omelet with Cheese 3,000 / Sausage 3,000 / Spinach 3,000 / Chicken 6,000 /
-                    Beef 6,000. Combos served with coffee, tea or juice. If you suffer from allergens, inform your
-                    server.</p>
+                <!-- Note for Omelet Add-ons -->
+                <p class="note">
+                    Top up your omelet with Cheese 3,000 / Sausage 3,000 / Spinach 3,000 / Chicken 6,000 / Beef 6,000.
+                    Combos served with coffee, tea or juice. If you suffer from allergens, inform your server.
+                </p>
 
             </div>
         </section>
+
         <!-- ================= MAIN COURSES / BEEF DISHES ================= -->
         <section id="main-courses" class="menu-category" data-category="main-courses">
             <h3>Main Courses - Beef Dishes</h3>
             <div class="menu-grid">
 
+                <!-- Beef Steak Supreme -->
+                <article class="menu-item" data-id="beef-steak-supreme" data-name="Beef Steak Supreme"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beef-steak-supreme.jpg" alt="Beef Steak Supreme">
+                    </div>
+                    <div class="menu-body">
+                        <h4>Beef Steak Supreme</h4>
+                        <p class="desc">Juicy tender beef fillet grilled to perfection served in pepper sauce.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Steak%20Supreme&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- Beef Stir Fry -->
                 <article class="menu-item" data-id="beef-stir-fry" data-name="Beef Stir Fry" data-price="35000">
-                    <div class="menu-media"><img src="menu-images/Beef Stir Fry.webp" alt="Beef Stir Fry"></div>
+                    <div class="menu-media"><img src="menu-images/beef-stir-fry.webp" alt="Beef Stir Fry"></div>
                     <div class="menu-body">
                         <h4>Beef Stir Fry</h4>
                         <p class="desc">Beef strips cooked in vegetables and soy sauce.</p>
@@ -683,7 +700,7 @@
 
                 <!-- Pepper Steak -->
                 <article class="menu-item" data-id="pepper-steak" data-name="Pepper Steak" data-price="30000">
-                    <div class="menu-media"><img src="menu-images/Pepper Steak.webp" alt="Pepper Steak"></div>
+                    <div class="menu-media"><img src="menu-images/pepper-steak.webp" alt="Pepper Steak"></div>
                     <div class="menu-body">
                         <h4>Pepper Steak</h4>
                         <p class="desc">Juicy tender fillet steak grilled to your preference served in pepper sauce.</p>
@@ -691,21 +708,6 @@
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
                                 <a class="btn-add" href="payment.html?item=Pepper%20Steak&price=30000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Beefy Bliss -->
-                <article class="menu-item" data-id="beefy-bliss" data-name="Beefy Bliss" data-price="35000">
-                    <div class="menu-media"><img src="menu-images/beefy-bliss.jpg" alt="Beefy Bliss"></div>
-                    <div class="menu-body">
-                        <h4>Beefy Bliss</h4>
-                        <p class="desc">A creamy sauce of beef chunks, mushrooms, peppers & onions.</p>
-                        <div class="meta">
-                            <div class="price">35,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Beefy%20Bliss&price=35000">Add</a>
                             </div>
                         </div>
                     </div>
@@ -726,21 +728,53 @@
                     </div>
                 </article>
 
-                <!-- Deef Skewers -->
-                <article class="menu-item" data-id="deef-skewers" data-name="Deef Skewers" data-price="35000">
-                    <div class="menu-media"><img src="menu-images/deef-skewers.jpg" alt="Deef Skewers"></div>
+                <!-- Beefy Bliss -->
+                <article class="menu-item" data-id="beefy-bliss" data-name="Beefy Bliss" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beefy-bliss.jpg" alt="Beefy Bliss"></div>
                     <div class="menu-body">
-                        <h4>Deef Skewers</h4>
+                        <h4>Beefy Bliss</h4>
+                        <p class="desc">A creamy sauce of beef chunks, mushrooms, peppers & onions. Served with avocado,
+                            kachumbal, and gravy.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beefy%20Bliss&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beef Skewers -->
+                <article class="menu-item" data-id="beef-skewers" data-name="Beef Skewers" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/beef-skewers.jpg" alt="Beef Skewers"></div>
+                    <div class="menu-body">
+                        <h4>Beef Skewers</h4>
                         <p class="desc">Marinated beef skewers grilled to perfection.</p>
                         <div class="meta">
                             <div class="price">35,000 UGX</div>
                             <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Deef%20Skewers&price=35000">Add</a>
+                                <a class="btn-add" href="payment.html?item=Beef%20Skewers&price=35000">Add</a>
                             </div>
                         </div>
                     </div>
                 </article>
 
+                <!-- Beef Pilau -->
+                <article class="menu-item" data-id="beef-pilau" data-name="Beef Pilau" data-price="25000">
+                    <div class="menu-media"><img src="menu-images/beef-pilau.jpg" alt="Beef Pilau"></div>
+                    <div class="menu-body">
+                        <h4>Beef Pilau</h4>
+                        <p class="desc">Aromatic spiced rice served with tender beef cubes.</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Pilau&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Burger Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -762,119 +796,13 @@
                     </div>
                 </article>
 
-
             </div>
         </section>
-        <!-- ================= MAIN COURSES / CHICKEN BUCKETS ================= -->
-        <section id="chicken-buckets" class="menu-category" data-category="chicken-buckets">
-            <h3>Chicken Buckets</h3>
-            <div class="menu-grid">
 
-                <!-- Tender Love Bucket -->
-                <article class="menu-item" data-id="tender-love-bucket" data-name="Tender Love Bucket"
-                    data-price="78000">
-                    <div class="menu-media"><img src="menu-images/chicken-crispy6.jpg" alt="Tender Love Bucket"></div>
-                    <div class="menu-body">
-                        <h4>Tender Love Bucket</h4>
-                        <p class="desc">8 Pieces, 2 regular chips, salads & 2 Ltr Soda.</p>
-                        <div class="meta">
-                            <div class="price">78,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Tender%20Love%20Bucket&price=78000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Over Load Bucket -->
-                <article class="menu-item" data-id="over-load-bucket" data-name="Over Load Bucket" data-price="86000">
-                    <div class="menu-media"><img src="menu-images/chicken-crispy7.jpg" alt="Over Load Bucket"></div>
-                    <div class="menu-body">
-                        <h4>Over Load Bucket</h4>
-                        <p class="desc">10 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
-                        <div class="meta">
-                            <div class="price">86,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Over%20Load%20Bucket&price=86000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Crazy Bucket -->
-                <article class="menu-item" data-id="crazy-bucket" data-name="Crazy Bucket" data-price="140000">
-                    <div class="menu-media"><img src="menu-images/chicken-crispy10.jpg" alt="Crazy Bucket"></div>
-                    <div class="menu-body">
-                        <h4>Crazy Bucket</h4>
-                        <p class="desc">16 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
-                        <div class="meta">
-                            <div class="price">140,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Crazy%20Bucket&price=140000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Haven Bucket -->
-                <article class="menu-item" data-id="haven-bucket" data-name="Haven Bucket" data-price="120000">
-                    <div class="menu-media"><img src="menu-images/chicken-crispy7.webp" alt="Haven Bucket"></div>
-                    <div class="menu-body">
-                        <h4>Haven Bucket</h4>
-                        <p class="desc">14 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
-                        <div class="meta">
-                            <div class="price">120,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Haven%20Bucket&price=120000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Good Times Bucket -->
-                <article class="menu-item" data-id="good-times-bucket" data-name="Good Times Bucket"
-                    data-price="100000">
-                    <div class="menu-media"><img src="menu-images/chicken5.jpg" alt="Good Times Bucket"></div>
-                    <div class="menu-body">
-                        <h4>Good Times Bucket</h4>
-                        <p class="desc">12 Pieces, 2 regular chips, 2 salads & 2 Ltr Soda.</p>
-                        <div class="meta">
-                            <div class="price">100,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Good%20Times%20Bucket&price=100000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
-                    data-price="25000">
-                    <div class="menu-media">
-                        <video autoplay muted loop playsinline>
-                            <source src="videos/burger.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="menu-body">
-                        <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
-                        <div class="meta">
-                            <div class="price">25,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add"
-                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-
-            </div>
-        </section>
 
         <!-- ================= MAIN COURSES / GOAT DISHES ================= -->
         <section id="goats" class="menu-category" data-category="goats">
-            <h3>Goats</h3>
+            <h3>Main Courses - Goat Dishes</h3>
             <div class="menu-grid">
 
                 <!-- Grilled Goats Meat -->
@@ -883,7 +811,8 @@
                     <div class="menu-media"><img src="menu-images/goat-grilled.jpg" alt="Grilled Goats Meat"></div>
                     <div class="menu-body">
                         <h4>Grilled Goats Meat</h4>
-                        <p class="desc">Marinated and oven grilled — glazed in honey sauce with vegetables.</p>
+                        <p class="desc">Marinated and oven-grilled, glazed in honey sauce with vegetables. Served with
+                            chips, kachumbal & gravy.</p>
                         <div class="meta">
                             <div class="price">38,000 UGX</div>
                             <div class="actions">
@@ -898,8 +827,8 @@
                     <div class="menu-media"><img src="menu-images/goat-panfried.webp" alt="Pan Fried Goat"></div>
                     <div class="menu-body">
                         <h4>Pan Fried Goat</h4>
-                        <p class="desc">Grilled goat cubes pan fried in cucumber or vegetables; dry fry or with sauce.
-                        </p>
+                        <p class="desc">Goat cubes pan-fried with choice of cucumber or vegetables, dry fry or with
+                            sauce. Served with chips & gravy.</p>
                         <div class="meta">
                             <div class="price">35,000 UGX</div>
                             <div class="actions">
@@ -914,7 +843,8 @@
                     <div class="menu-media"><img src="menu-images/goat-boiled.jpg" alt="Boiled Goats Meat"></div>
                     <div class="menu-body">
                         <h4>Boiled Goats Meat</h4>
-                        <p class="desc">Boiled to perfection with vegetables and greens.</p>
+                        <p class="desc">Boiled to perfection with vegetables and greens. Served with rice, posho, or
+                            mashed potatoes and gravy.</p>
                         <div class="meta">
                             <div class="price">35,000 UGX</div>
                             <div class="actions">
@@ -929,7 +859,7 @@
                     <div class="menu-media"><img src="menu-images/goat-brochette1.jpg" alt="Goat Brochette"></div>
                     <div class="menu-body">
                         <h4>Goat Brochette</h4>
-                        <p class="desc">Marinated and grilled goat skewers served with chips and mayo.</p>
+                        <p class="desc">Marinated and grilled goat skewers served with chips, mayo & kachumbal.</p>
                         <div class="meta">
                             <div class="price">35,000 UGX</div>
                             <div class="actions">
@@ -944,8 +874,8 @@
                     <div class="menu-media"><img src="menu-images/goat-biryani.jpg" alt="Goat Biriyani"></div>
                     <div class="menu-body">
                         <h4>Goat Biriyani</h4>
-                        <p class="desc">Goat meat marinated & cooked with basmati spiced rice. Served with choice of
-                            chips, mashed, posho or rice.</p>
+                        <p class="desc">Goat meat marinated & cooked with spiced basmati rice. Served with choice of
+                            chips, mashed, posho or extra rice, accompanied by kachumbal & yogurt sauce.</p>
                         <div class="meta">
                             <div class="price">35,000 UGX</div>
                             <div class="actions">
@@ -955,13 +885,38 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Promotion -->
+                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
+                    data-price="25000">
+                    <div class="menu-media">
+                        <video autoplay muted loop playsinline>
+                            <source src="videos/burger.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="menu-body">
+                        <h4>Burger Promotion</h4>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Served with chips and a drink of your choice
+                            (tea, coffee, or soda).</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </section>
+
 
         <!-- ================= 5. QUESADILLAS ================= -->
         <section id="quesadillas" class="menu-category">
             <h3>Quesadillas</h3>
             <div class="menu-grid">
+
                 <!-- Chicken Quesadilla -->
                 <article class="menu-item" data-id="chicken-quesadilla" data-name="Chicken Quesadilla"
                     data-price="30000">
@@ -969,8 +924,8 @@
                     </div>
                     <div class="menu-body">
                         <h4>Chicken Quesadilla</h4>
-                        <p class="desc">Marinated chicken with grilled vegetables & mozzarella. Served with guacamole &
-                            salsa.</p>
+                        <p class="desc">Marinated chicken with grilled vegetables & mozzarella. Served with guacamole,
+                            salsa & a side of chips and your choice of drink (tea, coffee, or soda).</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -985,7 +940,8 @@
                     <div class="menu-media"><img src="menu-images/quesadilla-beef.jpg" alt="Deef Quesadilla"></div>
                     <div class="menu-body">
                         <h4>Deef Quesadilla</h4>
-                        <p class="desc">Marinated beef with vegetables & mozzarella. Served with guacamole & salsa.</p>
+                        <p class="desc">Marinated beef with vegetables & mozzarella. Served with guacamole, salsa & a
+                            side of chips and your choice of drink (tea, coffee, or soda).</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -995,6 +951,7 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -1005,7 +962,8 @@
                     </div>
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Comes with chips and a drink (tea, coffee, or
+                            soda) — your perfect companion for the deal!</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1018,17 +976,17 @@
 
             </div>
         </section>
-
         <!-- ================= 6. LOCAL FOOD MENU ================= -->
         <section id="local-food" class="menu-category">
             <h3>Local Food Menu</h3>
             <div class="menu-grid">
+
                 <!-- Goat Stew -->
                 <article class="menu-item" data-id="goat-stew" data-name="Goat Stew" data-price="25000">
                     <div class="menu-media"><img src="menu-images/local-goat-stew.jpg" alt="Goat Stew"></div>
                     <div class="menu-body">
                         <h4>Goat Stew</h4>
-                        <p class="desc">Served with rice, posho, matooke and greens.</p>
+                        <p class="desc">Served with rice, posho, matooke, greens & a drink (tea, coffee, or soda).</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1043,7 +1001,8 @@
                     <div class="menu-media"><img src="menu-images/local-chicken-stew.jpg" alt="Chicken Stew"></div>
                     <div class="menu-body">
                         <h4>Chicken Stew</h4>
-                        <p class="desc">Served with choice of rice, posho, matooke & greens.</p>
+                        <p class="desc">Served with choice of rice, posho, matooke & greens, plus a drink (tea, coffee,
+                            or soda).</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -1058,7 +1017,8 @@
                     <div class="menu-media"><img src="menu-images/local-beef-stew.webp" alt="Beef Stew"></div>
                     <div class="menu-body">
                         <h4>Beef Stew</h4>
-                        <p class="desc">All local foods are served with rice, posho, matooke & greens.</p>
+                        <p class="desc">All local foods are served with rice, posho, matooke & greens and a drink (tea,
+                            coffee, or soda).</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1073,7 +1033,8 @@
                     <div class="menu-media"><img src="menu-images/local-beans.jpg" alt="Beans or Peas"></div>
                     <div class="menu-body">
                         <h4>Beans or Peas</h4>
-                        <p class="desc">Traditional sides.</p>
+                        <p class="desc">Traditional sides, served with a drink (tea, coffee, or soda) if ordered as a
+                            combo.</p>
                         <div class="meta">
                             <div class="price">20,000 UGX</div>
                             <div class="actions">
@@ -1088,6 +1049,7 @@
                     <div class="menu-media"><img src="menu-images/local-chicken-pilau.jpg" alt="Chicken Pilau"></div>
                     <div class="menu-body">
                         <h4>Chicken Pilau</h4>
+                        <p class="desc">Served with chips or drink (tea, coffee, or soda) as a companion.</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -1102,6 +1064,7 @@
                     <div class="menu-media"><img src="menu-images/local-goat-pilau.jpg" alt="Goats Pilau"></div>
                     <div class="menu-body">
                         <h4>Goats Pilau</h4>
+                        <p class="desc">Served with chips or drink (tea, coffee, or soda) as a companion.</p>
                         <div class="meta">
                             <div class="price">28,000 UGX</div>
                             <div class="actions">
@@ -1116,6 +1079,7 @@
                     <div class="menu-media"><img src="menu-images/local-beef-pilau.png" alt="Beef Pilau"></div>
                     <div class="menu-body">
                         <h4>Beef Pilau</h4>
+                        <p class="desc">Served with chips or drink (tea, coffee, or soda) as a companion.</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1125,6 +1089,7 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -1135,7 +1100,8 @@
                     </div>
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Comes with chips and a drink (tea, coffee, or
+                            soda) — your perfect companion!</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1153,6 +1119,7 @@
         <section id="pizzas" class="menu-category">
             <h3>Cheesy Pizzas</h3>
             <div class="menu-grid">
+
                 <!-- Special Festival Pizza Large -->
                 <article class="menu-item" data-id="special-festival-pizza-large"
                     data-name="Special Festival Pizza (Large)" data-price="42000">
@@ -1161,7 +1128,7 @@
                     <div class="menu-body">
                         <h4>Special Festival Pizza — Large</h4>
                         <p class="desc">Chunks of chicken, minced meat, sausages, onions & green pepper topped with
-                            cheese.</p>
+                            cheese. Served with a drink or chips as a companion if desired.</p>
                         <div class="meta">
                             <div class="price">42,000 UGX</div>
                             <div class="actions">
@@ -1179,6 +1146,8 @@
                             alt="Special Festival Pizza Medium"></div>
                     <div class="menu-body">
                         <h4>Special Festival Pizza — Medium</h4>
+                        <p class="desc">Chunks of chicken, minced meat, sausages, onions & green pepper topped with
+                            cheese. Optional companion: chips or drink.</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -1196,6 +1165,8 @@
                             alt="Special Festival Pizza Small"></div>
                     <div class="menu-body">
                         <h4>Special Festival Pizza — Small</h4>
+                        <p class="desc">Chunks of chicken, minced meat, sausages, onions & green pepper topped with
+                            cheese. Optional companion: chips or drink.</p>
                         <div class="meta">
                             <div class="price">22,000 UGX</div>
                             <div class="actions">
@@ -1206,6 +1177,7 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -1216,7 +1188,8 @@
                     </div>
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Comes with chips and a drink (tea, coffee, or
+                            soda) — the perfect companion!</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1227,8 +1200,6 @@
                     </div>
                 </article>
 
-
-                <!-- Other pizza variants like BBQ, Veg, Margherita, Vegan Burger etc. follow same structure -->
             </div>
             <p class="promo">EVERY FRIDAY — Paza Promotion: Buy 1 Get 1 Free (Any extra topping charged at 5,000 UGX).
             </p>
@@ -1238,12 +1209,14 @@
         <section id="curries" class="menu-category">
             <h3>Curries</h3>
             <div class="menu-grid">
-                <!-- Example: Vegetable Curry -->
-                <article class="menu-item" data-id="vegetable-curry" data-name="Vegetable curry" data-price="30000">
+
+                <!-- Vegetable Curry -->
+                <article class="menu-item" data-id="vegetable-curry" data-name="Vegetable Curry" data-price="30000">
                     <div class="menu-media"><img src="menu-images/curry-veg.jpg" alt="Vegetable Curry"></div>
                     <div class="menu-body">
                         <h4>Vegetable Curry</h4>
-                        <p class="desc">Assorted seasoned vegetables cooked in mild creamy sauce.</p>
+                        <p class="desc">Assorted seasoned vegetables cooked in mild creamy sauce. Served with rice,
+                            chapati, or posho as companion.</p>
                         <div class="meta">
                             <div class="price">30,000 UGX</div>
                             <div class="actions">
@@ -1252,7 +1225,39 @@
                         </div>
                     </div>
                 </article>
-                <!-- Chicken Curry, Beef Curry, Fish Curry, Thai Peanut Chicken Curry similar -->
+
+                <!-- Chicken Curry -->
+                <article class="menu-item" data-id="chicken-curry" data-name="Chicken Curry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/curry-chicken.jpg" alt="Chicken Curry"></div>
+                    <div class="menu-body">
+                        <h4>Chicken Curry</h4>
+                        <p class="desc">Tender chicken cooked in rich curry sauce. Served with rice, chapati, or posho
+                            as companion.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beef Curry -->
+                <article class="menu-item" data-id="beef-curry" data-name="Beef Curry" data-price="35000">
+                    <div class="menu-media"><img src="menu-images/curry-beef.jpg" alt="Beef Curry"></div>
+                    <div class="menu-body">
+                        <h4>Beef Curry</h4>
+                        <p class="desc">Tender beef cooked in rich curry sauce. Served with rice, chapati, or posho as
+                            companion.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Beef%20Curry&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </section>
 
@@ -1260,14 +1265,15 @@
         <section id="burgers" class="menu-category">
             <h3>Burgers</h3>
             <div class="menu-grid">
+
                 <!-- Chicken Burger Single -->
                 <article class="menu-item" data-id="chicken-burger-single" data-name="Chicken Burger (Single)"
                     data-price="32000">
                     <div class="menu-media"><img src="menu-images/burger-chicken-single.webp"
-                            alt="Chicken Burger Single">
-                    </div>
+                            alt="Chicken Burger Single"></div>
                     <div class="menu-body">
                         <h4>Chicken Burger — Single</h4>
+                        <p class="desc">Served with chips and a drink as companion.</p>
                         <div class="meta">
                             <div class="price">32,000 UGX</div>
                             <div class="actions">
@@ -1278,6 +1284,7 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -1288,7 +1295,8 @@
                     </div>
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Comes with chips and a drink — the perfect
+                            companion!</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1298,93 +1306,90 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Beef Burger Single, Fish Burger, Life Special Burger, Promotions similar -->
-
-                <!-- ================= Double Burgers ================= -->
-                <article class="menu-item" data-id="chicken-burger-double" data-name="Chicken Burger (Double)"
-                    data-price="35000">
-                    <div class="menu-media"><img src="menu-images/burger-chicken-double.jpg"
-                            alt="Chicken Burger Double">
-                    </div>
-                    <div class="menu-body">
-                        <h4>Chicken Burger — Double</h4>
-                        <div class="meta">
-                            <div class="price">35,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add"
-                                    href="payment.html?item=Chicken%20Burger%20(Double)&price=35000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="menu-item" data-id="beef-burger-double" data-name="Beef Burger (Double)"
-                    data-price="35000">
-                    <div class="menu-media"><img src="menu-images/burger-beef-double.jpg" alt="Beef Burger Double">
-                    </div>
-                    <div class="menu-body">
-                        <h4>Beef Burger — Double</h4>
-                        <div class="meta">
-                            <div class="price">35,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add" href="payment.html?item=Beef%20Burger%20(Double)&price=35000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="menu-item" data-id="vegan-burger-32k" data-name="Vegan Burger (Single)"
-                    data-price="32000">
-                    <div class="menu-media"><img src="menu-images/vegan-burger.jpg" alt="Vegan Burger"></div>
-                    <div class="menu-body">
-                        <h4>Vegan Burger</h4>
-                        <div class="meta">
-                            <div class="price">32,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add"
-                                    href="payment.html?item=Vegan%20Burger%20(Single)&price=32000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
-                    data-price="25000">
-                    <div class="menu-media">
-                        <video autoplay muted loop playsinline>
-                            <source src="videos/burger.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="menu-body">
-                        <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
-                        <div class="meta">
-                            <div class="price">25,000 UGX</div>
-                            <div class="actions">
-                                <a class="btn-add"
-                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
 
             </div>
         </section>
 
+
+        <!-- ================= Double & Single Burgers ================= -->
+
+        <!-- Chicken Burger Double -->
+        <article class="menu-item" data-id="chicken-burger-double" data-name="Chicken Burger (Double)"
+            data-price="35000">
+            <div class="menu-media"><img src="menu-images/burger-chicken-double.jpg" alt="Chicken Burger Double"></div>
+            <div class="menu-body">
+                <h4>Chicken Burger — Double</h4>
+                <p class="desc">Served with chips and a drink as companion.</p>
+                <div class="meta">
+                    <div class="price">35,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=Chicken%20Burger%20(Double)&price=35000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Beef Burger Double -->
+        <article class="menu-item" data-id="beef-burger-double" data-name="Beef Burger (Double)" data-price="35000">
+            <div class="menu-media"><img src="menu-images/burger-beef-double.jpg" alt="Beef Burger Double"></div>
+            <div class="menu-body">
+                <h4>Beef Burger — Double</h4>
+                <p class="desc">Served with chips and a drink as companion.</p>
+                <div class="meta">
+                    <div class="price">35,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=Beef%20Burger%20(Double)&price=35000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Vegan Burger Single -->
+        <article class="menu-item" data-id="vegan-burger-32k" data-name="Vegan Burger (Single)" data-price="32000">
+            <div class="menu-media"><img src="menu-images/vegan-burger.jpg" alt="Vegan Burger"></div>
+            <div class="menu-body">
+                <h4>Vegan Burger</h4>
+                <p class="desc">Served with chips and a drink as companion.</p>
+                <div class="meta">
+                    <div class="price">32,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=Vegan%20Burger%20(Single)&price=32000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- EVERY Wednesday Promotion -->
+        <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion" data-price="25000">
+            <div class="menu-media">
+                <video autoplay muted loop playsinline>
+                    <source src="videos/burger.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="menu-body">
+                <h4>Burger Promotion</h4>
+                <p class="desc">Buy 1 Get 1 Free Delicious burger. Comes with chips and a drink as companion.</p>
+                <div class="meta">
+                    <div class="price">25,000 UGX</div>
+                    <div class="actions">
+                        <a class="btn-add" href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
+                    </div>
+                </div>
+            </div>
+        </article>
         <!-- ================= 12. SANDWICHES ================= -->
         <section id="sandwiches" class="menu-category">
             <h3>Sandwiches</h3>
             <div class="menu-grid">
+
                 <!-- Vegetable Sandwich -->
                 <article class="menu-item" data-id="vegetable-sandwich" data-name="Vegetable Sandwich"
                     data-price="25000">
                     <div class="menu-media"><img src="menu-images/sandwich-veg.jpg" alt="Vegetable Sandwich"></div>
                     <div class="menu-body">
                         <h4>Vegetable Sandwich</h4>
-                        <p class="desc">Served with either House Salad, Chips or Potato Wedges.</p>
+                        <p class="desc">Served with companion: House Salad, Chips or Potato Wedges.</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1400,6 +1405,8 @@
                     <div class="menu-media"><img src="menu-images/sandwich-beef.webp" alt="Beef Steak Sandwich"></div>
                     <div class="menu-body">
                         <h4>Beef Steak Sandwich</h4>
+                        <p class="desc">Juicy beef fillet served with companion: House Salad, Chips or Potato Wedges.
+                        </p>
                         <div class="meta">
                             <div class="price">32,000 UGX</div>
                             <div class="actions">
@@ -1414,6 +1421,7 @@
                     <div class="menu-media"><img src="menu-images/sandwich-chicken.jpg" alt="Chicken Sandwich"></div>
                     <div class="menu-body">
                         <h4>Chicken Sandwich</h4>
+                        <p class="desc">Served with companion: House Salad, Chips or Potato Wedges.</p>
                         <div class="meta">
                             <div class="price">34,000 UGX</div>
                             <div class="actions">
@@ -1427,10 +1435,10 @@
                 <article class="menu-item" data-id="chicken-mayo-sandwich" data-name="Chicken Mayo Sandwich"
                     data-price="34000">
                     <div class="menu-media"><img src="menu-images/sandwich-chicken-mayo.jpg"
-                            alt="Chicken Mayo Sandwich">
-                    </div>
+                            alt="Chicken Mayo Sandwich"></div>
                     <div class="menu-body">
                         <h4>Chicken Mayo Sandwich</h4>
+                        <p class="desc">Served with companion: House Salad, Chips or Potato Wedges.</p>
                         <div class="meta">
                             <div class="price">34,000 UGX</div>
                             <div class="actions">
@@ -1446,6 +1454,7 @@
                     <div class="menu-media"><img src="menu-images/sandwich-cheese.jpg" alt="Cheese Sandwich"></div>
                     <div class="menu-body">
                         <h4>Cheese Sandwich</h4>
+                        <p class="desc">Served with companion: House Salad, Chips or Potato Wedges.</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1462,7 +1471,7 @@
                     <div class="menu-body">
                         <h4>Original Club Sandwich</h4>
                         <p class="desc">Chicken mayo, beef steak, fried eggs, cheese, pickles, tomatoes & onions. Served
-                            with House Salad, Chips or Potato Wedges.</p>
+                            with companion: House Salad, Chips or Potato Wedges.</p>
                         <div class="meta">
                             <div class="price">40,000 UGX</div>
                             <div class="actions">
@@ -1473,6 +1482,7 @@
                     </div>
                 </article>
 
+                <!-- EVERY Wednesday Burger Promotion -->
                 <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
                     data-price="25000">
                     <div class="menu-media">
@@ -1483,7 +1493,7 @@
                     </div>
                     <div class="menu-body">
                         <h4>Burger Promotion</h4>
-                        <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Served with companion: Chips and a drink.</p>
                         <div class="meta">
                             <div class="price">25,000 UGX</div>
                             <div class="actions">
@@ -1496,17 +1506,18 @@
 
             </div>
         </section>
-
         <!-- ================= 13. LUNCH & DINNER SPECIALS ================= -->
         <section id="lunch-dinner" class="menu-category">
             <h3>Lunch & Dinner Specials</h3>
             <div class="menu-grid">
-                <!-- Soups -->
+
+                <!-- Carrot & Ginger Soup -->
                 <article class="menu-item" data-id="carrot-ginger-soup" data-name="Carrot & Ginger Soup"
                     data-price="15000">
                     <div class="menu-media"><img src="menu-images/soup-carrot.jpg" alt="Carrot & Ginger Soup"></div>
                     <div class="menu-body">
                         <h4>Carrot & Ginger Soup</h4>
+                        <p class="desc">Served with companion: choice of bread or croutons.</p>
                         <div class="meta">
                             <div class="price">15,000 UGX</div>
                             <div class="actions">
@@ -1517,11 +1528,12 @@
                     </div>
                 </article>
 
+                <!-- Tomato Soup -->
                 <article class="menu-item" data-id="tomato-soup" data-name="Tomato Soup" data-price="10000">
                     <div class="menu-media"><img src="menu-images/soup-tomato.webp" alt="Tomato Soup"></div>
                     <div class="menu-body">
                         <h4>Tomato Soup</h4>
-                        <p class="desc">Choice of a creamy or clear soup.</p>
+                        <p class="desc">Choice of creamy or clear soup. Served with companion: bread or croutons.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1531,10 +1543,12 @@
                     </div>
                 </article>
 
+                <!-- Vegetable Soup -->
                 <article class="menu-item" data-id="vegetable-soup" data-name="Vegetable Soup" data-price="15000">
                     <div class="menu-media"><img src="menu-images/soup-vegetable.webp" alt="Vegetable Soup"></div>
                     <div class="menu-body">
                         <h4>Vegetable Soup</h4>
+                        <p class="desc">Served with companion: choice of bread or croutons.</p>
                         <div class="meta">
                             <div class="price">15,000 UGX</div>
                             <div class="actions">
@@ -1544,73 +1558,81 @@
                     </div>
                 </article>
 
-                <!-- Fish & Chicken Dishes follow same structure -->
+                <!-- All Time Coffee Life Platter -->
+                <article class="menu-item" data-id="coffee-life-platter" data-name="All Time Coffee Life Platter"
+                    data-price="85000">
+                    <div class="menu-media"><img src="menu-images/platter.jpg" alt="Coffee Life Platter"></div>
+                    <div class="menu-body">
+                        <h4>All Time Coffee Life Platter</h4>
+                        <p class="desc">Sausages, goat meat, chicken skewer, fish fillet, broccoli, carrot, peppers.
+                            Served with companion: rice, chips, and a soft drink.</p>
+                        <div class="meta">
+                            <div class="price">85,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=All%20Time%20Coffee%20Life%20Platter&price=85000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- EVERY Wednesday Burger Promotion -->
+                <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion"
+                    data-price="25000">
+                    <div class="menu-media">
+                        <video autoplay muted loop playsinline>
+                            <source src="videos/burger.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="menu-body">
+                        <h4>Burger Promotion</h4>
+                        <p class="desc">Buy 1 Get 1 Free Delicious burger. Served with companion: Chips and a drink.</p>
+                        <div class="meta">
+                            <div class="price">25,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add"
+                                    href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Whole Chicken -->
+                <article class="menu-item" data-id="whole-chicken" data-name="Whole Chicken" data-price="65000">
+                    <div class="menu-media"><img src="menu-images/whole-chicken.jpg" alt="Whole Chicken"></div>
+                    <div class="menu-body">
+                        <h4>Whole Chicken</h4>
+                        <p class="desc">Whole oven-grilled chicken marinated to perfection. Served with companion: Chips
+                            or Potato Wedges.</p>
+                        <div class="meta">
+                            <div class="price">65,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Whole%20Chicken&price=65000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Chicken/Goat Biryani -->
+                <article class="menu-item" data-id="chicken-goat-biryani" data-name="Chicken/Goat Biryani"
+                    data-price="35000">
+                    <div class="menu-media"><img src="menu-images/biryani.webp" alt="Chicken/Goat Biryani"></div>
+                    <div class="menu-body">
+                        <h4>Chicken/Goat Biryani</h4>
+                        <p class="desc">Aromatic spiced rice served with companion: choice of chicken or goat plus a
+                            side of salad or chips.</p>
+                        <div class="meta">
+                            <div class="price">35,000 UGX</div>
+                            <div class="actions">
+                                <a class="btn-add" href="payment.html?item=Chicken%2FGoat%20Biryani&price=35000">Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </section>
-
-        <!-- ================= Platters & Specials ================= -->
-        <article class="menu-item" data-id="coffee-life-platter" data-name="All Time Coffee Life Platter"
-            data-price="85000">
-            <div class="menu-media"><img src="menu-images/platter.jpg" alt="Coffee Life Platter"></div>
-            <div class="menu-body">
-                <h4>All Time Coffee Life Platter</h4>
-                <p class="desc">Sausages, goat meat, chicken skewer, fish fillet, broccoli, carrot, peppers.</p>
-                <div class="meta">
-                    <div class="price">85,000 UGX</div>
-                    <div class="actions">
-                        <a class="btn-add"
-                            href="payment.html?item=All%20Time%20Coffee%20Life%20Platter&price=85000">Add</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="menu-item" data-id="burger-promotion" data-name="EVERY Wednesday Promotion" data-price="25000">
-            <div class="menu-media">
-                <video autoplay muted loop playsinline>
-                    <source src="videos/burger.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="menu-body">
-                <h4>Burger Promotion</h4>
-                <p class="desc">Buy 1 Get 1 Free Delicious burger</p>
-                <div class="meta">
-                    <div class="price">25,000 UGX</div>
-                    <div class="actions">
-                        <a class="btn-add" href="payment.html?item=EVERY%20Wednesday%20Promotion&price=25000">Add</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="menu-item" data-id="whole-chicken" data-name="Whole Chicken" data-price="65000">
-            <div class="menu-media"><img src="menu-images/whole-chicken.jpg" alt="Whole Chicken"></div>
-            <div class="menu-body">
-                <h4>Whole Chicken</h4>
-                <p class="desc">Whole oven-grilled chicken marinated to perfection with chips or wedges.</p>
-                <div class="meta">
-                    <div class="price">65,000 UGX</div>
-                    <div class="actions">
-                        <a class="btn-add" href="payment.html?item=Whole%20Chicken&price=65000">Add</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="menu-item" data-id="chicken-goat-biryani" data-name="Chicken/Goat Biryani" data-price="35000">
-            <div class="menu-media"><img src="menu-images/biryani.webp" alt="Chicken/Goat Biryani"></div>
-            <div class="menu-body">
-                <h4>Chicken/Goat Biryani</h4>
-                <p class="desc">Aromatic spiced rice served with choice of chicken or goat.</p>
-                <div class="meta">
-                    <div class="price">35,000 UGX</div>
-                    <div class="actions">
-                        <a class="btn-add" href="payment.html?item=Chicken%2FGoat%20Biryani&price=35000">Add</a>
-                    </div>
-                </div>
-            </div>
-        </article>
         <!-- ================= 16. Beverages Menu ================= -->
         <section id="beverages" class="menu-category">
             <h3>Beverages</h3>
@@ -1622,6 +1644,7 @@
                     <div class="menu-media"><img src="gallery-images/space1.jpeg" alt="House Coffee"></div>
                     <div class="menu-body">
                         <h4>House Coffee — Single</h4>
+                        <p class="desc">Served black or with milk and sugar.</p>
                         <div class="meta">
                             <div class="price">9,000 UGX</div>
                             <div class="actions">
@@ -1636,6 +1659,7 @@
                     <div class="menu-media"><img src="menu-images/coffee-house2.jpg" alt="House Coffee Double"></div>
                     <div class="menu-body">
                         <h4>House Coffee — Double</h4>
+                        <p class="desc">Served black or with milk and sugar.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1650,6 +1674,7 @@
                     <div class="menu-media"><img src="menu-images/espresso.jpg" alt="Espresso"></div>
                     <div class="menu-body">
                         <h4>Espresso — Single</h4>
+                        <p class="desc">Strong, rich, and served in a small cup.</p>
                         <div class="meta">
                             <div class="price">6,000 UGX</div>
                             <div class="actions">
@@ -1663,6 +1688,7 @@
                     <div class="menu-media"><img src="menu-images/espresso2.webp" alt="Espresso Double"></div>
                     <div class="menu-body">
                         <h4>Espresso — Double</h4>
+                        <p class="desc">Double shot for a stronger coffee experience.</p>
                         <div class="meta">
                             <div class="price">7,000 UGX</div>
                             <div class="actions">
@@ -1676,6 +1702,7 @@
                     <div class="menu-media"><img src="menu-images/americano.jpg" alt="Americano"></div>
                     <div class="menu-body">
                         <h4>Americano — Single</h4>
+                        <p class="desc">Espresso with hot water, served black or with milk.</p>
                         <div class="meta">
                             <div class="price">8,000 UGX</div>
                             <div class="actions">
@@ -1689,6 +1716,7 @@
                     <div class="menu-media"><img src="menu-images/americano2.jpg" alt="Americano Double"></div>
                     <div class="menu-body">
                         <h4>Americano — Double</h4>
+                        <p class="desc">Double shot espresso with hot water, served black or with milk.</p>
                         <div class="meta">
                             <div class="price">9,000 UGX</div>
                             <div class="actions">
@@ -1698,11 +1726,12 @@
                     </div>
                 </article>
 
-                <!-- Lattes & Cappuccino -->
+                <!-- Lattes -->
                 <article class="menu-item" data-id="latte-single" data-name="Latte (Single)" data-price="9000">
                     <div class="menu-media"><img src="menu-images/latte.webp" alt="Latte"></div>
                     <div class="menu-body">
                         <h4>Latte — Single</h4>
+                        <p class="desc">Espresso with steamed milk and a light layer of foam.</p>
                         <div class="meta">
                             <div class="price">9,000 UGX</div>
                             <div class="actions">
@@ -1716,6 +1745,7 @@
                     <div class="menu-media"><img src="menu-images/latte2.jpg" alt="Latte Double"></div>
                     <div class="menu-body">
                         <h4>Latte — Double</h4>
+                        <p class="desc">Double espresso with steamed milk and foam.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1725,11 +1755,13 @@
                     </div>
                 </article>
 
+                <!-- Cappuccino -->
                 <article class="menu-item" data-id="cappuccino-single" data-name="Cappuccino (Single)"
                     data-price="9000">
                     <div class="menu-media"><img src="menu-images/cappuccino.webp" alt="Cappuccino"></div>
                     <div class="menu-body">
                         <h4>Cappuccino — Single</h4>
+                        <p class="desc">Espresso with steamed milk and thick foam.</p>
                         <div class="meta">
                             <div class="price">9,000 UGX</div>
                             <div class="actions">
@@ -1743,6 +1775,7 @@
                     <div class="menu-media"><img src="menu-images/mocha.webp" alt="Mocha"></div>
                     <div class="menu-body">
                         <h4>Mocha</h4>
+                        <p class="desc">Espresso with chocolate and steamed milk.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1756,6 +1789,7 @@
                     <div class="menu-media"><img src="menu-images/vanilla-latte2.jpg" alt="Vanilla Latte"></div>
                     <div class="menu-body">
                         <h4>Vanilla Latte</h4>
+                        <p class="desc">Latte with a touch of vanilla syrup, served hot.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1769,6 +1803,7 @@
                     <div class="menu-media"><img src="menu-images/white-chocolate.webp" alt="White Chocolate"></div>
                     <div class="menu-body">
                         <h4>White Chocolate</h4>
+                        <p class="desc">Rich white chocolate drink with steamed milk.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1783,6 +1818,7 @@
                     <div class="menu-media"><img src="menu-images/tea-african.webp" alt="African Tea"></div>
                     <div class="menu-body">
                         <h4>African Tea</h4>
+                        <p class="desc">Traditional African tea, served hot with optional sugar.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1796,6 +1832,7 @@
                     <div class="menu-media"><img src="menu-images/hot-chocolate.jpg" alt="Hot Chocolate"></div>
                     <div class="menu-body">
                         <h4>Hot Chocolate</h4>
+                        <p class="desc">Rich chocolate drink with steamed milk.</p>
                         <div class="meta">
                             <div class="price">10,000 UGX</div>
                             <div class="actions">
@@ -1810,6 +1847,7 @@
                     <div class="menu-media"><img src="menu-images/iced-mocha.webp" alt="Iced Mocha"></div>
                     <div class="menu-body">
                         <h4>Iced Mocha</h4>
+                        <p class="desc">Chilled espresso with chocolate and ice, served cold.</p>
                         <div class="meta">
                             <div class="price">13,000 UGX</div>
                             <div class="actions">
@@ -1824,7 +1862,7 @@
                     <div class="menu-media"><img src="menu-images/juice-regular.jpeg" alt="Regular Juice"></div>
                     <div class="menu-body">
                         <h4>Regular Juice</h4>
-                        <p class="desc">Blend of mango, watermelon, passion, or pineapple.</p>
+                        <p class="desc">Blend of mango, watermelon, passion fruit, or pineapple.</p>
                         <div class="meta">
                             <div class="price">9,000 UGX</div>
                             <div class="actions">
@@ -1839,6 +1877,7 @@
                     <div class="menu-media"><img src="menu-images/juice-apple.webp" alt="Apple Juice"></div>
                     <div class="menu-body">
                         <h4>Apple Juice</h4>
+                        <p class="desc">Freshly pressed apple juice, served chilled.</p>
                         <div class="meta">
                             <div class="price">13,000 UGX</div>
                             <div class="actions">
@@ -1854,6 +1893,7 @@
                     <div class="menu-media"><img src="menu-images/smoothie-banana.webp" alt="Banana Caramel"></div>
                     <div class="menu-body">
                         <h4>Banana Caramel Smoothie</h4>
+                        <p class="desc">Blended banana with caramel and milk, served cold.</p>
                         <div class="meta">
                             <div class="price">16,000 UGX</div>
                             <div class="actions">
@@ -1868,6 +1908,7 @@
                     <div class="menu-media"><img src="menu-images/smoothie-mango.webp" alt="Mango Smoothie"></div>
                     <div class="menu-body">
                         <h4>Mango Smoothie</h4>
+                        <p class="desc">Fresh mango blended with milk, served chilled.</p>
                         <div class="meta">
                             <div class="price">15,000 UGX</div>
                             <div class="actions">
@@ -1882,6 +1923,7 @@
                     data-price="3000">
                     <div class="menu-body">
                         <h4>Soda</h4>
+                        <p class="desc">Chilled carbonated soft drink.</p>
                         <div class="meta">
                             <div class="price">3,000 UGX</div>
                             <div class="actions">
@@ -1894,6 +1936,7 @@
                 <article class="menu-item menu-item--small" data-id="water" data-name="Water" data-price="3000">
                     <div class="menu-body">
                         <h4>Water</h4>
+                        <p class="desc">Bottled drinking water.</p>
                         <div class="meta">
                             <div class="price">3,000 UGX</div>
                             <div class="actions">
@@ -1905,8 +1948,6 @@
 
             </div>
         </section>
-
-
 
         <!-- ===== COFFEE LIFE GALLERY ===== -->
         <section id="gallery" class="gallery-section container">

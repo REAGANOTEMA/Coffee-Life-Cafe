@@ -71,7 +71,7 @@
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
 
-        // Update logo slogan
+        // Update logo slogans
         const slogan = header.querySelector('.luxury-slogan');
         const subSlogan = header.querySelector('.luxury-slogan-sub');
         if (slogan) slogan.textContent = (lang === 'ar') ? 'اللحظات تبدأ بالقهوة' : 'Moments Begin with Coffee';
@@ -97,21 +97,22 @@
         });
     });
 
-    // ==================== SMOOTH SCROLL ====================
+    // ==================== SMOOTH SCROLL & CROSS-PAGE ====================
     function smoothScrollToTarget(el) {
         el.addEventListener('click', e => {
             const href = el.getAttribute('href');
-            if (!href.includes('#')) return; // ignore external links
+            if (!href.includes('#')) return; // external link
             e.preventDefault();
             const targetId = href.split('#')[1];
             const target = document.getElementById(targetId);
+
             if (target) {
                 window.scrollTo({
                     top: target.offsetTop - header.offsetHeight,
                     behavior: 'smooth'
                 });
             } else {
-                // fallback to index.html link
+                // fallback to index.html
                 window.location.href = href;
             }
         });
@@ -132,19 +133,18 @@
             }, 100);
         });
 
-        // Animate cart icon
         if (cartIcon) {
             cartIcon.style.transition = 'transform 0.5s ease';
             cartIcon.style.transform = 'scale(0.7)';
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Animate logo and slogans
         if (logo) {
             logo.style.transition = 'transform 0.7s ease';
             logo.style.transform = 'translateY(-5px)';
             setTimeout(() => logo.style.transform = 'translateY(0)', 300);
         }
+
         const slogans = header.querySelectorAll('.luxury-slogan, .luxury-slogan-sub');
         slogans.forEach((s, idx) => {
             s.style.transition = `transform 0.7s ease ${idx * 0.1}s, opacity 0.7s ease ${idx * 0.1}s`;
@@ -158,9 +158,8 @@
     }
     animateHeaderCinematic();
 
-    // Optional: re-animate header on scroll for cinematic effect
+    // Re-animate header on scroll for cinematic effect
     window.addEventListener('scroll', () => {
         animateHeaderCinematic();
     });
-
 })();

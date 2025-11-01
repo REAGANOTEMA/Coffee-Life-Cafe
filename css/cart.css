@@ -1,4 +1,4 @@
-/* ================= PAYMENT FINAL CSS ================= */
+/* ================= PAYMENT & CART FINAL CSS ================= */
 
 /* --- Base & Reset --- */
 body {
@@ -84,6 +84,21 @@ h3 {
 }
 
 /* --- Cart Items --- */
+#cartItems {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+#cartItems p {
+    padding: 12px;
+    color: #fff;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
 .cart-item {
     display: flex;
     align-items: center;
@@ -109,6 +124,18 @@ h3 {
 .cart-item-info {
     flex: 1;
     margin-left: 10px;
+}
+
+.cart-item-info strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.cart-item-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
 }
 
 .cart-item-controls {
@@ -263,6 +290,34 @@ select {
         transform: scale(1);
         opacity: 0.9;
     }
+}
+
+/* --- Feedback Form --- */
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* --- Feedback Toast --- */
+#fbToast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #ffb300;
+    color: #000;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
 }
 
 /* --- Responsive --- */
