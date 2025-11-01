@@ -10,7 +10,6 @@
     justify-content: center;
     color: #fff;
     background: #000;
-    /* fallback */
 }
 
 /* ==================== BACKGROUND LAYERS ==================== */
@@ -51,7 +50,7 @@
     top: 0;
     left: 0;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out, transform 12s ease-in-out;
+    transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
 }
 
 .hero-slide-text {
@@ -67,19 +66,6 @@
     transition: all 1.5s ease-in-out;
 }
 
-/* Cinematic text animation */
-@keyframes slide-text-fade {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* ==================== HERO INNER CONTENT ==================== */
 .hero-inner {
     position: relative;
@@ -91,7 +77,6 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    /* spacing between title and slide texts */
 }
 
 .hero-title {
@@ -146,18 +131,20 @@
     font-weight: 800;
     text-transform: uppercase;
     color: #fff;
-    background: linear-gradient(145deg, #b85c38, #ff9068);
+    background: linear-gradient(145deg, #c0392b, #f1c40f);
+    /* red to yellow */
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow:
+        0 5px 0 #922b21,
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 8px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     z-index: 10;
-    position: fixed;
-    bottom: 2%;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     perspective: 1000px;
     transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
 }
 
 .hero-btn.order-btn::before {
@@ -167,10 +154,26 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5) inset;
-    transform: translateZ(-10px);
+    border-radius: 15px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0));
     z-index: -1;
+}
+
+/* Hover & Active */
+.hero-btn.order-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 8px 0 #922b21,
+        0 15px 25px rgba(0, 0, 0, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.hero-btn.order-btn:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow:
+        0 3px 0 #922b21,
+        0 5px 15px rgba(0, 0, 0, 0.4),
+        inset 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
 .btn-light {
@@ -179,15 +182,15 @@
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 10px #fff, 0 0 20px #ff9068, 0 0 30px #b85c38;
+        box-shadow: 0 0 10px #fff, 0 0 20px #f1c40f, 0 0 30px #c0392b;
     }
 
     50% {
-        box-shadow: 0 0 20px #fff, 0 0 40px #ff9068, 0 0 60px #b85c38;
+        box-shadow: 0 0 20px #fff, 0 0 40px #f1c40f, 0 0 60px #c0392b;
     }
 
     100% {
-        box-shadow: 0 0 10px #fff, 0 0 20px #ff9068, 0 0 30px #b85c38;
+        box-shadow: 0 0 10px #fff, 0 0 20px #f1c40f, 0 0 30px #c0392b;
     }
 }
 
@@ -215,55 +218,6 @@
     }
 }
 
-/* ==================== SPARKLES ==================== */
-.hero-sparkle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: sparkle 3s infinite;
-}
-
-@keyframes sparkle {
-
-    0%,
-    100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 0.8;
-    }
-
-    50% {
-        transform: scale(1.5) rotate(180deg);
-        opacity: 0.3;
-    }
-}
-
-/* ==================== FLOATING FOOD ICONS ==================== */
-.hero-food-decor {
-    position: absolute;
-    color: #fff;
-    pointer-events: none;
-    z-index: 3;
-    user-select: none;
-    animation: float 8s infinite alternate ease-in-out;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-10px) translateX(5px) rotate(15deg);
-    }
-
-    100% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-    }
-}
-
 /* ==================== SCROLL DOWN ICON ==================== */
 .scroll-down {
     position: absolute;
@@ -285,6 +239,30 @@
     50% {
         transform: translateX(-50%) translateY(-15px);
     }
+}
+
+/* ==================== MOBILE NAVIGATION ==================== */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
 }
 
 /* ==================== RESPONSIVE ==================== */

@@ -1,19 +1,16 @@
-// ==================== LUXURY HERO - CINEMATIC SLIDES & INTERACTIONS ====================
+// ==================== LUXURY HERO - FINAL CINEMATIC SLIDES ====================
 (() => {
-  const SLIDE_INTERVAL = 8000;       // 8 seconds per slide
-  const SHAKE_INTERVAL = 3000;       // shake every 3s
+  const SLIDE_INTERVAL = 8000; // 8s per slide
+  const SHAKE_INTERVAL = 3000;
   const SHAKE_DURATION = 900;
-  const LIGHT_INTERVAL = 4000;       // glow every 4s
-  const SPARKLE_COUNT = 35;
-  const FOOD_ICON_COUNT = 20;
+  const LIGHT_INTERVAL = 4000;
+  const ZOOM_SCALE = 1.05; // subtle zoom-in effect on slide
 
   const hero = document.querySelector(".hero");
   if (!hero) return;
 
   const slides = Array.from(hero.querySelectorAll(".hero-slide"));
   const heroBtn = hero.querySelector(".hero-btn.order-btn");
-  const sparkleLayer = hero.querySelector(".hero-luxury-glow");
-  const heroBg = hero.querySelector(".hero-background");
   const heroTitle = hero.querySelector(".hero-title");
   const slideTexts = hero.querySelectorAll(".hero-slide-text");
 
@@ -36,7 +33,7 @@
     s.style.backgroundSize = "cover";
     s.style.backgroundPosition = "center";
     s.style.opacity = "0";
-    s.style.transition = "opacity 1.5s ease-in-out, transform 12s ease-in-out";
+    s.style.transition = "opacity 1.5s ease-in-out, transform 8s ease-in-out";
     s.dataset.slideIndex = i;
     s.setAttribute("aria-hidden", "true");
   });
@@ -47,7 +44,9 @@
       if (idx === i) {
         s.style.opacity = "1";
         s.style.zIndex = "2";
+        s.style.transform = `scale(${ZOOM_SCALE})`;
         s.setAttribute("aria-hidden", "false");
+
         if (text) {
           text.style.opacity = "0";
           text.style.transform = "translateY(20px)";
@@ -60,6 +59,7 @@
       } else {
         s.style.opacity = "0";
         s.style.zIndex = "1";
+        s.style.transform = "scale(1)";
         s.setAttribute("aria-hidden", "true");
       }
     });
@@ -73,41 +73,7 @@
   showSlide(slideIndex);
   setInterval(nextSlide, SLIDE_INTERVAL);
 
-  // ==================== SPARKLES ====================
-  if (sparkleLayer && !sparkleLayer.dataset.initialized) {
-    sparkleLayer.dataset.initialized = "true";
-    for (let i = 0; i < SPARKLE_COUNT; i++) {
-      const sp = document.createElement("div");
-      sp.className = "hero-sparkle";
-      sp.style.top = `${Math.random() * 100}%`;
-      sp.style.left = `${Math.random() * 100}%`;
-      sp.style.animationDelay = `${(Math.random() * 3).toFixed(2)}s`;
-      sparkleLayer.appendChild(sp);
-    }
-  }
-
-  // ==================== FLOATING FOOD ICONS ====================
-  if (heroBg && !heroBg.dataset.iconsInit) {
-    heroBg.dataset.iconsInit = "true";
-    const icons = ["☕", "🍰", "🥐", "🍩", "🍪", "🥞", "🍔", "🍕", "🥗", "🍟"];
-    for (let i = 0; i < FOOD_ICON_COUNT; i++) {
-      const d = document.createElement("div");
-      d.className = "hero-food-decor";
-      d.textContent = icons[Math.floor(Math.random() * icons.length)];
-      d.style.top = `${Math.random() * 100}%`;
-      d.style.left = `${Math.random() * 100}%`;
-      d.style.fontSize = `${Math.random() * 30 + 20}px`;
-      d.style.opacity = (0.2 + Math.random() * 0.5).toString();
-      heroBg.appendChild(d);
-    }
-    setInterval(() => {
-      heroBg.querySelectorAll(".hero-food-decor").forEach(e => {
-        e.style.transform = `translateY(${Math.random() * 10 - 5}px) translateX(${Math.random() * 6 - 3}px) rotate(${Math.random() * 15 - 7}deg)`;
-      });
-    }, 7000);
-  }
-
-  // ==================== MOUSE PARALLAX ====================
+  // ==================== PARALLAX EFFECT ====================
   document.addEventListener("mousemove", e => {
     const x = (e.clientX / window.innerWidth - 0.5) * 20;
     const y = (e.clientY / window.innerHeight - 0.5) * 20;
@@ -117,16 +83,34 @@
     });
   });
 
-  // ==================== ORDER BUTTON ANIMATION ====================
+  // ==================== ORDER BUTTON ====================
   if (heroBtn) {
     heroBtn.addEventListener("click", e => {
       e.preventDefault();
-      const menu = document.querySelector("#menu");
+      const menu = document.querySelector("#menu-title"); // link to menu section
       if (menu) menu.scrollIntoView({ behavior: "smooth" });
     });
 
     setInterval(() => addThenRemove(heroBtn, "btn-shake", SHAKE_DURATION), SHAKE_INTERVAL);
     setInterval(() => addThenRemove(heroBtn, "btn-light", 1200), LIGHT_INTERVAL);
+  }
+
+  // ==================== MOBILE HAMBURGER NAV ====================
+  const hamburgerBtn = document.querySelector(".hamburger-btn");
+  const mobileNav = document.querySelector(".mobile-nav");
+  const navClose = document.querySelector(".nav-close");
+
+  if (hamburgerBtn && mobileNav) {
+    hamburgerBtn.addEventListener("click", () => {
+      mobileNav.style.display = "block";
+      mobileNav.style.zIndex = "9999"; // above hero
+    });
+  }
+
+  if (navClose && mobileNav) {
+    navClose.addEventListener("click", () => {
+      mobileNav.style.display = "none";
+    });
   }
 
 })();
