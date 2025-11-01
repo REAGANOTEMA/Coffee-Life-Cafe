@@ -1,5 +1,5 @@
 /* ========================================= 
-   ULTRA-LUXURY CINEMATIC HEADER - FINAL JS WITH 3D NAV BUTTONS
+   ULTRA-LUXURY CINEMATIC HEADER - FINAL PROFESSIONAL JS
 ========================================= */
 (function () {
     const NAV_ITEMS = [
@@ -28,17 +28,17 @@
         if (cartIcon) cartIcon.textContent = total;
     }
     updateCartCount();
-    window.globalAddToCart = function (item) {
+    window.globalAddToCart = function(item) {
         const existing = window.cart.find(i => i.id === item.id);
-        if (existing) existing.qty++;
-        else window.cart.push({ ...item, qty: 1 });
+        if(existing) existing.qty++;
+        else window.cart.push({...item, qty:1});
         updateCartCount();
     };
-    window.globalRemoveFromCart = function (id) {
+    window.globalRemoveFromCart = function(id){
         const index = window.cart.findIndex(i => i.id === id);
-        if (index === -1) return;
+        if(index === -1) return;
         window.cart[index].qty--;
-        if (window.cart[index].qty <= 0) window.cart.splice(index, 1);
+        if(window.cart[index].qty <= 0) window.cart.splice(index,1);
         updateCartCount();
     };
 
@@ -48,12 +48,12 @@
         const newLang = (localStorage.getItem('luxury_lang') || DEFAULT_LANG) === 'en' ? 'ar' : 'en';
         setLanguage(newLang);
     });
-    function setLanguage(lang) {
+    function setLanguage(lang){
         localStorage.setItem('luxury_lang', lang);
         navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
-        if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
-        if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
+        if(title) title.textContent = (lang==='ar')?'قهوة الحياة':'Coffee Life';
+        if(slogan) slogan.textContent = (lang==='ar')?'كل. اجتمع. اعمل.':'Eat. Meet. Work.';
     }
     setLanguage(DEFAULT_LANG);
 
@@ -61,69 +61,73 @@
     hamburger.addEventListener('click', () => {
         const isActive = mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        mobileMenu.style.display = isActive ? 'flex' : 'none';
+        mobileMenu.style.display = isActive?'flex':'none';
         hamburger.setAttribute('aria-expanded', isActive);
     });
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', ()=>{
             mobileMenu.classList.remove('active');
             hamburger.classList.remove('active');
             mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-expanded','false');
         });
     });
 
     // ==================== SMOOTH SCROLL ====================
-    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
-        el.addEventListener('click', e => {
+    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el=>{
+        el.addEventListener('click', e=>{
             const href = el.getAttribute('href');
-            if (!href.includes('#')) return;
+            if(!href.includes('#')) return;
             e.preventDefault();
             const target = document.getElementById(href.split('#')[1]);
-            if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
+            if(target) window.scrollTo({top: target.offsetTop - header.offsetHeight, behavior:'smooth'});
             else window.location.href = href;
         });
     });
 
     // ==================== CINEMATIC HEADER ANIMATIONS ====================
-    function animateHeaderElements() {
-        navLinks.forEach((link, idx) => {
-            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.5s ease`;
-            link.style.transform = 'translateY(-15px) rotateX(15deg)';
+    function animateHeaderElements(){
+        // 3D Nav buttons
+        navLinks.forEach((link, idx)=>{
+            link.style.transition = `transform 0.8s ease ${idx*0.1}s, opacity 0.8s ease ${idx*0.1}s, box-shadow 0.5s ease`;
+            link.style.transform = 'translateY(-10px) rotateX(10deg)';
             link.style.opacity = '0';
-            setTimeout(() => {
+            setTimeout(()=>{
                 link.style.transform = 'translateY(0) rotateX(0)';
                 link.style.opacity = '1';
-            }, 100);
-            link.addEventListener('mouseenter', () => {
+            },100);
+            link.addEventListener('mouseenter', ()=>{
                 link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
                 link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
             });
-            link.addEventListener('mouseleave', () => {
+            link.addEventListener('mouseleave', ()=>{
                 link.style.transform = 'translateY(0) rotateX(0) scale(1)';
                 link.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
             });
         });
 
-        if (logo) {
+        // Logo animation left
+        if(logo){
             logo.style.transition = 'transform 0.7s ease';
-            logo.style.transform = 'translateY(-5px) scale(0.95)';
-            setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
+            logo.style.transform = 'translateY(0) scale(1)';
         }
 
-        if (cartIcon) {
+        // Cart animation right
+        if(cartIcon){
             cartIcon.style.transition = 'transform 0.5s ease';
-            cartIcon.style.transform = 'scale(0.7)';
-            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
+            cartIcon.style.transform = 'scale(1)';
         }
 
-        if (title) {
+        // Title cinematic center
+        if(title){
             title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
-            title.style.opacity = '1';
+            title.style.opacity='1';
         }
-        if (slogan) {
+
+        // Slogan cinematic below title
+        if(slogan){
             slogan.style.transition = 'opacity 1s ease';
-            slogan.style.opacity = '1';
+            slogan.style.opacity='1';
         }
     }
     animateHeaderElements();
@@ -131,11 +135,11 @@
 
     // ==================== TV-STYLE TITLE SLIDE ====================
     let position = 0, direction = 1;
-    function animateTitleSlide() {
-        if (!title) return;
-        const maxSlide = 20;
-        position += direction * 0.6;
-        if (position > maxSlide || position < -maxSlide) direction *= -1;
+    function animateTitleSlide(){
+        if(!title) return;
+        const maxSlide = 25; // more cinematic sliding
+        position += direction*0.7;
+        if(position>maxSlide || position<-maxSlide) direction*=-1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
