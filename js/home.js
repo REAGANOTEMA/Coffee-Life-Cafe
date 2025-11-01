@@ -13,7 +13,7 @@
     const header = document.getElementById('mainHeader');
     if (!header) return;
 
-    const logo = header.querySelector('.logo');
+    const logo = header.querySelector('.logo img');
     const title = header.querySelector('.luxury-title');
     const slogan = header.querySelector('.luxury-slogan');
     const hamburger = document.getElementById('hamburger');
@@ -34,7 +34,6 @@
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
-
     window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
@@ -52,17 +51,8 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
-
-        const navLinks = header.querySelectorAll('.nav-link');
-        navLinks.forEach((link, idx) => {
-            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-        });
-
-        const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
-        mobileLinks.forEach((link, idx) => {
-            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-        });
-
+        header.querySelectorAll('.nav-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
+        mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
         if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
     }
@@ -76,12 +66,11 @@
         mobileMenu.setAttribute('aria-hidden', !isActive);
         hamburger.setAttribute('aria-expanded', isActive);
     });
-
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
-            mobileMenu.style.display = 'none';
             hamburger.classList.remove('active');
+            mobileMenu.style.display = 'none';
             hamburger.setAttribute('aria-expanded', 'false');
         });
     });
@@ -94,38 +83,31 @@
             e.preventDefault();
             const targetId = href.split('#')[1];
             const target = document.getElementById(targetId);
-
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - header.offsetHeight,
-                    behavior: 'smooth'
-                });
-            } else {
-                window.location.href = href;
-            }
+            if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
+            else window.location.href = href;
         });
     }
     document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(smoothScrollToTarget);
 
     // ==================== CINEMATIC ANIMATIONS ====================
     function animateHeaderElements() {
-        // Nav links
+        // Nav links 3D HD
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
             link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s`;
-            link.style.transform = 'translateY(-10px)';
+            link.style.transform = 'translateY(-15px) rotateX(15deg)';
             link.style.opacity = '0';
             setTimeout(() => {
-                link.style.transform = 'translateY(0)';
+                link.style.transform = 'translateY(0) rotateX(0)';
                 link.style.opacity = '1';
             }, 100);
         });
 
-        // Logo
+        // Logo animation
         if (logo) {
             logo.style.transition = 'transform 0.7s ease';
-            logo.style.transform = 'translateY(-5px)';
-            setTimeout(() => logo.style.transform = 'translateY(0)', 300);
+            logo.style.transform = 'translateY(-5px) scale(0.95)';
+            setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
         }
 
         // Cart
@@ -135,7 +117,7 @@
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Title & Slogan
+        // Title & Slogan cinematic
         if (title) {
             title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
             title.style.transform = 'translateY(-10px)';
@@ -156,22 +138,17 @@
         }
     }
     animateHeaderElements();
-
-    // Re-animate on scroll
-    window.addEventListener('scroll', () => {
-        animateHeaderElements();
-    });
+    window.addEventListener('scroll', animateHeaderElements);
 
     // ==================== TV-STYLE TITLE SLIDE ====================
     let position = 0, direction = 1;
     function animateTitleSlide() {
         if (!title) return;
-        const maxSlide = 10; // pixels to slide
-        position += direction * 0.5; // speed
+        const maxSlide = 15; // TV style sliding
+        position += direction * 0.6; // speed
         if (position > maxSlide || position < -maxSlide) direction *= -1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
-
 })();

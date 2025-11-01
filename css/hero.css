@@ -6,10 +6,12 @@
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #fff;
     background: #000;
+    z-index: 1;
 }
 
 /* ==================== BACKGROUND LAYERS ==================== */
@@ -131,14 +133,10 @@
     font-weight: 800;
     text-transform: uppercase;
     color: #fff;
-    background: linear-gradient(145deg, #c0392b, #f1c40f);
-    /* red to yellow */
+    background: linear-gradient(145deg, #ff4b2b, #ffcc00);
     border: none;
-    border-radius: 15px;
-    box-shadow:
-        0 5px 0 #922b21,
-        0 10px 20px rgba(0, 0, 0, 0.5),
-        inset 0 0 8px rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     z-index: 10;
     position: relative;
@@ -154,26 +152,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0));
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5) inset;
+    transform: translateZ(-10px);
     z-index: -1;
-}
-
-/* Hover & Active */
-.hero-btn.order-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow:
-        0 8px 0 #922b21,
-        0 15px 25px rgba(0, 0, 0, 0.5),
-        inset 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.hero-btn.order-btn:active {
-    transform: translateY(2px) scale(0.98);
-    box-shadow:
-        0 3px 0 #922b21,
-        0 5px 15px rgba(0, 0, 0, 0.4),
-        inset 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
 .btn-light {
@@ -182,15 +164,15 @@
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 10px #fff, 0 0 20px #f1c40f, 0 0 30px #c0392b;
+        box-shadow: 0 0 10px #fff, 0 0 20px #ffcc00, 0 0 30px #ff4b2b;
     }
 
     50% {
-        box-shadow: 0 0 20px #fff, 0 0 40px #f1c40f, 0 0 60px #c0392b;
+        box-shadow: 0 0 20px #fff, 0 0 40px #ffcc00, 0 0 60px #ff4b2b;
     }
 
     100% {
-        box-shadow: 0 0 10px #fff, 0 0 20px #f1c40f, 0 0 30px #c0392b;
+        box-shadow: 0 0 10px #fff, 0 0 20px #ffcc00, 0 0 30px #ff4b2b;
     }
 }
 
@@ -218,6 +200,55 @@
     }
 }
 
+/* ==================== SPARKLES ==================== */
+.hero-sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkle 3s infinite;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0.3;
+    }
+}
+
+/* ==================== FLOATING FOOD ICONS ==================== */
+.hero-food-decor {
+    position: absolute;
+    color: #fff;
+    pointer-events: none;
+    z-index: 3;
+    user-select: none;
+    animation: float 8s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(5px) rotate(15deg);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+}
+
 /* ==================== SCROLL DOWN ICON ==================== */
 .scroll-down {
     position: absolute;
@@ -241,6 +272,15 @@
     }
 }
 
+/* ==================== LOGO ==================== */
+.logo {
+    position: relative;
+    z-index: 999;
+    max-width: 180px;
+    width: 100%;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+}
+
 /* ==================== MOBILE NAVIGATION ==================== */
 .mobile-nav {
     display: none;
@@ -248,21 +288,21 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: rgba(0, 0, 0, 0.95);
-    z-index: 9999;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
 .nav-close {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 25px;
     font-size: 2rem;
-    cursor: pointer;
     color: #fff;
+    cursor: pointer;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -279,6 +319,10 @@
         padding: 15px 35px;
         font-size: 1.1rem;
     }
+
+    .logo {
+        max-width: 140px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -293,5 +337,9 @@
     .hero-btn.order-btn {
         padding: 12px 28px;
         font-size: 1rem;
+    }
+
+    .logo {
+        max-width: 120px;
     }
 }

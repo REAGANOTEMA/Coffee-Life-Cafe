@@ -56,6 +56,18 @@
             text.style.transform = "translateY(0)";
           }, 300);
         }
+
+        // Move slide text to hero-inner below title
+        if (heroTitle && text) {
+          if (!heroTitle.nextElementSibling || !heroTitle.nextElementSibling.classList.contains('current-slide-text')) {
+            const cloneText = text.cloneNode(true);
+            cloneText.classList.add('current-slide-text');
+            // Remove old
+            const oldText = hero.querySelector('.current-slide-text');
+            if (oldText) oldText.remove();
+            heroTitle.parentElement.appendChild(cloneText);
+          }
+        }
       } else {
         s.style.opacity = "0";
         s.style.zIndex = "1";
@@ -78,9 +90,8 @@
     const x = (e.clientX / window.innerWidth - 0.5) * 20;
     const y = (e.clientY / window.innerHeight - 0.5) * 20;
     if (heroTitle) heroTitle.style.transform = `translate(${x / 3}px,${y / 3}px)`;
-    slideTexts.forEach(s => {
-      s.style.transform = `translate(${x / 6}px,${y / 6}px)`;
-    });
+    const currentText = hero.querySelector('.current-slide-text');
+    if (currentText) currentText.style.transform = `translate(${x / 6}px,${y / 6}px)`;
   });
 
   // ==================== ORDER BUTTON ====================
@@ -102,7 +113,7 @@
 
   if (hamburgerBtn && mobileNav) {
     hamburgerBtn.addEventListener("click", () => {
-      mobileNav.style.display = "block";
+      mobileNav.style.display = "flex";
       mobileNav.style.zIndex = "9999"; // above hero
     });
   }
