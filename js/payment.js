@@ -244,3 +244,50 @@
     loadCart();
     renderCart();
 })();
+// === Payment Option Selection Fix ===
+document.querySelectorAll('.payment-option').forEach(option => {
+    option.addEventListener('click', function () {
+        // Remove previous selection
+        document.querySelectorAll('.payment-option').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+
+        // Add to clicked option
+        this.classList.add('selected');
+
+        // Update payment provider variable
+        const provider = this.classList.contains('mtn') ? 'MTN' : 'AIRTEL';
+        localStorage.setItem('paymentProvider', provider);
+
+        // Voice guide or toast feedback
+        const msg = `You selected ${provider}. Please proceed below.`;
+        speakGuide(msg);
+        showToast(msg);
+
+        // Optional: visually confirm with shake and glow
+        this.classList.add('btn-glow');
+        setTimeout(() => this.classList.remove('btn-glow'), 1200);
+    });
+});
+
+// === Toast ===
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+    }, 2500);
+}
+
+// === Voice Guidance ===
+function speakGuide(text) {
+    if (!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 1;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+}
