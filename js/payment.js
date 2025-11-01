@@ -2,8 +2,8 @@
     'use strict';
 
     /* ================= CONFIG ================= */
-    const WA_NUMBER = '256746888730'; // WhatsApp orders
-    const SUPPORT_NUMBER = '256784305795'; // Call support
+    const WA_NUMBER = '256746888730';
+    const SUPPORT_NUMBER = '256784305795';
     const MTN_MERCHANT = '971714';
     const AIRTEL_MERCHANT = '4393386';
     const STORAGE_KEY = 'COFFEE_CART';
@@ -81,7 +81,6 @@
         }
     };
 
-    /* ================= VOICE FEEDBACK ================= */
     const speak = text => {
         if ('speechSynthesis' in window) {
             const utter = new SpeechSynthesisUtterance(text);
@@ -162,7 +161,7 @@
     window.CoffeeLife.addToCart = addToCart;
     window.CoffeeLife.renderCart = renderCart;
 
-    /* ================= DELIVERY HANDLING ================= */
+    /* ================= DELIVERY ================= */
     const updateDeliveryFee = () => {
         const area = deliverySelect?.value || '';
         DELIVERY_FEE = DELIVERY_AREAS[area] || 0;
@@ -170,18 +169,18 @@
         if (deliveryFeeSummaryEl) deliveryFeeSummaryEl.textContent = formatUGX(DELIVERY_FEE);
         renderCart();
     };
-    deliverySelect?.addEventListener('change', () => { updateDeliveryFee(); speak(`Delivery area changed to ${deliverySelect.value}`); });
+    deliverySelect?.addEventListener('change', () => { updateDeliveryFee(); speak(`Delivery area: ${deliverySelect.value}`); });
     updateDeliveryFee();
 
     /* ================= PAYMENT PROVIDER ================= */
     const setSelectedProvider = provider => {
         selectedProvider = provider || null;
         if (merchantProviderEl) merchantProviderEl.textContent = selectedProvider ? selectedProvider.toUpperCase() : 'None';
-        if (merchantCodeEl) merchantCodeEl.textContent = selectedProvider === 'mtn' ? `MTN: ${MTN_MERCHANT}` :
-            selectedProvider === 'airtel' ? `Airtel: ${AIRTEL_MERCHANT}` :
-                `MTN: ${MTN_MERCHANT} • Airtel: ${AIRTEL_MERCHANT}`;
+        if (merchantCodeEl) merchantCodeEl.textContent = selectedProvider === 'mtn' ? MTN_MERCHANT :
+            selectedProvider === 'airtel' ? AIRTEL_MERCHANT :
+                `${MTN_MERCHANT} / ${AIRTEL_MERCHANT}`;
         paymentOptions.forEach(b => b.classList.toggle('selected', b.dataset.provider === provider));
-        speak(`Payment provider selected: ${selectedProvider}`);
+        speak(`Payment provider: ${selectedProvider}`);
     };
     paymentOptions.forEach(btn => btn.addEventListener('click', () => setSelectedProvider(btn.dataset.provider)));
 
@@ -193,35 +192,29 @@
         if (await copyToClipboard(b.dataset.code)) showToast(`${b.dataset.network} code copied`);
     }));
     showUSSDBtn?.addEventListener('click', () => {
-        if (!selectedProvider) return showToast('Select a provider first');
-        alert(`USSD Instruction: ${selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn('AMOUNT') : USSD_TEMPLATES.airtel('AMOUNT')}`);
+        if (!selectedProvider) return showToast('Select provider first');
+        const ussd = selectedProvider === 'mtn' ? USSD_TEMPLATES.mtn('AMOUNT') : USSD_TEMPLATES.airtel('AMOUNT');
+        alert(`USSD Instruction: ${ussd}`);
         speak('USSD instructions displayed');
     });
 
-    /* ================= WHATSAPP ORDER ================= */
+    /* ================= WHATSAPP & CALL ================= */
     whatsappBtn?.addEventListener('click', () => {
         if (!window.CoffeeLife.cart.length) return showToast('Cart is empty');
-        if (!selectedProvider) return showToast('Select a payment provider first');
+        if (!selectedProvider) return showToast('Select payment provider first');
         const number = qs('#paymentNumber')?.value || '';
-        if (!number || number.length < 9) return showToast('Enter a valid payment number');
+        if (!number || number.length < 9) return showToast('Enter a valid number');
 
         const area = deliverySelect?.value || 'Unknown';
         const subtotal = calcSubtotal();
         const total = subtotal + DELIVERY_FEE;
-
         let msg = `☕ Coffee Life Order\n\nItems:\n`;
-        window.CoffeeLife.cart.forEach(i => {
-            msg += `• ${i.name} x${i.qty} = ${formatUGX(i.price * i.qty)}\n`;
-        });
-        msg += `\nSubtotal: ${formatUGX(subtotal)}\nDelivery: ${formatUGX(DELIVERY_FEE)}\nTotal: ${formatUGX(total)}\n`;
-        msg += `Payment via ${selectedProvider.toUpperCase()} (${number})\nDelivery Area: ${area}\n\nThank you!`;
-
-        const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-        window.open(waUrl, '_blank');
+        window.CoffeeLife.cart.forEach(i => msg += `• ${i.name} x${i.qty} = ${formatUGX(i.price * i.qty)}\n`);
+        msg += `\nSubtotal: ${formatUGX(subtotal)}\nDelivery: ${formatUGX(DELIVERY_FEE)}\nTotal: ${formatUGX(total)}\nPayment via ${selectedProvider.toUpperCase()} (${number})\nDelivery Area: ${area}\n\nThank you!`;
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         showToast('WhatsApp message ready');
     });
 
-    /* ================= CALL SUPPORT ================= */
     callSupportBtn?.addEventListener('click', () => {
         window.location.href = `tel:${SUPPORT_NUMBER}`;
         speak('Calling support');

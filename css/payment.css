@@ -16,11 +16,17 @@ body {
     transition: transform 0.18s ease, box-shadow 0.18s ease;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 8px;
-    padding: 12px 20px;
+    border-radius: 50%;
+    /* fully circular buttons */
+    padding: 14px 18px;
     border: none;
     background-color: #6f4e37;
     color: #fff;
+    min-width: 60px;
+    min-height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-3d::after {
@@ -30,7 +36,7 @@ body {
     right: 6px;
     bottom: -6px;
     height: 8px;
-    border-radius: 8px;
+    border-radius: 50%;
     background: rgba(0, 0, 0, 0.12);
     z-index: -1;
     transform-origin: center;
@@ -90,20 +96,15 @@ body {
     animation: pf-shake 0.6s ease-in-out;
 }
 
-/* --- Button Highlight --- */
-.btn-highlight {
-    box-shadow: 0 8px 30px rgba(255, 179, 0, 0.18);
-    transform: translateY(-2px) scale(1.01);
-}
-
 /* --- Pointer / Bubble --- */
 .pointer-bubble {
     background: var(--primary, #ffb300);
     color: #000;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-radius: 24px;
     font-weight: 700;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
 }
 
 /* --- Toast Notifications --- */
@@ -137,13 +138,16 @@ body {
 .payment-option {
     padding: 12px 20px;
     margin: 6px;
-    border-radius: 8px;
+    border-radius: 50%;
     border: 2px solid transparent;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    background-color: #6f4e37;
-    color: #fff;
+    min-width: 70px;
+    min-height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .payment-option.mtn {
@@ -169,29 +173,35 @@ body {
 /* --- Copy & USSD Buttons --- */
 .copy-individual,
 #copyMerchant,
-#showUSSD {
+#showUSSD,
+.btn-3d.add-items,
+.btn-3d.go-back {
     padding: 10px 16px;
     margin: 4px;
-    border-radius: 6px;
+    border-radius: 50%;
     border: none;
     font-weight: 600;
     cursor: pointer;
+    min-width: 60px;
+    min-height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* --- Specific Colors for Copy/USSD --- */
 .copy-individual.mtn,
 #copyMerchant.mtn,
 #showUSSD.mtn,
-.btn-3d.add-items,
-.btn-3d.go-back {
+.btn-3d.add-items {
     background-color: #ffb300;
     color: #000;
 }
 
 .copy-individual.airtel,
 #copyMerchant.airtel,
-#showUSSD.airtel {
+#showUSSD.airtel,
+.btn-3d.go-back {
     background-color: #d32f2f;
     color: #fff;
 }
@@ -201,7 +211,7 @@ body {
 #showUSSD:hover,
 .btn-3d.add-items:hover,
 .btn-3d.go-back:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
@@ -211,19 +221,25 @@ body {
     background-color: #25d366;
     color: #fff;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 50%;
+    min-width: 70px;
+    min-height: 70px;
     border: none;
     cursor: pointer;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s ease;
 }
 
 #whatsapp-confirm:hover,
 #callSupport:hover {
     background-color: #20b858;
+    transform: scale(1.03);
 }
 
-/* --- Cart Summary --- */
+/* --- Cart Summary & Add-to-cart Buttons --- */
 .cart-summary {
     display: flex;
     justify-content: space-between;
@@ -231,21 +247,25 @@ body {
     font-weight: 500;
 }
 
-/* --- Add-to-cart Buttons --- */
 .add-to-cart {
     padding: 10px 16px;
     margin: 4px;
-    border-radius: 6px;
+    border-radius: 50%;
     border: none;
     font-weight: 600;
     cursor: pointer;
     background-color: #6f4e37;
     color: #fff;
+    min-width: 60px;
+    min-height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .add-to-cart:hover {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 20px rgba(255, 179, 0, 0.25);
 }
 
@@ -259,6 +279,8 @@ body {
     #whatsapp-confirm,
     #callSupport {
         width: 100%;
+        min-width: auto;
+        min-height: auto;
         box-sizing: border-box;
     }
 

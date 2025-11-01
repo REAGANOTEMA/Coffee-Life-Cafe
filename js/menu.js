@@ -1,4 +1,4 @@
-// ================= FINAL MENU.JS WITH VOICE & IMAGE PREVIEWS =================
+// ================= FINAL MENU.JS WITH VOICE, COMPANIONS, CONFETTI =================
 (() => {
   'use strict';
 
@@ -23,6 +23,9 @@
     window.speechSynthesis.speak(u);
   };
 
+  // Welcome Message
+  window.addEventListener('load', () => speak('Welcome! Browse our menu and select your items.'));
+
   // ======= TOAST SYSTEM =======
   const toastEl = document.createElement('div');
   toastEl.id = 'magic-toast';
@@ -44,14 +47,19 @@
     speak(msg);
   };
 
-  // ======= ADD ITEM =======
-  const addToCart = item => {
-    const existing = cart.find(i => i.id === item.id);
-    existing ? existing.qty++ : cart.push({ ...item, qty: 1 });
+  // ======= ADD ITEM WITH COMPANION PROMPT =======
+  const addToCart = async item => {
+    // Ask for companion
+    let companion = prompt(`Which companion do you want for "${item.name}"?`);
+    companion = companion ? companion.trim() : 'No companion';
+
+    const existing = cart.find(i => i.id === item.id && i.companion === companion);
+    existing ? existing.qty++ : cart.push({ ...item, qty: 1, companion });
+
     saveCart();
     renderCart();
     animateCartBadge();
-    showToast(`Added ${item.name} to your cart!`);
+    showToast(`Added ${item.name} (${companion}) to your cart!`);
     showGoToPaymentPointer();
     launchConfetti();
   };
@@ -103,24 +111,24 @@
 
       const div = document.createElement('div');
       div.className = 'cart-item';
-      div.style.cssText = 'display:flex;align-items:center;margin-bottom:10px;transition:all 0.4s ease;opacity:0;transform:translateX(40px)';
+      div.style.cssText = 'display:flex;align-items:center;margin-bottom:0.2rem;padding:0.2rem;transition:all 0.4s ease;opacity:0;transform:translateX(40px)';
 
       div.innerHTML = `
-        <img src="${item.img}" alt="${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;margin-right:10px;cursor:pointer;">
-        <div style="flex:1">
-          <strong>${item.name}</strong>
+        <img src="${item.img}" alt="${item.name}" style="width:55px;height:55px;object-fit:cover;border-radius:50%;margin-right:0.2rem;cursor:pointer;">
+        <div style="flex:1;font-size:0.85rem;line-height:1.1;margin-right:0.2rem">
+          <strong>${item.name}</strong> (${item.companion})
           <p>${formatUGX(item.price)} x ${item.qty}</p>
         </div>
-        <div>
+        <div style="display:flex;gap:0.2rem;align-items:center;">
           <button class="qty-btn minus" data-id="${item.id}">-</button>
-          <span style="margin:0 5px;">${item.qty}</span>
+          <span>${item.qty}</span>
           <button class="qty-btn plus" data-id="${item.id}">+</button>
-          <button class="remove" data-id="${item.id}">Remove</button>
+          <button class="remove" data-id="${item.id}">x</button>
         </div>
       `;
       container.appendChild(div);
 
-      // Click image to preview
+      // Image preview
       div.querySelector('img').addEventListener('click', () => {
         const preview = document.createElement('div');
         preview.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000;';
@@ -154,7 +162,7 @@
       if (!a) return;
       const item = { id: a.dataset.id, name: a.dataset.name, price: parseInt(a.dataset.price), img: a.querySelector('img')?.src || 'menu-images/default.webp' };
       addToCart(item);
-      speak(`Excellent choice! ${item.name} added. You can continue browsing or checkout anytime.`);
+      speak(`Excellent choice! ${item.name} added. Please select a companion.`);
     });
   });
 
@@ -166,10 +174,9 @@
       pointer.id = 'goToPaymentPointer';
       pointer.innerHTML = `<div class="pointer-bubble">👉 <strong>Checkout Now!</strong></div>`;
       document.body.appendChild(pointer);
-      Object.assign(pointer.style, { position: 'fixed', bottom: '80px', right: '20px', zIndex: 9999, cursor: 'pointer' });
       const bubble = pointer.querySelector('.pointer-bubble');
-      Object.assign(bubble.style, { background: '#ffb300', color: '#000', fontWeight: 'bold', padding: '10px 16px', borderRadius: '30px', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', animation: 'pulse 1.2s infinite' });
-      bubble.addEventListener('click', () => { speak('Redirecting you to checkout. Enjoy your meal!'); window.location.href = 'payment.html'; });
+      Object.assign(bubble.style, { background: '#ffb300', color: '#000', fontWeight: 'bold', padding: '10px 16px', borderRadius: '50%', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', animation: 'pulse 1.2s infinite', cursor: 'pointer' });
+      bubble.addEventListener('click', () => { speak('Redirecting you to checkout.'); window.location.href = 'payment.html'; });
       const style = document.createElement('style');
       style.textContent = `@keyframes pulse{0%{transform:scale(1);opacity:0.9}50%{transform:scale(1.1);opacity:1}100%{transform:scale(1);opacity:0.9}}`;
       document.head.appendChild(style);
