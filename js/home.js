@@ -1,5 +1,6 @@
 /* =========================================
    ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
+   WITH FULLY VISIBLE 3D LOGO
 ========================================= */
 (function () {
     const NAV_ITEMS = [
@@ -13,6 +14,7 @@
     const header = document.getElementById('mainHeader');
     if (!header) return;
 
+    const logoContainer = header.querySelector('.logo');
     const logo = header.querySelector('.logo img');
     const title = header.querySelector('.luxury-title');
     const slogan = header.querySelector('.luxury-slogan');
@@ -35,7 +37,6 @@
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
-
     window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
@@ -53,14 +54,10 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
-
-        // Update nav links
         navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
-
-        // Update title & slogan
         if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
         if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
     }
@@ -73,7 +70,6 @@
         mobileMenu.style.display = isActive ? 'flex' : 'none';
         hamburger.setAttribute('aria-expanded', isActive);
     });
-
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
@@ -97,7 +93,7 @@
 
     // ==================== CINEMATIC HEADER ANIMATIONS ====================
     function animateHeaderElements() {
-        // Nav links 3D button animation
+        // Nav links 3D buttons
         navLinks.forEach((link, idx) => {
             link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.3s ease`;
             link.style.transform = 'translateY(-15px) rotateX(15deg)';
@@ -118,21 +114,30 @@
             });
         });
 
-        // Logo animation
+        // Logo 3D animation
         if (logo) {
-            logo.style.transition = 'transform 0.7s ease';
-            logo.style.transform = 'translateY(-5px) scale(0.95)';
-            setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
+            logo.style.width = '80px';
+            logo.style.height = '80px';
+            logo.style.borderRadius = '10%';
+            logo.style.objectFit = 'cover';
+            logoContainer.style.perspective = '1000px';
+            let angle = 0;
+            function rotateLogo() {
+                angle += 0.3; // rotation speed
+                logo.style.transform = `rotateY(${angle}deg) rotateX(${angle/2}deg) scale(1)`;
+                requestAnimationFrame(rotateLogo);
+            }
+            rotateLogo();
         }
 
-        // Cart animation
+        // Cart
         if (cartIcon) {
             cartIcon.style.transition = 'transform 0.5s ease';
             cartIcon.style.transform = 'scale(0.7)';
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Title opacity (moving handled separately)
+        // Title & slogan
         if (title) title.style.opacity = '1';
         if (slogan) slogan.style.opacity = '1';
     }
@@ -143,12 +148,11 @@
     let position = 0, direction = 1;
     function animateTitleSlide() {
         if (!title) return;
-        const maxSlide = 20; // horizontal movement in px
-        position += direction * 0.6; // speed
+        const maxSlide = 20; // horizontal movement
+        position += direction * 0.6;
         if (position > maxSlide || position < -maxSlide) direction *= -1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
-
 })();
