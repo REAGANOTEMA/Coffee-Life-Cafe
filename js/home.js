@@ -14,11 +14,11 @@
     if (!header) return;
 
     const logo = header.querySelector('.logo');
+    const title = header.querySelector('.luxury-title');
+    const slogan = header.querySelector('.luxury-slogan');
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
-    const patternLayer = header.querySelector('.header-pattern-layer');
-    const slogan = header.querySelector('.luxury-slogan');
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
@@ -52,15 +52,19 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
+
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
+
         const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
         mobileLinks.forEach((link, idx) => {
             link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
         });
-        slogan.textContent = (lang === 'ar') ? 'كُل. قابل. اعمل.' : 'Eat. Meet. Work.';
+
+        if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
+        if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
     }
     setLanguage(DEFAULT_LANG);
 
@@ -90,6 +94,7 @@
             e.preventDefault();
             const targetId = href.split('#')[1];
             const target = document.getElementById(targetId);
+
             if (target) {
                 window.scrollTo({
                     top: target.offsetTop - header.offsetHeight,
@@ -103,35 +108,70 @@
     document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(smoothScrollToTarget);
 
     // ==================== CINEMATIC ANIMATIONS ====================
-    function animateHeader() {
-        // Floating background pattern like live TV
-        if (patternLayer) {
-            const offsetX = Math.sin(Date.now() / 2000) * 10;
-            const offsetY = Math.cos(Date.now() / 3000) * 10;
-            patternLayer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        }
-
-        // Logo floating animation
-        if (logo) {
-            const floatY = Math.sin(Date.now() / 1500) * 2;
-            logo.style.transform = `translateY(${floatY}px)`;
-        }
-
-        // Nav links 3D hover effect
+    function animateHeaderElements() {
+        // Nav links
         const navLinks = header.querySelectorAll('.nav-link');
         navLinks.forEach((link, idx) => {
-            link.style.transition = `transform 0.5s ease ${idx * 0.05}s, opacity 0.5s ease ${idx * 0.05}s`;
-            link.style.transform = 'translateZ(0px)';
-            link.style.opacity = '1';
+            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s`;
+            link.style.transform = 'translateY(-10px)';
+            link.style.opacity = '0';
+            setTimeout(() => {
+                link.style.transform = 'translateY(0)';
+                link.style.opacity = '1';
+            }, 100);
         });
 
-        // Title moving like live TV
-        if (slogan) {
-            const tvMove = Math.sin(Date.now() / 500) * 1.5; // slight horizontal jitter
-            slogan.style.transform = `translateX(${tvMove}px)`;
+        // Logo
+        if (logo) {
+            logo.style.transition = 'transform 0.7s ease';
+            logo.style.transform = 'translateY(-5px)';
+            setTimeout(() => logo.style.transform = 'translateY(0)', 300);
         }
 
-        requestAnimationFrame(animateHeader);
+        // Cart
+        if (cartIcon) {
+            cartIcon.style.transition = 'transform 0.5s ease';
+            cartIcon.style.transform = 'scale(0.7)';
+            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
+        }
+
+        // Title & Slogan
+        if (title) {
+            title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
+            title.style.transform = 'translateY(-10px)';
+            title.style.opacity = '0';
+            setTimeout(() => {
+                title.style.transform = 'translateY(0)';
+                title.style.opacity = '1';
+            }, 200);
+        }
+        if (slogan) {
+            slogan.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
+            slogan.style.transform = 'translateY(-5px)';
+            slogan.style.opacity = '0';
+            setTimeout(() => {
+                slogan.style.transform = 'translateY(0)';
+                slogan.style.opacity = '1';
+            }, 400);
+        }
     }
-    animateHeader();
+    animateHeaderElements();
+
+    // Re-animate on scroll
+    window.addEventListener('scroll', () => {
+        animateHeaderElements();
+    });
+
+    // ==================== TV-STYLE TITLE SLIDE ====================
+    let position = 0, direction = 1;
+    function animateTitleSlide() {
+        if (!title) return;
+        const maxSlide = 10; // pixels to slide
+        position += direction * 0.5; // speed
+        if (position > maxSlide || position < -maxSlide) direction *= -1;
+        title.style.transform = `translateX(${position}px)`;
+        requestAnimationFrame(animateTitleSlide);
+    }
+    animateTitleSlide();
+
 })();
