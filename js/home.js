@@ -1,5 +1,5 @@
 /* ========================================= 
-   ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
+   ULTRA-LUXURY CINEMATIC HEADER - FINAL JS WITH 3D NAV BUTTONS
 ========================================= */
 (function () {
     const NAV_ITEMS = [
@@ -19,6 +19,7 @@
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
+    const navLinks = header.querySelectorAll('.nav-link');
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
@@ -51,7 +52,7 @@
 
     function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
-        header.querySelectorAll('.nav-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
+        navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
         if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
@@ -63,7 +64,6 @@
         const isActive = mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
         mobileMenu.style.display = isActive ? 'flex' : 'none';
-        mobileMenu.setAttribute('aria-hidden', !isActive);
         hamburger.setAttribute('aria-expanded', isActive);
     });
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
@@ -76,31 +76,37 @@
     });
 
     // ==================== SMOOTH SCROLL ====================
-    function smoothScrollToTarget(el) {
+    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
         el.addEventListener('click', e => {
             const href = el.getAttribute('href');
             if (!href.includes('#')) return;
             e.preventDefault();
-            const targetId = href.split('#')[1];
-            const target = document.getElementById(targetId);
+            const target = document.getElementById(href.split('#')[1]);
             if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
             else window.location.href = href;
         });
-    }
-    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(smoothScrollToTarget);
+    });
 
-    // ==================== CINEMATIC ANIMATIONS ====================
+    // ==================== CINEMATIC HEADER ANIMATIONS ====================
     function animateHeaderElements() {
-        // Nav links 3D HD
-        const navLinks = header.querySelectorAll('.nav-link');
+        // Nav links 3D HD button animation
         navLinks.forEach((link, idx) => {
-            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s`;
+            link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.5s ease`;
             link.style.transform = 'translateY(-15px) rotateX(15deg)';
             link.style.opacity = '0';
             setTimeout(() => {
                 link.style.transform = 'translateY(0) rotateX(0)';
                 link.style.opacity = '1';
             }, 100);
+            // Hover effect for 3D button feel
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
+                link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0) rotateX(0) scale(1)';
+                link.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            });
         });
 
         // Logo animation
@@ -117,24 +123,16 @@
             setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Title & Slogan cinematic
+        // Title cinematic
         if (title) {
             title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
-            title.style.transform = 'translateY(-10px)';
-            title.style.opacity = '0';
-            setTimeout(() => {
-                title.style.transform = 'translateY(0)';
-                title.style.opacity = '1';
-            }, 200);
+            title.style.opacity = '1';
         }
+
+        // Slogan cinematic
         if (slogan) {
-            slogan.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
-            slogan.style.transform = 'translateY(-5px)';
-            slogan.style.opacity = '0';
-            setTimeout(() => {
-                slogan.style.transform = 'translateY(0)';
-                slogan.style.opacity = '1';
-            }, 400);
+            slogan.style.transition = 'opacity 1s ease';
+            slogan.style.opacity = '1';
         }
     }
     animateHeaderElements();
@@ -144,60 +142,11 @@
     let position = 0, direction = 1;
     function animateTitleSlide() {
         if (!title) return;
-        const maxSlide = 15; // TV style sliding
-        position += direction * 0.6; // speed
+        const maxSlide = 20; // full horizontal movement
+        position += direction * 0.6; // sliding speed
         if (position > maxSlide || position < -maxSlide) direction *= -1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
-})();
-(function () {
-    const header = document.getElementById('mainHeader');
-    const title = header.querySelector('.luxury-title');
-    const slogan = header.querySelector('.luxury-slogan');
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    // Hamburger toggle
-    hamburger.addEventListener('click', () => {
-        const active = mobileMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        mobileMenu.style.display = active ? 'flex' : 'none';
-        hamburger.setAttribute('aria-expanded', active);
-    });
-
-    // Mobile link click
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded', 'false');
-        });
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
-        el.addEventListener('click', e => {
-            const href = el.getAttribute('href');
-            if (!href.includes('#')) return;
-            e.preventDefault();
-            const target = document.getElementById(href.split('#')[1]);
-            if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
-            else window.location.href = href;
-        });
-    });
-
-    // TV-style title slide
-    let pos = 0, dir = 1;
-    function animateTitle() {
-        if (!title) return;
-        const maxSlide = 15; // pixels
-        pos += dir * 0.5;
-        if (pos > maxSlide || pos < -maxSlide) dir *= -1;
-        title.style.transform = `translateX(${pos}px)`;
-        requestAnimationFrame(animateTitle);
-    }
-    animateTitle();
 })();
