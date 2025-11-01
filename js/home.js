@@ -1,5 +1,5 @@
-/* ========================================= 
-   ULTRA-LUXURY CINEMATIC HEADER - FINAL PROFESSIONAL JS
+/* =========================================
+   ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
 ========================================= */
 (function () {
     const NAV_ITEMS = [
@@ -21,125 +21,137 @@
     const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
     const navLinks = header.querySelectorAll('.nav-link');
 
-    // ==================== CART MANAGEMENT ====================
+    /* ==================== CART MANAGEMENT ==================== */
     window.cart = window.cart || [];
     function updateCartCount() {
         const total = window.cart.reduce((sum, item) => sum + (item.qty || 0), 0);
         if (cartIcon) cartIcon.textContent = total;
     }
     updateCartCount();
-    window.globalAddToCart = function(item) {
+
+    window.globalAddToCart = function (item) {
         const existing = window.cart.find(i => i.id === item.id);
-        if(existing) existing.qty++;
-        else window.cart.push({...item, qty:1});
+        if (existing) existing.qty++;
+        else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
-    window.globalRemoveFromCart = function(id){
+    window.globalRemoveFromCart = function (id) {
         const index = window.cart.findIndex(i => i.id === id);
-        if(index === -1) return;
+        if (index === -1) return;
         window.cart[index].qty--;
-        if(window.cart[index].qty <= 0) window.cart.splice(index,1);
+        if (window.cart[index].qty <= 0) window.cart.splice(index, 1);
         updateCartCount();
     };
 
-    // ==================== LANGUAGE SWITCH ====================
+    /* ==================== LANGUAGE SWITCH ==================== */
     const langBtn = header.querySelector('.lang-toggle');
     langBtn.addEventListener('click', () => {
         const newLang = (localStorage.getItem('luxury_lang') || DEFAULT_LANG) === 'en' ? 'ar' : 'en';
         setLanguage(newLang);
     });
-    function setLanguage(lang){
+    function setLanguage(lang) {
         localStorage.setItem('luxury_lang', lang);
         navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
         mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
-        if(title) title.textContent = (lang==='ar')?'قهوة الحياة':'Coffee Life';
-        if(slogan) slogan.textContent = (lang==='ar')?'كل. اجتمع. اعمل.':'Eat. Meet. Work.';
+        if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
+        if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
     }
     setLanguage(DEFAULT_LANG);
 
-    // ==================== MOBILE MENU TOGGLE ====================
+    /* ==================== MOBILE MENU TOGGLE ==================== */
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenu.style.display = 'none';
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
     hamburger.addEventListener('click', () => {
         const isActive = mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        mobileMenu.style.display = isActive?'flex':'none';
+        mobileMenu.style.display = isActive ? 'flex' : 'none';
         hamburger.setAttribute('aria-expanded', isActive);
     });
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', ()=>{
-            mobileMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded','false');
-        });
+        link.addEventListener('click', closeMobileMenu);
     });
 
-    // ==================== SMOOTH SCROLL ====================
-    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el=>{
-        el.addEventListener('click', e=>{
+    /* ==================== SMOOTH SCROLL ==================== */
+    document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
+        el.addEventListener('click', e => {
             const href = el.getAttribute('href');
-            if(!href.includes('#')) return;
+            if (!href.includes('#')) return;
             e.preventDefault();
             const target = document.getElementById(href.split('#')[1]);
-            if(target) window.scrollTo({top: target.offsetTop - header.offsetHeight, behavior:'smooth'});
+            if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
             else window.location.href = href;
         });
     });
 
-    // ==================== CINEMATIC HEADER ANIMATIONS ====================
-    function animateHeaderElements(){
-        // 3D Nav buttons
-        navLinks.forEach((link, idx)=>{
-            link.style.transition = `transform 0.8s ease ${idx*0.1}s, opacity 0.8s ease ${idx*0.1}s, box-shadow 0.5s ease`;
-            link.style.transform = 'translateY(-10px) rotateX(10deg)';
+    /* ==================== CINEMATIC HEADER ANIMATIONS ==================== */
+    function animateHeaderElements() {
+        // Nav links 3D HD buttons
+        navLinks.forEach((link, idx) => {
+            link.style.transition = `transform 0.6s ease ${idx*0.1}s, opacity 0.6s ease ${idx*0.1}s, box-shadow 0.3s ease`;
+            link.style.transform = 'translateY(-15px) rotateX(10deg)';
             link.style.opacity = '0';
-            setTimeout(()=>{
+            setTimeout(() => {
                 link.style.transform = 'translateY(0) rotateX(0)';
                 link.style.opacity = '1';
-            },100);
-            link.addEventListener('mouseenter', ()=>{
+            }, 100);
+
+            // Hover and active effect
+            link.addEventListener('mouseenter', () => {
                 link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
                 link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
             });
-            link.addEventListener('mouseleave', ()=>{
+            link.addEventListener('mouseleave', () => {
                 link.style.transform = 'translateY(0) rotateX(0) scale(1)';
                 link.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
             });
+            link.addEventListener('mousedown', () => {
+                link.style.backgroundColor = '#c0392b'; // pressed red
+                link.style.color = '#fff';
+            });
+            link.addEventListener('mouseup', () => {
+                link.style.backgroundColor = '#bfa14f'; // dark gold
+                link.style.color = '#111';
+            });
         });
 
-        // Logo animation left
-        if(logo){
+        // Logo animation
+        if (logo) {
             logo.style.transition = 'transform 0.7s ease';
-            logo.style.transform = 'translateY(0) scale(1)';
+            logo.style.transform = 'translateY(-5px) scale(0.95)';
+            setTimeout(() => logo.style.transform = 'translateY(0) scale(1)', 300);
         }
 
-        // Cart animation right
-        if(cartIcon){
+        // Cart
+        if (cartIcon) {
             cartIcon.style.transition = 'transform 0.5s ease';
-            cartIcon.style.transform = 'scale(1)';
+            cartIcon.style.transform = 'scale(0.7)';
+            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
         }
 
-        // Title cinematic center
-        if(title){
+        // Title & Slogan cinematic
+        if (title) {
             title.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
-            title.style.opacity='1';
+            title.style.opacity = '1';
         }
-
-        // Slogan cinematic below title
-        if(slogan){
+        if (slogan) {
             slogan.style.transition = 'opacity 1s ease';
-            slogan.style.opacity='1';
+            slogan.style.opacity = '1';
         }
     }
     animateHeaderElements();
     window.addEventListener('scroll', animateHeaderElements);
 
-    // ==================== TV-STYLE TITLE SLIDE ====================
+    /* ==================== TV-STYLE TITLE SLIDE ==================== */
     let position = 0, direction = 1;
-    function animateTitleSlide(){
-        if(!title) return;
-        const maxSlide = 25; // more cinematic sliding
-        position += direction*0.7;
-        if(position>maxSlide || position<-maxSlide) direction*=-1;
+    function animateTitleSlide() {
+        if (!title) return;
+        const maxSlide = 25; // horizontal movement
+        position += direction * 0.5;
+        if (position > maxSlide || position < -maxSlide) direction *= -1;
         title.style.transform = `translateX(${position}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
