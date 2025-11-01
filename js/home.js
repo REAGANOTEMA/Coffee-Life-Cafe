@@ -1,16 +1,14 @@
-/* =========================================
+/* ========================================= 
    ULTRA-LUXURY CINEMATIC HEADER - FINAL JS
-   TITLE SLIDES LIKE TV, SLOGAN STATIC
 ========================================= */
 (function () {
     const NAV_ITEMS = [
-        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: 'index.html#home' },
-        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: 'index.html#menu' },
-        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: 'index.html#gallery' },
-        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: 'index.html#contact' }
+        { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: '#home' },
+        { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: '#menu' },
+        { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: '#gallery' },
+        { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: '#contact' }
     ];
 
-    const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
     const header = document.getElementById('mainHeader');
     if (!header) return;
 
@@ -19,8 +17,10 @@
     const slogan = header.querySelector('.luxury-slogan');
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
+    const cartIcon = header.querySelector('.cart-count-badge');
     const navLinks = header.querySelectorAll('.nav-link');
+
+    const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
 
     // ==================== CART MANAGEMENT ====================
     window.cart = window.cart || [];
@@ -29,13 +29,15 @@
         if (cartIcon) cartIcon.textContent = total;
     }
     updateCartCount();
-    window.globalAddToCart = function (item) {
+
+    window.globalAddToCart = function(item) {
         const existing = window.cart.find(i => i.id === item.id);
         if (existing) existing.qty++;
         else window.cart.push({ ...item, qty: 1 });
         updateCartCount();
     };
-    window.globalRemoveFromCart = function (id) {
+
+    window.globalRemoveFromCart = function(id) {
         const index = window.cart.findIndex(i => i.id === id);
         if (index === -1) return;
         window.cart[index].qty--;
@@ -61,10 +63,10 @@
 
     // ==================== MOBILE MENU TOGGLE ====================
     hamburger.addEventListener('click', () => {
-        const isActive = mobileMenu.classList.toggle('active');
+        const active = mobileMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        mobileMenu.style.display = isActive ? 'flex' : 'none';
-        hamburger.setAttribute('aria-expanded', isActive);
+        mobileMenu.style.display = active ? 'flex' : 'none';
+        hamburger.setAttribute('aria-expanded', active);
     });
 
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
@@ -84,25 +86,48 @@
             e.preventDefault();
             const target = document.getElementById(href.split('#')[1]);
             if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
-            else window.location.href = href;
         });
     });
 
+    // ==================== 3D NAV BUTTON ANIMATION ====================
+    function animateNavButtons() {
+        navLinks.forEach((link, idx) => {
+            link.style.transition = `transform 0.8s ease ${idx*0.1}s, box-shadow 0.3s ease`;
+            link.style.transform = 'translateY(-15px) rotateX(15deg)';
+            setTimeout(() => {
+                link.style.transform = 'translateY(0) rotateX(0)';
+            }, 100);
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-3px) rotateX(5deg) scale(1.05)';
+                link.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0) rotateX(0) scale(1)';
+                link.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            });
+        });
+    }
+
+    // ==================== HEADER ELEMENTS ANIMATION ====================
+    function animateHeaderElements() {
+        // Logo
+        if (logo) logo.style.transform = 'translateY(0) scale(1)';
+        // Title & slogan opacity
+        if (title) title.style.opacity = 1;
+        if (slogan) slogan.style.opacity = 1;
+        animateNavButtons();
+    }
+    animateHeaderElements();
+    window.addEventListener('scroll', animateHeaderElements);
+
     // ==================== TV-STYLE TITLE SLIDE ====================
-    let position = 0;
-    let direction = 1;
+    let pos = 0, dir = 1;
     function animateTitleSlide() {
         if (!title) return;
-
-        // Determine width dynamically
-        const titleWidth = title.offsetWidth;
-        const headerWidth = header.offsetWidth;
-
-        // Move title left and right, loop if out of screen
-        position += direction * 0.7; // speed
-        if (position > (headerWidth - titleWidth) / 2 || position < -(headerWidth - titleWidth) / 2) direction *= -1;
-        title.style.transform = `translateX(${position}px)`; // horizontal slide only
-
+        const maxSlide = 20; // horizontal movement in pixels
+        pos += dir * 0.6; // speed
+        if (pos > maxSlide || pos < -maxSlide) dir *= -1;
+        title.style.transform = `translateX(${pos}px)`;
         requestAnimationFrame(animateTitleSlide);
     }
     animateTitleSlide();
