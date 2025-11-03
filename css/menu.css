@@ -344,3 +344,32 @@ font-size: 0.85rem;
 padding: 0.3rem 0;
 }
 }
+/* ================= MENU ITEM HEADERS FINAL STYLING ================= */
+.menu-body h4 {
+font-family: 'Playfair Display', serif; /* elegant serif font */
+font-weight: 700; /* bold but not too heavy */
+font-size: 1.4rem; /* readable and balanced */
+color: #3b1c0f; /* deep warm color for contrast */
+text-align: center; /* perfectly centered */
+margin: 0.5rem 0 0.25rem 0; /* balanced spacing above/below */
+padding: 0 0.3rem; /* small horizontal padding to avoid cramped text */
+line-height: 1.3; /* comfortable line spacing */
+letter-spacing: 0.5px; /* slight spacing for elegance */
+transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.menu-body h4:hover {
+color: #6b3c1f; /* slightly darker on hover */
+transform: translateY(-2px); /* subtle lift on hover */
+}
+
+/* Optional: small descriptive text under header */
+.menu-body .desc {
+font-family: 'Raleway', sans-serif;
+font-size: 0.9rem;
+color: #555;
+text-align: center;
+margin-top: 0.2rem;
+line-height: 1.2;
+padding: 0 0.2rem;
+}
