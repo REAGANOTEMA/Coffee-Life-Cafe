@@ -2,8 +2,8 @@
     'use strict';
 
     /* ================= CONFIG ================= */
-    const WA_NUMBER = '256746888730';
-    const SUPPORT_NUMBER = '256784305795';
+    const WA_NUMBER = '+256746888730';
+    const SUPPORT_NUMBER = '+256784305795';
     const MTN_MERCHANT = '971714';
     const AIRTEL_MERCHANT = '4393386';
     const STORAGE_KEY = 'COFFEE_CART';
@@ -54,15 +54,26 @@
         window.CoffeeLife.cart = saved ? JSON.parse(saved) : [];
     };
 
-    const speak = text => {
-        if ('speechSynthesis' in window) {
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.rate = 1;
-            utter.pitch = 1;
-            utter.lang = 'en-GB';
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(utter);
-        }
+    const speak = (text, opts = {}) => {
+        // calm, clear voice with small pause if multiple calls happen
+        if (!('speechSynthesis' in window)) return;
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = opts.rate || 1;
+        utter.pitch = opts.pitch || 1;
+        utter.lang = opts.lang || 'en-GB';
+        // Cancel previous speech to avoid overlap for clarity
+        try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+        window.speechSynthesis.speak(utter);
+    };
+
+    const speakSequence = (texts = [], delayBetweenMs = 2500) => {
+        // Speaks items in sequence with delayBetweenMs gap.
+        // We call setTimeout to schedule them; speechSynthesis.cancel is used before each speak to avoid overlaps.
+        texts.forEach((t, i) => {
+            setTimeout(() => {
+                speak(t);
+            }, i * delayBetweenMs);
+        });
     };
 
     const showToast = (text, duration = 2500, voice = true) => {
@@ -93,8 +104,31 @@
     };
 
     const shakeButton = btn => {
+        if (!btn) return;
         btn.classList.add('btn-shake');
         setTimeout(() => btn.classList.remove('btn-shake'), 600);
+    };
+
+    /* Fast listener helper: avoid double-fire with pointerdown + click */
+    const addFastListener = (el, handler) => {
+        if (!el) return;
+        let fired = false;
+        const reset = () => { fired = false; setTimeout(() => fired = false, 50); };
+        const onPointerDown = (ev) => {
+            if (fired) return;
+            fired = true;
+            handler(ev);
+            // short reset to allow real clicks later
+            setTimeout(reset, 150);
+        };
+        const onClick = (ev) => {
+            if (fired) return;
+            fired = true;
+            handler(ev);
+            setTimeout(reset, 150);
+        };
+        el.addEventListener('pointerdown', onPointerDown, {passive: true});
+        el.addEventListener('click', onClick);
     };
 
     /* ================= CART ================= */
@@ -123,15 +157,20 @@
           <p>${formatUGX(item.price)} x ${item.qty}</p>
         </div>
         <div class="cart-item-controls">
-          <button class="qty-btn minus btn-3d">−</button>
+          <button class="qty-btn minus btn-3d" aria-label="Decrease ${item.name} quantity">−</button>
           <span class="qty">${item.qty}</span>
-          <button class="qty-btn plus btn-3d">+</button>
-          <button class="remove btn-3d">🗑</button>
+          <button class="qty-btn plus btn-3d" aria-label="Increase ${item.name} quantity">+</button>
+          <button class="remove btn-3d" aria-label="Remove ${item.name}">🗑</button>
         </div>
       `;
             cartItemsContainer.appendChild(div);
 
-            div.querySelector('.minus').addEventListener('click', () => {
+            // Handlers - use addFastListener for good touch response
+            const minusBtn = div.querySelector('.minus');
+            const plusBtn = div.querySelector('.plus');
+            const removeBtn = div.querySelector('.remove');
+
+            addFastListener(minusBtn, () => {
                 const it = window.CoffeeLife.cart.find(i => i.id === item.id);
                 if (!it) return;
                 it.qty -= 1;
@@ -142,7 +181,7 @@
                 showToast('Quantity reduced');
             });
 
-            div.querySelector('.plus').addEventListener('click', () => {
+            addFastListener(plusBtn, () => {
                 const it = window.CoffeeLife.cart.find(i => i.id === item.id);
                 if (!it) return;
                 it.qty += 1;
@@ -151,7 +190,7 @@
                 showToast('Quantity increased');
             });
 
-            div.querySelector('.remove').addEventListener('click', () => {
+            addFastListener(removeBtn, () => {
                 window.CoffeeLife.cart = window.CoffeeLife.cart.filter(i => i.id !== item.id);
                 persistCart();
                 renderCart();
@@ -191,13 +230,25 @@
         renderCart();
     };
 
-    deliverySelect?.addEventListener('change', () => {
-        updateDeliveryFee();
-        speak(`Delivery area selected: ${deliverySelect.value}.`);
-    });
+    if (deliverySelect) {
+        addFastListener(deliverySelect, () => {
+            updateDeliveryFee();
+            // calm clear english
+            speak(`Delivery area selected: ${deliverySelect.value}.`);
+        });
+    }
     updateDeliveryFee();
 
     /* ================= PAYMENT PROVIDER ================= */
+    const calmProviderMessage = (provider) => {
+        if (provider === 'mtn') {
+            return 'You selected MTN Mobile Money. Please follow the short instructions to complete your payment. I will read the steps clearly and slowly.';
+        } else if (provider === 'airtel') {
+            return 'You selected Airtel Money. Please follow the short instructions to complete your payment. I will read the steps clearly and slowly.';
+        }
+        return '';
+    };
+
     const setSelectedProvider = provider => {
         selectedProvider = provider;
         paymentOptions.forEach(btn =>
@@ -211,51 +262,95 @@
                     ? AIRTEL_MERCHANT
                     : `${MTN_MERCHANT} / ${AIRTEL_MERCHANT}`;
 
-        const message =
-            provider === 'mtn'
-                ? 'You selected MTN Mobile Money. Dial star one six five, star three, star nine seven one seven one four, then the amount, and press hash.'
-                : 'You selected Airtel Money. Dial star one eight five, star nine, star four three nine three three eight six, then the amount, and press hash.';
+        // Calm and clear message + leave presenter voice intact
+        const message = calmProviderMessage(provider);
 
+        // Speak calm message, then speak merchant code once (not repeated here),
+        // but the Show USSD button will read USSD and repeat USSD + merchant code as requested.
         speak(message);
+        setTimeout(() => {
+            if (provider === 'mtn') speak(`Merchant code ${MTN_MERCHANT}.`);
+            else if (provider === 'airtel') speak(`Merchant code ${AIRTEL_MERCHANT}.`);
+        }, 900);
+
         showToast(`${provider.toUpperCase()} selected`, false);
     };
 
     paymentOptions.forEach(btn => {
-        btn.addEventListener('click', e => {
+        addFastListener(btn, (e) => {
             setSelectedProvider(btn.dataset.provider);
-            shakeButton(e.currentTarget);
+            shakeButton(e.currentTarget || btn);
         });
     });
 
-    /* ================= COPY & USSD ================= */
-    copyMerchantBtn?.addEventListener('click', async e => {
+    /* ================= COPY INDIVIDUAL BUTTONS (and main copy) ================= */
+    // main copy (copies displayed merchantCodeEl text)
+    addFastListener(copyMerchantBtn, async (e) => {
+        if (!merchantCodeEl) return;
         if (await copyToClipboard(merchantCodeEl.textContent)) {
             shakeButton(e.currentTarget);
             showToast('Merchant code copied! Proceed to payment.');
         }
     });
 
-    showUSSDBtn?.addEventListener('click', e => {
+    // copy individual copy buttons (data-code attribute)
+    const individualCopyButtons = qsa('.copy-individual');
+    individualCopyButtons.forEach(btn => {
+        addFastListener(btn, async (e) => {
+            const code = btn.dataset.code || btn.getAttribute('data-code') || merchantCodeEl?.textContent;
+            if (!code) return showToast('No code to copy.');
+            if (await copyToClipboard(code)) {
+                shakeButton(e.currentTarget || btn);
+                showToast(`${code} copied to clipboard.`);
+                speak(`Copied ${code} to clipboard.`);
+            }
+        });
+    });
+
+    /* ================= COPY & USSD ================= */
+    const verbalizeUSSD = (ussd) => {
+        // convert * and # to "star" and "hash" and insert spaces for clarity
+        return ussd.replace(/\*/g, ' star ').replace(/#/g, ' hash ').replace(/\s+/g, ' ').trim();
+    };
+
+    addFastListener(showUSSDBtn, async (e) => {
         if (!selectedProvider)
             return showToast('Please select a payment provider first.');
         const total = calcSubtotal() + DELIVERY_FEE;
+        // ensure numeric total is integer (no decimals)
+        const roundedTotal = Math.round(total);
         const ussd =
             selectedProvider === 'mtn'
-                ? USSD_TEMPLATES.mtn(total)
-                : USSD_TEMPLATES.airtel(total);
-        speak(
-            `Please dial ${ussd
-                .replace(/\*/g, 'star ')
-                .replace(/#/g, ' hash')} on your phone.`
-        );
+                ? USSD_TEMPLATES.mtn(roundedTotal)
+                : USSD_TEMPLATES.airtel(roundedTotal);
+
+        const spokenUSSD = verbalizeUSSD(ussd);
+
+        // Step 1: speak the USSD three times, clearly and calmly
+        // Step 2: speak the merchant code three times
+        const merchant = selectedProvider === 'mtn' ? MTN_MERCHANT : AIRTEL_MERCHANT;
+        const merchantSpoken = merchant.split('').join(' '); // speak digits with pauses by spacing them in output if TTS handles it better
+
+        // Build sequence: speak USSD x3 then merchant x3 with calm phrasing
+        const seq = [
+            `Please dial ${spokenUSSD} on your phone.`,
+            `Please repeat: ${spokenUSSD}.`,
+            `Once more: ${spokenUSSD}.`,
+            `Now, the merchant code is ${merchant}.`,
+            `I repeat, merchant code ${merchant}.`,
+            `One more time, merchant code ${merchant}.`
+        ];
+        // speakSequence will schedule them with 2600ms gaps
+        speakSequence(seq, 2600);
+
+        // Visual / clipboard assistance
         shakeButton(e.currentTarget);
-        alert(
-            `Dial this USSD on your phone:\n${ussd}\nThen return to confirm via WhatsApp.`
-        );
+        // show an alert as a fallback and quick visual — keep the language calm.
+        alert(`Dial this USSD on your phone:\n${ussd}\nMerchant code: ${merchant}\n\nPlease complete the payment on your device, then return here to confirm via WhatsApp.`);
     });
 
     /* ================= WHATSAPP CONFIRM ================= */
-    whatsappBtn?.addEventListener('click', e => {
+    addFastListener(whatsappBtn, (e) => {
         if (!window.CoffeeLife.cart.length)
             return showToast('Your cart is empty.');
         if (!selectedProvider)
@@ -283,24 +378,41 @@
         )}\nTotal: ${formatUGX(total)}\n\nPayment via ${selectedProvider.toUpperCase()} (${number})\nDelivery Area: ${area}\n\nThank you for choosing Coffee Life Café — where every sip is a smile! ☕✨`;
 
         window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        shakeButton(e.currentTarget);
+        shakeButton(e.currentTarget || whatsappBtn);
         showToast('WhatsApp message ready — confirm your order.', false);
+        // Calm closing speech
         speak(
-            'Perfect! WhatsApp message ready. Kindly confirm your payment so our chefs can start crafting your order.'
+            'Perfect. WhatsApp message is ready. Kindly confirm your payment so our chefs may start preparing your order.'
         );
     });
 
     /* ================= CALL SUPPORT ================= */
-    callSupportBtn?.addEventListener('click', e => {
-        shakeButton(e.currentTarget);
-        speak('Connecting you to Coffee Life Café support. Please hold...');
-        window.location.href = `tel:${SUPPORT_NUMBER}`;
+    addFastListener(callSupportBtn, (e) => {
+        shakeButton(e.currentTarget || callSupportBtn);
+        speak('Connecting you to Coffee Life Café support. Please hold. A friendly representative will speak with you shortly.');
+        // use location.href after a short delay to allow the speech to start
+        setTimeout(() => {
+            window.location.href = `tel:${SUPPORT_NUMBER}`;
+        }, 400);
     });
 
     /* ================= INIT ================= */
     loadCart();
     renderCart();
+    // keep your presenter voice but calmer / very clear
     speak(
         'Dear customer, welcome to Coffee Life Café payment center. Please choose your delivery area, select your payment provider, and confirm your order when ready.'
     );
+
+    // Accessibility: enable keyboard selection for payment options
+    paymentOptions.forEach(btn => {
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('tabindex', '0');
+        btn.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter' || ev.key === ' ') {
+                ev.preventDefault();
+                btn.click();
+            }
+        });
+    });
 })();

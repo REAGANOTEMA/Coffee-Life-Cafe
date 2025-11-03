@@ -414,3 +414,43 @@ body {
         right: 10px;
     }
 }
+/* --- Responsive Button & Layout Enhancements --- */
+button, .btn-3d, .payment-option {
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  padding: 0.75em 1.25em;
+  border-radius: 12px;
+  margin: 0.5em;
+  transition: all 0.25s ease-in-out;
+  width: 100%;
+  max-width: 320px;
+}
+
+button:hover, .btn-3d:hover, .payment-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+button:active, .btn-3d:active, .payment-option:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Separate buttons clearly on mobile */
+@media (max-width: 768px) {
+  .payment-option, #copyMerchant, #showUSSD, #whatsapp-confirm, #callSupport {
+    display: block;
+    margin: 1em auto;
+    width: 90%;
+  }
+}
+
+/* Toast visibility */
+#toast {
+  pointer-events: none;
+  max-width: 95%;
+  font-size: 1rem;
+  border-radius: 12px;
+}
