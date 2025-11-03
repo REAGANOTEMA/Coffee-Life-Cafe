@@ -21,8 +21,8 @@
 
         <!-- PWA / Installable App -->
         <link rel="manifest" href="/manifest.json">
-        <link rel="apple-touch-icon" href="/images/logo.jpg">
-        <link rel="icon" href="/images/logo.jpg" type="image/jpeg">
+        <link rel="apple-touch-icon" href="/images/logo.png">
+        <link rel="icon" href="/images/logo.png" type="image/jpeg">
         <meta name="theme-color" content="#b85c38">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="COFFEE LIFE CAFE">
@@ -55,8 +55,16 @@
         <link rel="stylesheet" href="/css/menu.css">
         <link rel="stylesheet" href="/css/cart.css">
         <link rel="stylesheet" href="/css/whatsapp.css">
+        <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
 
+<!-- Theme color for mobile browsers -->
+<meta name="theme-color" content="#b85c38">
 
+<!-- Apple-specific (optional for iOS) -->
+<link rel="apple-touch-icon" href="/images/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CoffeeLife">
         <script>
             let deferredPrompt;
 
@@ -96,7 +104,7 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
             integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="icon" href="images/logo.jpg">
+        <link rel="icon" href="images/logo.png">
 
         <!-- Fonts & icons (CDN) -->
         <link
@@ -121,6 +129,17 @@
         <link rel="stylesheet" href="css/apps.css">
         <link rel="stylesheet" href="css/payment.css">
         <link rel="stylesheet" href="css/footer.css">
+        <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Theme color for mobile browsers -->
+<meta name="theme-color" content="#b85c38">
+
+<!-- Apple-specific (optional for iOS) -->
+<link rel="apple-touch-icon" href="/images/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CoffeeLife">
+
 
         <!-- Data source (JS will fetch data/menu.json) -->
         <!-- No inline JS or CSS per request -->
@@ -137,7 +156,7 @@
             <!-- ===== BRAND / LOGO ===== -->
             <a class="logo" href="index.html#home" aria-label="Coffee Life home">
                 <div class="luxury-logo-circle">
-                    <img src="images/logo.jpg" alt="Coffee Life Logo">
+                    <img src="images/logo.png" alt="Coffee Life Logo">
                 </div>
                 <div class="luxury-copy">
                     <span class="luxury-title">Coffee Life</span>
@@ -2104,7 +2123,7 @@
             <!-- ===== LEFT COLUMN: Logo, About, Vision & Values ===== -->
             <div class="footer-left">
                 <a class="brand-footer" href="#top">
-                    <img src="images/logo.jpg" alt="Coffee Life Logo" />
+                    <img src="images/logo.png" alt="Coffee Life Logo" />
                 </a>
 
                 <p class="about-footer">
@@ -2136,7 +2155,7 @@
                     © <span id="year"></span> Coffee Life Cafe
                 </p>
                 <p class="designed">
-                    Designed & Managed by <a href="https://wa.me/256772514889" target="_blank"
+                    Designed & Managed by <a href="https://wa.me/+256772514889" target="_blank"
                         rel="noopener"><strong>Reagan Otema</strong></a>
                 </p>
             </div>
@@ -2236,6 +2255,32 @@
         <script src="js/whatsapp.js"></script>
         <script src="js/apps.js"></script>
         <script>
+            self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) return cachedResponse;
+
+      return fetch(event.request)
+        .then(networkResponse => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            return networkResponse;
+          }
+
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseToCache));
+
+          return networkResponse;
+        })
+        .catch(() => {
+          // Fallback for navigation requests when offline
+          if (event.request.mode === 'navigate') {
+            return caches.match('/offline.html');  // ← Serve offline page
+          }
+        });
+    })
+  );
+});
+
             document.addEventListener("DOMContentLoaded", () => {
                 // Make sure CoffeeLife object exists
                 if (!window.CoffeeLife) window.CoffeeLife = {};
