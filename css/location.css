@@ -55,7 +55,7 @@
 .contact-card a {
     font-size: 0.95rem;
     line-height: 1.5;
-    color: #814848;
+    color: #e5f094;
 }
 
 .contact-card a {
@@ -70,7 +70,7 @@
 
 /* Muted text */
 .muted {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(155, 135, 0, 0.6);
     font-size: 0.85rem;
     margin-top: 0.5rem;
 }
