@@ -1,98 +1,85 @@
-const CACHE_NAME = 'coffee-life-cache-v2'; // Increment for updates
-
-const urlsToCache = [
-// HTML pages
-'/index.html',
-'/form.html',
-'/payment.html',
-'/manifest.json',
-
-// Images
-'/images/logo.png',
-
-// CSS files
-'/css/global.css',
-'/css/home.css',
-'/css/responsive.css',
-'/css/hero.css',
-'/css/location.css',
-'/css/gallery.css',
-'/css/apps.css',
-'/css/qr.css',
-'/css/footer.css',
-'/css/contact.css',
-'/css/payment.css',
-'/css/menu.css',
-'/css/cart.css',
-'/css/whatsapp.css',
-'/css/form.css',
-
-// JavaScript files
-'/js/location.js',
-'/js/menu.js',
-'/js/form.js',
-'/js/payment.js'
+// COFFEE LIFE CAFE Service Worker
+const CACHE_NAME = 'coffee-life-v1.0.0';
+const APP_SHELL = [
+  '/',
+  '/index.html',
+  '/form.html',
+  '/payment.html',
+  '/images/logo.png',
+  '/manifest.json',
+  '/styles.css',
+  '/script.js'
 ];
 
-// Install service worker and cache assets
-self.addEventListener('install', event => {
-event.waitUntil(
-caches.open(CACHE_NAME).then(cache => {
-console.log('[ServiceWorker] Caching app shell and content');
-return cache.addAll(urlsToCache);
-})
-);
-self.skipWaiting();
-});
-
-// Activate service worker and clean old caches
-self.addEventListener('activate', event => {
-event.waitUntil(
-caches.keys().then(keys =>
-Promise.all(
-keys.map(key => {
-if (key !== CACHE_NAME) {
-console.log('[ServiceWorker] Removing old cache', key);
-return caches.delete(key);
-}
-})
-)
-)
-);
-self.clients.claim();
-});
-
-// Fetch handler with Cache First, then Network
-self.addEventListener('fetch', event => {
-event.respondWith(
-caches.match(event.request).then(cachedResponse => {
-if (cachedResponse) {
-return cachedResponse;
-}
-
-```
-  return fetch(event.request)
-    .then(networkResponse => {
-      if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-        return networkResponse;
-      }
-
-      const responseToCache = networkResponse.clone();
-      caches.open(CACHE_NAME).then(cache => {
-        cache.put(event.request, responseToCache);
-      });
-
-      return networkResponse;
+// --- Install: Pre-cache essential files ---
+self.addEventListener('install', (event) => {
+  console.log('[ServiceWorker] Installing...');
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[ServiceWorker] Pre-caching app shell');
+      return cache.addAll(APP_SHELL);
     })
-    .catch(() => {
-      if (event.request.mode === 'navigate') {
-        return caches.match('/index.html');
-      }
-    });
-})
-```
-
-);
+  );
+  self.skipWaiting();
 });
 
-// Optional: Push notifications or background sync can be added here later
+// --- Activate: Clean up old caches ---
+self.addEventListener('activate', (event) => {
+  console.log('[ServiceWorker] Activating...');
+  event.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(
+        keyList.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('[ServiceWorker] Removing old cache:', key);
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+// --- Fetch: Fast response with background refresh ---
+self.addEventListener('fetch', (event) => {
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      const networkFetch = fetch(event.request)
+        .then((response) => {
+          // Cache the new response for future visits
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch(() => {
+          // Offline fallback if network fails
+          if (event.request.mode === 'navigate') {
+            return caches.match('/index.html');
+          }
+        });
+
+      // Return cached first, then update in background
+      return cachedResponse || networkFetch;
+    })
+  );
+});
+
+// --- Optional: Background Sync or Notifications (future-ready) ---
+self.addEventListener('sync', (event) => {
+  console.log('[ServiceWorker] Sync event:', event.tag);
+  // You can handle queued requests here if needed later.
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow('/')
+  );
+});
+
+console.log('[ServiceWorker] Coffee Life Cafe ready to serve fresh coffee ☕');
