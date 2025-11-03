@@ -190,3 +190,20 @@ body {
         width: 60px;
     }
 }
+/* Logo - static, perfectly visible, no animation */
+#mainHeader .logo img {
+height: 80px;          /* keeps it prominent on desktop */
+width: 80px;           /* square for consistency */
+object-fit: contain;    /* ensures full logo is visible without cropping */
+display: block;
+border-radius: 8px;     /* keeps the luxury feel */
+margin-right: 15px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.5);  /* subtle cinematic shadow */
+transition: none;       /* disable all animations/transitions */
+}
+@media (max-width: 768px) {
+#mainHeader .logo img {
+height: 60px;
+width: 60px;
+}
+}
