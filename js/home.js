@@ -156,3 +156,15 @@
     }
     animateTitleSlide();
 })();
+```
+    // Logo static (no rotation)
+    if (logo) {
+        logo.style.width = '80px';
+        logo.style.height = '80px';
+        logo.style.borderRadius = '0'; // square
+        logo.style.objectFit = 'cover';
+        logo.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)'; // static
+        logoContainer.style.perspective = '1000px';
+        // Removed rotating animation
+    }
+```
