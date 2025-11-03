@@ -20,7 +20,7 @@ ULTRA-LUXURY CINEMATIC HEADER - FINAL
 position: relative;
 width: 100%;
 height: 120px;
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/header.jpg') center center / cover no-repeat;
+background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/logo.png') center center / cover no-repeat;
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -46,25 +46,18 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 display: block;
 }
 
-/* Slogan near logo */
-#mainHeader .slogan-container {
-display: flex;
-flex-direction: column;
-margin-left: 12px;
-}
-#mainHeader .luxury-slogan {
-font-size: 14px;
-color: #fff;
-text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+/* Title & Slogan Container */
+#mainHeader .text-container {
+flex-grow: 1;
+margin-left: 20px;
+overflow: hidden;
 }
 
-/* Moving title ("Coffee Life") */
-#mainHeader .title-container {
-position: absolute;
-left: 120px; /* start sliding after logo */
-right: 20px; /* stop sliding before right nav */
+/* Sliding Title */
+#mainHeader .luxury-title-wrapper {
+width: 100%;
 overflow: hidden;
-white-space: nowrap;
+position: relative;
 }
 #mainHeader .luxury-title {
 display: inline-block;
@@ -72,11 +65,20 @@ font-size: 28px;
 font-weight: bold;
 color: #fff;
 text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+white-space: nowrap;
 animation: marquee 12s linear infinite;
-padding-right: 100%; /* ensures continuous loop without cutting */
 }
 
-/* Marquee animation for single line, stops before logo */
+/* Fixed Slogan */
+#mainHeader .luxury-slogan {
+font-size: 14px;
+color: #fff;
+text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+margin-top: 4px;
+white-space: nowrap;
+}
+
+/* Marquee Animation: stops sliding before logo and right nav */
 @keyframes marquee {
 0%   { transform: translateX(100%); }
 100% { transform: translateX(-100%); }
