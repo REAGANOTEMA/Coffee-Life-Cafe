@@ -1,5 +1,5 @@
 /* =========================================
-ULTRA-LUXURY CINEMATIC HEADER - PERFECT LAYOUT
+ULTRA-LUXURY CINEMATIC HEADER - FINAL
 ========================================= */
 
 /* Reset & Basic */
@@ -25,9 +25,10 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 0 30px;
+overflow: hidden;
 }
 
-/* Logo - left end */
+/* Logo */
 #mainHeader .logo {
 flex-shrink: 0;
 width: 80px;
@@ -43,21 +44,40 @@ border-radius: 10px;
 box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* Title & Slogan - centered */
-#mainHeader .title-container {
-text-align: center;
-flex-grow: 1;
-}
-#mainHeader .luxury-title {
-font-size: 28px;
-font-weight: bold;
-color: #fff;
-text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+/* Slogan near logo */
+#mainHeader .slogan-container {
+display: flex;
+flex-direction: column;
+margin-left: 12px;
 }
 #mainHeader .luxury-slogan {
 font-size: 14px;
 color: #fff;
-margin-top: 4px;
+text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+
+/* Moving title */
+#mainHeader .title-container {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+white-space: nowrap;
+overflow: hidden;
+flex-grow: 1;
+}
+#mainHeader .luxury-title {
+display: inline-block;
+font-size: 28px;
+font-weight: bold;
+color: #fff;
+text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+animation: marquee 15s linear infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+0% { transform: translateX(100%); }
+100% { transform: translateX(-100%); }
 }
 
 /* Navigation - right end */
@@ -150,24 +170,27 @@ color: #000;
 /* ================= Responsive ================= */
 @media (max-width: 1024px) {
 #mainHeader {
-flex-direction: column;
-align-items: center;
 height: auto;
 padding: 10px 20px;
 }
-#mainHeader .title-container {
-order: 2;
-margin: 10px 0;
+#mainHeader .logo {
+width: 70px;
+height: 70px;
+}
+#mainHeader .luxury-title {
+font-size: 24px;
+}
+#mainHeader .luxury-slogan {
+font-size: 12px;
 }
 nav.nav {
-order: 3;
+flex-wrap: wrap;
+justify-content: flex-end;
 width: 100%;
-justify-content: center;
-gap: 10px;
+margin-top: 8px;
 }
 #hamburger {
 display: flex;
-order: 3;
 }
 .nav-link {
 display: none;
@@ -175,14 +198,14 @@ display: none;
 }
 
 @media (max-width: 768px) {
-#mainHeader .luxury-title {
-font-size: 22px;
-}
-#mainHeader .luxury-slogan {
-font-size: 12px;
-}
 #mainHeader .logo {
 width: 60px;
 height: 60px;
+}
+#mainHeader .luxury-title {
+font-size: 20px;
+}
+#mainHeader .luxury-slogan {
+font-size: 10px;
 }
 }
