@@ -1,5 +1,5 @@
 /* =========================================
-ULTRA-LUXURY CINEMATIC HEADER - FINAL CSS
+ULTRA-LUXURY CINEMATIC HEADER - PERFECT LAYOUT
 ========================================= */
 
 /* Reset & Basic */
@@ -24,21 +24,16 @@ background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/heade
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 0 20px;
-overflow: hidden;
+padding: 0 30px;
 }
 
-/* Logo - fixed top-left */
+/* Logo - left end */
 #mainHeader .logo {
-position: absolute;
-top: 20px;
-left: 20px;
+flex-shrink: 0;
 width: 80px;
 height: 80px;
-z-index: 200;
 display: flex;
 align-items: center;
-flex-shrink: 0;
 }
 #mainHeader .logo img {
 width: 100%;
@@ -46,27 +41,18 @@ height: 100%;
 object-fit: contain;
 border-radius: 10px;
 box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-display: block;
-transform: none; /* static, no rotation */
 }
 
-/* Title & Slogan */
+/* Title & Slogan - centered */
 #mainHeader .title-container {
-display: flex;
-flex-direction: column;
-justify-content: center;
+text-align: center;
 flex-grow: 1;
-margin-left: 120px; /* offset so logo doesn't overlap */
-overflow: hidden;
 }
 #mainHeader .luxury-title {
 font-size: 28px;
 font-weight: bold;
 color: #fff;
 text-shadow: 0 2px 6px rgba(0,0,0,0.7);
-white-space: nowrap;
-overflow: hidden;
-position: relative;
 }
 #mainHeader .luxury-slogan {
 font-size: 14px;
@@ -74,12 +60,11 @@ color: #fff;
 margin-top: 4px;
 }
 
-/* Navigation */
+/* Navigation - right end */
 #mainHeader nav.nav {
 display: flex;
 align-items: center;
 gap: 12px;
-z-index: 100;
 }
 #mainHeader .nav-link {
 display: inline-block;
@@ -98,10 +83,10 @@ transform: translateY(-3px) rotateX(5deg) scale(1.05);
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 #mainHeader .nav-link:active {
-background: #c1272d; /* red on press */
+background: #c1272d;
 }
 
-/* Cart & Language */
+/* Cart & Actions */
 .nav-actions {
 display: flex;
 align-items: center;
@@ -117,7 +102,6 @@ color: #fff;
 border-radius: 50%;
 padding: 2px 6px;
 font-size: 12px;
-margin-left: 2px;
 }
 
 /* Hamburger menu (mobile) */
@@ -167,22 +151,26 @@ color: #000;
 @media (max-width: 1024px) {
 #mainHeader {
 flex-direction: column;
-align-items: flex-start;
+align-items: center;
 height: auto;
 padding: 10px 20px;
 }
+#mainHeader .title-container {
+order: 2;
+margin: 10px 0;
+}
 nav.nav {
-margin-left: 0;
-margin-top: 8px;
-flex-wrap: wrap;
-justify-content: flex-end;
+order: 3;
 width: 100%;
+justify-content: center;
+gap: 10px;
 }
 #hamburger {
 display: flex;
+order: 3;
 }
 .nav-link {
-display: none; /* hide desktop links */
+display: none;
 }
 }
 
@@ -194,12 +182,7 @@ font-size: 22px;
 font-size: 12px;
 }
 #mainHeader .logo {
-top: 15px;
-left: 15px;
 width: 60px;
 height: 60px;
-}
-#mainHeader .title-container {
-margin-left: 80px; /* adjust for smaller logo */
 }
 }
