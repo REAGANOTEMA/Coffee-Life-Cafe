@@ -2,93 +2,60 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>COFFEE LIFE CAFE</title>
+    <meta name="description" content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
+    <meta name="author" content="Mr. Reagan Otema">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <title>COFFEE LIFE CAFE</title>
-        <meta name="description"
-            content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
-        <meta name="author" content="Mr. Reagan Otema">
+    <!-- PWA / Installable App -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <meta name="theme-color" content="#b85c38">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="COFFEE LIFE CAFE">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-        <!-- =========================
-     COFFEE LIFE CAFE - Head Section
-     Premium PWA, Fonts, Styles, Service Worker
-========================= -->
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/hero.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/gallery.css">
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="/css/location.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/qr.css">
+    <link rel="stylesheet" href="/css/apps.css">
+    <link rel="stylesheet" href="/css/whatsapp.css">
+    <link rel="stylesheet" href="/css/payment.css">
 
-        <!-- PWA / Installable App -->
-        <link rel="manifest" href="/manifest.json">
-        <link rel="apple-touch-icon" href="/images/logo.png">
-        <link rel="icon" href="/images/logo.png" type="image/jpeg">
-        <meta name="theme-color" content="#b85c38">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-title" content="COFFEE LIFE CAFE">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-        <!-- SEO & Author -->
-        <meta name="description"
-            content="COFFEE LIFE CAFE — finest coffee and meals in Jinja & Kampala. View menu, gallery, order via WhatsApp.">
-        <meta name="author" content="Mr. Reagan Otema">
-
-        <!-- Fonts & Icons -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        jax/libs/font-awesome/6.5.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="/css/hero.css">
-        <link rel="stylesheet" href="/css/location.css">
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/home.css">
-        <link rel="stylesheet" href="/css/responsive.css">
-        <link rel="stylesheet" href="/css/gallery.css">
-        <link rel="stylesheet" href="/css/apps.css">
-        <link rel="stylesheet" href="/css/qr.css">
-        <link rel="stylesheet" href="/css/footer.css">
-        <link rel="stylesheet" href="/css/contact.css">
-        <link rel="stylesheet" href="/css/menu.css">
-        <link rel="stylesheet" href="/css/cart.css">
-        <link rel="stylesheet" href="/css/whatsapp.css">
-        <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-
-<!-- Theme color for mobile browsers -->
-<meta name="theme-color" content="#b85c38">
-
-<!-- Apple-specific (optional for iOS) -->
-<link rel="apple-touch-icon" href="/images/logo.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="CoffeeLife">
-        <script>
-            let deferredPrompt;
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-
-                // Auto-show prompt after a short delay on first visit
-                setTimeout(async () => {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt();
-                        const choice = await deferredPrompt.userChoice;
-                        if (choice.outcome === 'accepted') {
-                            console.log('App Installed');
-                        }
-                        deferredPrompt = null; // Clear it
+    <!-- Scripts -->
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const choice = await deferredPrompt.userChoice;
+                    if (choice.outcome === 'accepted') {
+                        console.log('App Installed');
                     }
-                }, 2000); // Show after 2 seconds
-            });
-        </script>
+                    deferredPrompt = null;
+                }
+            }, 2000);
+        });
 
-
-        <!-- Optional: Smooth scroll JS fallback -->
-        <script>
+        document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -96,54 +63,10 @@
                     if (target) target.scrollIntoView({ behavior: 'smooth' });
                 });
             });
-        </script>
+        });
+    </script>
+</head>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/hero.css">
-
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-            integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="icon" href="images/logo.png">
-
-        <!-- Fonts & icons (CDN) -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-        <!-- External CSS (do not inline) -->
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/navbar.css">
-        <link rel="stylesheet" href="css/hero.css">
-        <link rel="stylesheet" href="css/home.css">
-        <link rel="stylesheet" href="css/menu.css">
-        <link rel="stylesheet" href="css/qr.css">
-        <link rel="stylesheet" href="css/location.css">
-        <link rel="stylesheet" href="css/cart.css">
-        <link rel="stylesheet" href="css/whatsapp.css">
-        <link rel="stylesheet" href="css/responsive.css">
-        <link rel="stylesheet" href="css/gallery.css">
-        <link rel="stylesheet" href="css/contact.css">
-        <link rel="stylesheet" href="css/apps.css">
-        <link rel="stylesheet" href="css/payment.css">
-        <link rel="stylesheet" href="css/footer.css">
-        <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-
-<!-- Theme color for mobile browsers -->
-<meta name="theme-color" content="#b85c38">
-
-<!-- Apple-specific (optional for iOS) -->
-<link rel="apple-touch-icon" href="/images/logo.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="CoffeeLife">
-
-
-        <!-- Data source (JS will fetch data/menu.json) -->
-        <!-- No inline JS or CSS per request -->
-    </head>
 
 <body>
     <!-- ===== ULTRA-LUXURY CINEMATIC HEADER HTML ===== -->
