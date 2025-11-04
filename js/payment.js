@@ -55,31 +55,114 @@
         window.CoffeeLife.cart = saved ? JSON.parse(saved) : [];
     };
 
-    /* Calm, clear speak wrapper */
-    const speak = (text, opts = {}) => {
-        if (!('speechSynthesis' in window)) return;
-        try {
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.rate = typeof opts.rate === 'number' ? opts.rate : 0.95; // slightly slower for clarity
-            utter.pitch = typeof opts.pitch === 'number' ? opts.pitch : 1;
-            utter.lang = opts.lang || 'en-GB';
-            // ensure previous speech doesn't overlap
-            try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ }
-            window.speechSynthesis.speak(utter);
-        } catch (err) {
-            // ignore speech errors gracefully
-            console.warn('Speech failed:', err);
-        }
-    };
+    /* ================= SPEECH QUEUE & IMPROVEMENTS ================= */
+    // Improved speech system that: selects a clear voice (if available), spells short acronyms
+    // (like MTN) instead of slurring, pronounces digits clearly, ensures sentences finish
+    // before starting the next, and allows controlled pacing.
 
-    /* Speak multiple items in sequence with controlled spacing */
-    const speakSequence = (texts = [], delayBetweenMs = 2600) => {
-        texts.forEach((t, i) => {
-            setTimeout(() => {
-                speak(t);
-            }, i * delayBetweenMs);
+    const Speech = (() => {
+        let voice = null;
+        let queue = [];
+        let speaking = false;
+
+        const preferVoice = (voices, lang = 'en-GB') => {
+            // preference order: voices that contain 'Google' or 'Microsoft' or match lang
+            const candidates = voices.filter(v => v.lang && v.lang.startsWith(lang));
+            const pick = (list, keywords) => {
+                for (const k of keywords) {
+                    const found = list.find(v => v.name && v.name.toLowerCase().includes(k));
+                    if (found) return found;
+                }
+                return null;
+            };
+            return pick(candidates, ['google', 'microsoft', 'amazon', 'native']) || candidates[0] || voices[0] || null;
+        };
+
+        const initVoice = () => {
+            const voices = window.speechSynthesis.getVoices();
+            voice = preferVoice(voices, 'en-GB') || preferVoice(voices, 'en-US') || voices[0] || null;
+        };
+
+        // Make sure voices are loaded (some browsers load voices asynchronously)
+        if ('speechSynthesis' in window) {
+            initVoice();
+            window.speechSynthesis.onvoiceschanged = () => initVoice();
+        }
+
+        const clearQueue = () => { queue = []; speaking = false; try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } };
+
+        const spellOut = (text) => {
+            // Spell common short acronyms (MTN, UGX, SMS, USSD) and separate digits for clarity.
+            return text
+                .replace(/\bMTN\b/gi, 'M. T. N.')
+                .replace(/\bUGX\b/gi, 'U. G. X.')
+                .replace(/\bUSSD\b/gi, 'U. S. S. D.')
+                .replace(/\bSMS\b/gi, 'S. M. S.');
+        };
+
+        const digitsToSpaced = (s) => s.replace(/(\d)/g, '$1 ').replace(/\s+/g, ' ').trim();
+
+        const verbalizeDigits = (text) => {
+            // Convert long digit sequences to spaced digits for clarity
+            return text.replace(/(\d{2,})/g, (m) => digitsToSpaced(m));
+        };
+
+        const prepare = (text) => {
+            let t = String(text).trim();
+            t = spellOut(t);
+            t = verbalizeDigits(t);
+            // ensure sentence endings to encourage natural pauses in some voices
+            if (!/[\.\?\!]$/.test(t)) t = t + '.';
+            return t;
+        };
+
+        const speakOnce = (text, opts = {}) => new Promise((resolve) => {
+            if (!('speechSynthesis' in window)) return resolve();
+            try {
+                const u = new SpeechSynthesisUtterance(prepare(text));
+                u.rate = typeof opts.rate === 'number' ? opts.rate : 0.92; // slightly slower for clarity
+                u.pitch = typeof opts.pitch === 'number' ? opts.pitch : 1;
+                u.volume = typeof opts.volume === 'number' ? opts.volume : 1;
+                if (voice) u.voice = voice;
+                if (opts.lang) u.lang = opts.lang;
+
+                u.onend = () => resolve();
+                u.onerror = () => resolve();
+
+                try { window.speechSynthesis.speak(u); } catch (e) { resolve(); }
+            } catch (err) {
+                resolve();
+            }
         });
-    };
+
+        const enqueue = async (texts = [], opts = {}) => {
+            // cancel any ongoing speech if requested
+            if (opts.cancelPrevious) clearQueue();
+            for (const t of texts) queue.push({ text: t, opts });
+            if (!speaking) playNext();
+        };
+
+        const playNext = async () => {
+            if (!queue.length) { speaking = false; return; }
+            speaking = true;
+            const item = queue.shift();
+            await speakOnce(item.text, item.opts || {});
+            // small controlled pause between queued items (configurable)
+            await new Promise(r => setTimeout(r, (item.opts.delayBetweenMs || 600)));
+            playNext();
+        };
+
+        return {
+            speak: (text, opts = {}) => enqueue([text], opts),
+            speakSequence: (texts = [], opts = {}) => enqueue(texts, opts),
+            stop: clearQueue,
+            setVoice: (v) => { voice = v; }
+        };
+    })();
+
+    /* Convenience wrapper used across the app */
+    const speak = (text, opts = {}) => Speech.speak(text, opts);
+    const speakSequence = (texts = [], delayBetweenMs = 2600) => Speech.speakSequence(texts.map(t => t), { delayBetweenMs, cancelPrevious: true });
 
     const showToast = (text, duration = 3000, voice = true) => {
         if (!toastEl) {
@@ -252,7 +335,7 @@
     if (deliverySelect) {
         addFastListener(deliverySelect, () => {
             updateDeliveryFee();
-            speak(`Delivery area selected: ${deliverySelect.value}.`);
+            speak(`Delivery area selected: ${deliverySelect.value}.`, { rate: 0.9 });
         });
     }
     updateDeliveryFee();
@@ -260,7 +343,8 @@
     /* ================= PAYMENT PROVIDER ================= */
     const calmProviderMessage = (provider) => {
         if (provider === 'mtn') {
-            return 'You selected MTN Mobile Money. I will guide you calmly through the payment steps.';
+            // spell MTN so it's crystal clear
+            return 'You selected M. T. N. Mobile Money. I will guide you calmly through the payment steps.';
         } else if (provider === 'airtel') {
             return 'You selected Airtel Money. I will guide you calmly through the payment steps.';
         }
@@ -281,11 +365,24 @@
                     : `${MTN_MERCHANT} / ${AIRTEL_MERCHANT}`;
 
         const message = calmProviderMessage(provider);
-        speak(message);
-        setTimeout(() => {
-            if (provider === 'mtn') speak(`Merchant code ${MTN_MERCHANT}.`);
-            else if (provider === 'airtel') speak(`Merchant code ${AIRTEL_MERCHANT}.`);
-        }, 900);
+        // use a sequence that enforces finishing sentences and repeats merchant slowly
+        if (provider === 'mtn') {
+            speakSequence([
+                message,
+                `Merchant code: ${MTN_MERCHANT}.`,
+                `I repeat: ${MTN_MERCHANT}.`,
+                `That is ${MTN_MERCHANT.split('').join(' ')}.`
+            ], 1200);
+        } else if (provider === 'airtel') {
+            speakSequence([
+                message,
+                `Merchant code: ${AIRTEL_MERCHANT}.`,
+                `I repeat: ${AIRTEL_MERCHANT}.`,
+                `That is ${AIRTEL_MERCHANT.split('').join(' ')}.`
+            ], 1200);
+        } else {
+            speak(message);
+        }
 
         showToast(`${provider.toUpperCase()} selected`, false);
     };
@@ -303,7 +400,7 @@
         if (await copyToClipboard(merchantCodeEl.textContent)) {
             shakeButton(e.currentTarget);
             showToast('Merchant code copied! Proceed to payment.');
-            speak('Merchant code copied to clipboard.');
+            speak('Merchant code copied to clipboard.', { rate: 0.95 });
         }
     });
 
@@ -315,23 +412,28 @@
             if (await copyToClipboard(code)) {
                 shakeButton(e.currentTarget || btn);
                 showToast(`${code} copied to clipboard.`);
-                speak(`Copied ${code} to clipboard.`);
+                // speak digits spaced for clarity
+                speak(`Copied ${code.split('').join(' ')} to clipboard.`, { rate: 0.95 });
             }
         });
     });
 
     /* ================= COPY & USSD ================= */
     const verbalizeUSSD = (ussd) => {
-        return ussd.replace(/\*/g, ' star ').replace(/#/g, ' hash ').replace(/\s+/g, ' ').trim();
+        // clearer pronunciation: say each symbol/digit distinctly
+        return ussd
+            .replace(/\*/g, ' star ')
+            .replace(/#/g, ' hash ')
+            .replace(/(\d)/g, '$1 ')
+            .replace(/\s+/g, ' ')
+            .trim();
     };
 
     const openUssdDialer = (ussd) => {
-        // Try to open dialer with encoded USSD. This works on many phones: tel:*165*3*971714*12000%23
         try {
             const tel = 'tel:' + encodeURIComponent(ussd);
             window.location.href = tel;
         } catch (e) {
-            // fallback do nothing
             console.warn('Opening dialer failed', e);
         }
     };
@@ -349,19 +451,19 @@
         const spokenUSSD = verbalizeUSSD(ussd);
         const merchant = selectedProvider === 'mtn' ? MTN_MERCHANT : AIRTEL_MERCHANT;
 
-        // Sequence: USSD x3, then merchant x3, calm phrasing
+        // Sequence: USSD spoken 3 times with clear pauses, then merchant spelled out
         const seq = [
             `Please dial ${spokenUSSD} on your phone.`,
             `Please repeat: ${spokenUSSD}.`,
-            `Once more: ${spokenUSSD}.`,
+            `One more time: ${spokenUSSD}.`,
             `Now I will say the merchant code.`,
             `Merchant code: ${merchant}.`,
             `I repeat, merchant code ${merchant}.`,
-            `One more time, merchant code ${merchant}.`
+            `That is ${merchant.split('').join(' ')}.`
         ];
-        speakSequence(seq, 2600);
+        speakSequence(seq, 1600);
 
-        // Copy USSD and merchant to clipboard as convenience
+        // Copy USSD and merchant to clipboard as convenience (single copy, not twice)
         await copyToClipboard(ussd);
         await copyToClipboard(merchant);
 
@@ -440,8 +542,8 @@
         'After making payment, please press Confirm and Send via WhatsApp to send your order to our chefs.',
         'If you need help at any time, press Call Support.'
     ];
-    // try to speak the guide gently
-    speakSequence(initialGuide, 3000);
+    // try to speak the guide gently using the improved queue (cancel any half-finished speech)
+    speakSequence(initialGuide, 2400);
 
     // Accessibility: keyboard selection for payment options
     paymentOptions.forEach(btn => {
@@ -454,6 +556,18 @@
             }
         });
     });
+
+    // Expose a small debug hook for testing voice selection in the console
+    window.CoffeeLife.speech = {
+        stop: () => Speech.stop(),
+        speak: (t) => speak(t),
+        speakSequence: (arr) => speakSequence(arr),
+        setVoiceByName: (name) => {
+            const v = (window.speechSynthesis.getVoices() || []).find(x => x.name === name);
+            if (v) Speech.setVoice(v);
+            return !!v;
+        }
+    };
 
     // End of IIFE
 })();
