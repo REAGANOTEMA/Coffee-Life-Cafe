@@ -13,7 +13,6 @@ font-size: 3rem;
 font-weight: 900;
 text-transform: uppercase;
 letter-spacing: 2px;
-text-align: center;
 margin: 0 auto 0.5rem;
 color: #3b1c0f;
 font-family: 'Playfair Display', serif;
@@ -24,7 +23,6 @@ background: linear-gradient(90deg, #d79b5a, #ffb26b);
 }
 
 .menu-header p {
-text-align: center;
 font-size: 1.2rem;
 font-weight: 600;
 color: #6b3c1f;
@@ -50,6 +48,7 @@ overflow: hidden;
 display: flex;
 flex-direction: column;
 text-align: center;
+animation: fadeInUp 0.5s ease both;
 }
 
 .menu-item:hover {
@@ -57,7 +56,7 @@ transform: translateY(-6px);
 box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* ---------- Media (Video/Image) ---------- */
+/* ---------- Media (Image/Video) ---------- */
 .menu-media img,
 .menu-media video {
 width: 100%;
@@ -121,6 +120,8 @@ font-weight: 700;
 font-size: 0.9rem;
 transition: all 0.3s ease;
 box-shadow: 0 4px 10px rgba(176,106,59,0.25);
+cursor: pointer;
+border: none;
 }
 
 .btn-add:hover {
@@ -197,10 +198,6 @@ border-radius: 50%;
 @keyframes fadeInUp {
 from { opacity: 0; transform: translateY(20px); }
 to { opacity: 1; transform: translateY(0); }
-}
-
-.menu-item {
-animation: fadeInUp 0.5s ease both;
 }
 
 /* ---------- Responsive ---------- */
