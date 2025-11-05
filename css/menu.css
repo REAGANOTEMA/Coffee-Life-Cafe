@@ -344,3 +344,31 @@ font-size: 0.85rem;
 padding: 0.3rem 0;
 }
 }
+/* ================= WEDNESDAY BURGER PROMOTION HIGHLIGHT ================= */
+.menu-item[data-id="burger-promotion"] {
+border: 3px solid #ffb26b; /* Highlight border for the special promotion */
+background: #fff7ed; /* Slightly warmer background to stand out */
+box-shadow: 0 6px 18px rgba(255, 178, 107, 0.3), 0 12px 24px rgba(0, 0, 0, 0.1);
+transition: 0.4s ease, transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.menu-item[data-id="burger-promotion"]:hover {
+transform: translateY(-8px) rotateX(3deg);
+box-shadow: 0 16px 28px rgba(255, 178, 107, 0.35), 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item[data-id="burger-promotion"] .menu-body h4 {
+color: #d97436;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+.menu-item[data-id="burger-promotion"] .btn-add {
+background: #d97436;
+font-weight: 900;
+}
+
+.menu-item[data-id="burger-promotion"] .btn-add:hover {
+background: #ff914d;
+transform: scale(1.1) translateY(-2px);
+box-shadow: 0 10px 22px rgba(255, 145, 77, 0.25);
+}
