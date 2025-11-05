@@ -1,253 +1,158 @@
-/* ================= GENERAL RESET ================= */
+/* ================= FINAL INTEGRATED MENU & CART STYLE ================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-body {
-background: #fdfaf6;
-color: #333;
-line-height: 1.2;
-}
-
-a {
-text-decoration: none;
-color: inherit;
-}
-
-/* ================= MENU HEADER ================= */
+/* ---------- Header Styling ---------- */
 .menu-header {
 text-align: center;
-padding: 2rem 1rem;
 background: #fff;
+padding: 2rem 1rem 1.5rem;
 border-bottom: 4px solid #6b3c1f;
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .menu-header h2 {
-font-size: 2.8rem;
+font-size: 3rem;
 font-weight: 900;
 text-transform: uppercase;
 letter-spacing: 2px;
-margin-bottom: 0.3rem;
+text-align: center;
+margin: 0 auto 0.5rem;
+color: #3b1c0f;
 font-family: 'Playfair Display', serif;
-text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
 background: linear-gradient(90deg, #d79b5a, #ffb26b);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-animation: floatTitle 2.5s ease-in-out infinite alternate;
-transition: all 0.3s ease;
-}
-
-.menu-header h2:hover {
-transform: translateY(-4px) scale(1.03);
 }
 
 .menu-header p {
-color: #6b3c1f;
-text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
-font-size: 1.1rem;
-margin-top: 0.2rem;
-}
-
-/* ================= FLOAT ANIMATION ================= */
-@keyframes floatTitle {
-0% { transform: translateY(0); }
-100% { transform: translateY(-6px); }
-}
-
-/* ================= MENU CATEGORY TABS ================= */
-.menu-cats {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 0.8rem;
-margin-top: 1rem;
-}
-
-.menu-cat {
-display: inline-block;
-padding: 0.6rem 1.4rem;
-background: linear-gradient(145deg, #fdf6ed, #f6e2d6);
-color: #4b2e1f;
-font-weight: 700;
-text-transform: uppercase;
-border-radius: 12px;
-box-shadow: 4px 4px 10px #c5a88c, -4px -4px 10px #fff, 0 6px 12px rgba(0, 0, 0, 0.1);
-transition: 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.3s ease;
-cursor: pointer;
-position: relative;
-font-family: 'Playfair Display', serif;
-perspective: 1000px;
 text-align: center;
+font-size: 1.2rem;
+font-weight: 600;
+color: #6b3c1f;
 }
 
-.menu-cat::after {
-content: '';
-position: absolute;
-bottom: -6px;
-left: 50%;
-transform: translateX(-50%);
-width: 70%;
-height: 6px;
-background: linear-gradient(90deg, #ffd7a0, #ffb26b);
-border-radius: 3px;
-opacity: 0;
-transition: 0.3s ease;
-}
-
-.menu-cat:hover {
-transform: translateY(-5px) rotateX(3deg);
-box-shadow: 2px 2px 12px #c5a88c, -2px -2px 12px #fff, 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.menu-cat.active,
-.menu-cat:active {
-background: linear-gradient(145deg, #fce8d6, #f6d4bb);
-box-shadow: inset 4px 4px 10px #c5a88c, inset -4px -4px 10px #fff, 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.menu-cat.active::after {
-opacity: 1;
-}
-
-/* ================= MENU GRID ================= */
+/* ---------- Menu Layout ---------- */
 .menu-grid {
 display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-gap: 0.8rem;
-padding: 0.5rem;
+grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+gap: 1rem;
+padding: 1.5rem 1rem;
+justify-items: center;
+align-items: start;
 }
 
-/* ================= MENU ITEM ================= */
+/* ---------- Menu Cards ---------- */
 .menu-item {
-background: #ffffff;
-border-radius: 12px;
+background: #fff;
+border-radius: 16px;
+box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+transition: all 0.4s ease-in-out;
 overflow: hidden;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-transition: 0.4s ease, transform 0.3s ease-in-out;
 display: flex;
 flex-direction: column;
-perspective: 1000px;
+text-align: center;
 }
 
 .menu-item:hover {
-transform: translateY(-6px) rotateX(2deg);
-box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+transform: translateY(-6px);
+box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* ================= MEDIA ================= */
+/* ---------- Media (Video/Image) ---------- */
 .menu-media img,
 .menu-media video {
 width: 100%;
-height: 160px;
+height: 180px;
 object-fit: cover;
+border-radius: 16px 16px 0 0;
 display: block;
-transition: transform 0.5s ease, box-shadow 0.5s ease;
-border-radius: 12px 12px 0 0;
+transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.menu-item:hover .menu-media img {
-transform: scale(1.05) rotateZ(1deg);
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+.menu-item:hover .menu-media img,
+.menu-item:hover .menu-media video {
+transform: scale(1.04);
+filter: brightness(1.05);
 }
 
-/* ================= BODY ================= */
+/* ---------- Body Content ---------- */
 .menu-body {
-padding: 0.4rem 0.5rem;
-display: flex;
-flex-direction: column;
-justify-content: center;
-text-align: center;
+padding: 0.8rem;
+background: rgba(255,255,255,0.95);
 }
 
 .menu-body h4 {
-font-size: 1.3rem;
+font-size: 1.35rem;
 font-weight: 800;
+margin-bottom: 0.2rem;
 color: #3b1c0f;
 font-family: 'Raleway', sans-serif;
-text-transform: capitalize;
-margin-bottom: 0.3rem;
-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-transition: color 0.3s ease, transform 0.2s ease-in-out;
-}
-
-.menu-body h4:hover {
-color: #6b3c1f;
-transform: translateY(-2px);
 }
 
 .menu-body .desc {
-font-size: 0.85rem;
+font-size: 0.9rem;
 color: #444;
-margin: 0;
-line-height: 1.1;
+margin: 0.2rem 0 0.5rem;
+line-height: 1.3;
 }
 
-/* ================= META & PRICE ================= */
+/* ---------- Meta Info ---------- */
 .meta {
 display: flex;
 justify-content: space-between;
 align-items: center;
 font-size: 0.9rem;
-margin: 0;
-padding: 0;
+margin-top: 0.4rem;
 }
 
 .price {
 font-weight: 800;
 color: #6b3c1f;
 font-size: 1rem;
-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* ================= BUTTON ================= */
+/* ---------- Add Button ---------- */
 .btn-add {
-display: block;
-width: 100%;
-background: #6b3c1f;
+display: inline-block;
+background: linear-gradient(135deg, #6b3c1f, #b06a3b);
 color: #fff;
-border-radius: 50%;
+border-radius: 25px;
+padding: 0.4rem 1.2rem;
 font-weight: 700;
 font-size: 0.9rem;
-padding: 0.35rem 0;
-cursor: pointer;
-transition: 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.3s ease;
+transition: all 0.3s ease;
+box-shadow: 0 4px 10px rgba(176,106,59,0.25);
 }
 
 .btn-add:hover {
-background: #8b4b2b;
+background: linear-gradient(135deg, #8b4b2b, #ffb26b);
 transform: scale(1.05) translateY(-2px);
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-animation: shake 0.6s;
+box-shadow: 0 10px 20px rgba(255,178,107,0.35);
 }
 
-/* ================= CART ITEMS ================= */
+/* ---------- Cart Styling ---------- */
 .cart-item {
 display: flex;
 align-items: center;
-margin-bottom: 0.2rem;
-padding: 0.2rem;
+justify-content: space-between;
 background: #fff;
-border-radius: 50%;
-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+border-radius: 12px;
+box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+padding: 0.3rem 0.5rem;
+margin-bottom: 0.4rem;
+transition: 0.3s ease;
 }
 
 .cart-item img {
 width: 55px;
 height: 55px;
-object-fit: cover;
 border-radius: 50%;
-margin-right: 0.2rem;
-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
-cursor: pointer;
+object-fit: cover;
+margin-right: 0.4rem;
+box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
 }
 
 .cart-item-info {
-flex-grow: 1;
+flex: 1;
 font-size: 0.85rem;
 line-height: 1.1;
 margin-right: 0.2rem;
@@ -256,119 +161,52 @@ margin-right: 0.2rem;
 .cart-item-controls {
 display: flex;
 align-items: center;
-gap: 0.2rem;
+gap: 0.3rem;
 }
 
-.qty-btn,
-.remove {
-padding: 0.2rem 0.4rem;
+.qty-btn, .remove {
+padding: 0.25rem 0.45rem;
 border-radius: 50%;
 border: none;
 background: #6b3c1f;
 color: #fff;
 cursor: pointer;
 font-size: 0.8rem;
-transition: 0.2s ease, transform 0.2s ease-in-out;
+transition: 0.2s ease;
 }
 
-.qty-btn:hover,
-.remove:hover {
+.qty-btn:hover, .remove:hover {
 background: #8b4b2b;
 transform: scale(1.05);
-animation: shake 0.6s;
 }
 
-/* ================= TOAST ================= */
+/* ---------- Toast & Pointer ---------- */
 #magic-toast {
-max-width: 300px;
+font-size: 1rem;
+border-radius: 25px;
 text-align: center;
+font-weight: bold;
 }
 
-/* ================= POINTER ================= */
 #goToPaymentPointer .pointer-bubble {
 font-size: 1rem;
-cursor: pointer;
 border-radius: 50%;
 }
 
-/* ================= ZERO INNER SPACES ================= */
-.menu-body>*+* {
-margin-top: 0;
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
 }
 
-.meta,
-.price,
-.btn-add {
-margin: 0;
-padding: 0.2rem 0;
+.menu-item {
+animation: fadeInUp 0.5s ease both;
 }
 
-.menu-item * {
-line-height: 1;
-}
-
-/* ================= ANIMATIONS ================= */
-@keyframes shake {
-0% { transform: translateX(0); }
-25% { transform: translateX(-2px); }
-50% { transform: translateX(2px); }
-75% { transform: translateX(-1px); }
-100% { transform: translateX(0); }
-}
-
-/* ================= RESPONSIVE ================= */
+/* ---------- Responsive ---------- */
 @media (max-width: 600px) {
-.menu-header h2 {
-font-size: 1.8rem;
-}
-
-.menu-cat {
-font-size: 0.8rem;
-padding: 0.5rem 1rem;
-}
-
-.menu-media img {
-height: 130px;
-}
-
-.menu-body h4 {
-font-size: 1rem;
-}
-
-.price {
-font-size: 0.9rem;
-}
-
-.btn-add {
-font-size: 0.85rem;
-padding: 0.3rem 0;
-}
-}
-/* ================= WEDNESDAY BURGER PROMOTION HIGHLIGHT ================= */
-.menu-item[data-id="burger-promotion"] {
-border: 3px solid #ffb26b; /* Highlight border for the special promotion */
-background: #fff7ed; /* Slightly warmer background to stand out */
-box-shadow: 0 6px 18px rgba(255, 178, 107, 0.3), 0 12px 24px rgba(0, 0, 0, 0.1);
-transition: 0.4s ease, transform 0.3s ease-in-out, box-shadow 0.3s ease;
-}
-
-.menu-item[data-id="burger-promotion"]:hover {
-transform: translateY(-8px) rotateX(3deg);
-box-shadow: 0 16px 28px rgba(255, 178, 107, 0.35), 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-.menu-item[data-id="burger-promotion"] .menu-body h4 {
-color: #d97436;
-text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-}
-
-.menu-item[data-id="burger-promotion"] .btn-add {
-background: #d97436;
-font-weight: 900;
-}
-
-.menu-item[data-id="burger-promotion"] .btn-add:hover {
-background: #ff914d;
-transform: scale(1.1) translateY(-2px);
-box-shadow: 0 10px 22px rgba(255, 145, 77, 0.25);
+.menu-header h2 { font-size: 2rem; }
+.menu-media img, .menu-media video { height: 150px; }
+.menu-body h4 { font-size: 1.1rem; }
+.btn-add { font-size: 0.85rem; padding: 0.3rem 1rem; }
 }
