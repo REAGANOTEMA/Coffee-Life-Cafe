@@ -16,55 +16,64 @@ font-family: inherit;
 }
 
 /* ======= MENU GRID ======= */
-.menu-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-gap: 16px;
+.menu-container {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
 padding: 20px;
 }
 
-.menu-item {
-background: #fff;
-border-radius: 12px;
-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-overflow: hidden;
+/* ======= MENU CARD ======= */
+.menu-card {
 display: flex;
 flex-direction: column;
 align-items: center;
-padding: 12px;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+width: 260px;            /* consistent width */
+min-height: 450px;       /* same height for all cards */
+padding: 16px;
+border-radius: 12px;
+background: #fff;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.menu-item:hover {
-transform: translateY(-5px) scale(1.03);
-box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-}
-
-.menu-item img {
-width: 120px;
-height: 120px;
+.menu-card img {
+width: 100%;
+height: 180px;
 object-fit: cover;
-border-radius: 50%;
-margin-bottom: 8px;
+border-radius: 8px;
+margin-bottom: 12px;
 transition: transform 0.3s ease;
 }
 
-.menu-item:hover img {
+.menu-card:hover img {
 transform: scale(1.05);
 }
 
-.menu-item h3 {
-font-size: 1rem;
-margin: 6px 0 4px;
+.menu-card h3 {
+margin: 8px 0;
+font-size: 1.2rem;
 text-align: center;
 }
 
-.menu-item p {
-font-size: 0.85rem;
-color: #777;
+.menu-card p {
+font-size: 0.9rem;
 text-align: center;
-margin: 0;
+margin-bottom: 12px;
+flex-grow: 1; /* keeps price button aligned at bottom */
+}
+
+.menu-card .price-btn {
+font-weight: bold;
+color: #d2691e;
+font-size: 1.1rem;
+}
+
+/* Hover effect for entire card */
+.menu-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
 /* ======= CART STYLES ======= */
@@ -92,28 +101,18 @@ border-radius: 50%;
 cursor: pointer;
 }
 
-.qty-btn {
-background: #ffb300;
-color: #fff;
+.qty-btn, .remove {
 padding: 4px 8px;
+border-radius: 6px;
 font-weight: bold;
-border-radius: 6px;
-}
-
-.qty-btn:hover {
-background: #ffaa00;
-}
-
-.remove {
-background: #e74c3c;
 color: #fff;
-padding: 4px 6px;
-border-radius: 6px;
 }
 
-.remove:hover {
-background: #c0392b;
-}
+.qty-btn { background: #ffb300; }
+.qty-btn:hover { background: #ffaa00; }
+
+.remove { background: #e74c3c; }
+.remove:hover { background: #c0392b; }
 
 /* ======= TOAST ======= */
 #magic-toast {
@@ -145,16 +144,8 @@ z-index: 999;
 transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-#revealMenuBtn {
-bottom: 20px;
-left: 20px;
-}
-
-#goToPayment {
-bottom: 20px;
-right: 20px;
-opacity: 0;
-}
+#revealMenuBtn { bottom: 20px; left: 20px; }
+#goToPayment { bottom: 20px; right: 20px; opacity: 0; }
 
 #revealMenuBtn:hover, #goToPayment:hover {
 transform: scale(1.05);
@@ -168,11 +159,12 @@ box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 
 /* ======= RESPONSIVE ======= */
 @media (max-width: 768px) {
-.menu-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-.menu-item img { width: 100px; height: 100px; }
+.menu-card { width: 220px; min-height: 420px; }
+.menu-card img { height: 150px; }
 }
 
 @media (max-width: 480px) {
-.menu-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+.menu-card { width: 180px; min-height: 380px; padding: 12px; }
+.menu-card img { height: 120px; }
 #revealMenuBtn, #goToPayment { padding: 8px 12px; font-size: 0.85rem; }
 }
