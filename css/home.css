@@ -1,5 +1,5 @@
 /* =========================================
-ULTRA-LUXURY CINEMATIC HEADER - FINAL
+ULTRA-LUXURY CINEMATIC HEADER - FINAL (LOGO FIXED)
 ========================================= */
 
 /* Reset & Basic */
@@ -20,7 +20,6 @@ ULTRA-LUXURY CINEMATIC HEADER - FINAL
 position: relative;
 width: 100%;
 height: 120px;
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/header.jpg') center center / cover no-repeat;
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -28,21 +27,54 @@ padding: 0 30px;
 overflow: hidden;
 }
 
-/* Title & Slogan Container */
-#mainHeader .text-container {
-flex-grow: 1;
-margin-left: 20px;
+/* Header Background Pattern */
+.header-pattern {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: url('images/header.jpg') center center / cover no-repeat;
+z-index: 0;
+}
+
+/* Logo & Text Container */
+.logo {
+display: flex;
+align-items: center;
+gap: 12px;
+text-decoration: none;
+z-index: 10;
+position: relative;
+}
+
+.luxury-logo-circle {
+width: 80px;
+height: 80px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border-radius: 8px; /* square-ish with slightly rounded corners */
+background-color: #fff;
+flex-shrink: 0;
+}
+
+.luxury-logo-circle img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+display: block;
+}
+
+/* Title & Slogan */
+.luxury-copy {
+display: flex;
+flex-direction: column;
 overflow: hidden;
 }
 
-/* Sliding Title */
-#mainHeader .luxury-title-wrapper {
-width: 100%;
-overflow: hidden;
-position: relative;
-}
-#mainHeader .luxury-title {
-display: inline-block;
+.luxury-title {
 font-size: 28px;
 font-weight: bold;
 color: #fff;
@@ -51,8 +83,7 @@ white-space: nowrap;
 animation: marquee 12s linear infinite;
 }
 
-/* Fixed Slogan */
-#mainHeader .luxury-slogan {
+.luxury-slogan {
 font-size: 14px;
 color: #fff;
 text-shadow: 0 1px 4px rgba(0,0,0,0.7);
@@ -62,18 +93,19 @@ white-space: nowrap;
 
 /* Marquee Animation */
 @keyframes marquee {
-0%   { transform: translateX(100%); }
+0% { transform: translateX(100%); }
 100% { transform: translateX(-100%); }
 }
 
-/* Navigation - right end */
-#mainHeader nav.nav {
+/* Navigation */
+nav.nav {
 display: flex;
 align-items: center;
 gap: 12px;
-z-index: 20;
+z-index: 10;
 }
-#mainHeader .nav-link {
+
+.nav-link {
 display: inline-block;
 padding: 8px 18px;
 background: #d4af37;
@@ -82,14 +114,13 @@ font-weight: bold;
 text-decoration: none;
 border-radius: 6px;
 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-transform-style: preserve-3d;
 transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.2s ease;
 }
-#mainHeader .nav-link:hover {
+.nav-link:hover {
 transform: translateY(-3px) rotateX(5deg) scale(1.05);
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
-#mainHeader .nav-link:active {
+.nav-link:active {
 background: #c1272d;
 }
 
@@ -98,6 +129,7 @@ background: #c1272d;
 display: flex;
 align-items: center;
 gap: 10px;
+z-index: 10;
 }
 .cart-icon {
 font-size: 20px;
@@ -163,14 +195,14 @@ color: #000;
 height: auto;
 padding: 10px 20px;
 }
-#mainHeader .logo {
+.luxury-logo-circle {
 width: 70px;
 height: 70px;
 }
-#mainHeader .luxury-title {
+.luxury-title {
 font-size: 24px;
 }
-#mainHeader .luxury-slogan {
+.luxury-slogan {
 font-size: 12px;
 }
 nav.nav {
@@ -188,31 +220,14 @@ display: none;
 }
 
 @media (max-width: 768px) {
-#mainHeader .logo {
+.luxury-logo-circle {
 width: 60px;
 height: 60px;
 }
-#mainHeader .luxury-title {
+.luxury-title {
 font-size: 20px;
 }
-#mainHeader .luxury-slogan {
+.luxury-slogan {
 font-size: 10px;
 }
-}
-
-/* Logo Circle */
-.luxury-logo-circle {
-width: 80px;
-height: 80px;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-border-radius: 12px;
-background-color: #fff;
-}
-.luxury-logo-circle img {
-max-width: 100%;
-max-height: 100%;
-object-fit: contain;
 }
