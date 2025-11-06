@@ -65,9 +65,8 @@ setLanguage(DEFAULT_LANG);
 // ==================== HAMBURGER MENU ====================
 if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        const isActive = mobileMenu.classList.contains('active');
+        const isActive = mobileMenu.classList.toggle('active');
+        hamburger.classList.toggle('active', isActive);
         hamburger.setAttribute('aria-expanded', isActive);
         mobileMenu.setAttribute('aria-hidden', !isActive);
     });

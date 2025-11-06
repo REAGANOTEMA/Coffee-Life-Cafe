@@ -6,29 +6,19 @@ LOGO, TITLE, SLOGAN, NAV & CART FULLY VISIBLE
 
 /* ===== HEADER CONTAINER ===== */
 #mainHeader {
-position: relative;
-width: 100%;
-height: 120px;
+background: rgba(34, 34, 34, 0.85); /* dark grey semi-transparent for cinematic feel */
+backdrop-filter: blur(12px); /* blurred background effect */
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 0 30px;
-overflow: hidden;
+padding: 12px 24px;
+position: relative;
 z-index: 1;
-background: transparent;
 }
 
-/* ===== BACKGROUND IMAGE WITH DARK BLUR ===== */
+/* ===== REMOVE BACKGROUND IMAGE ===== */
 .header-pattern {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: url('images/header.jpg') center center / cover no-repeat;
-filter: blur(8px) brightness(25%);
-z-index: 0;
-pointer-events: none; /* clicks pass through */
+display: none; /* hide any default patterns */
 }
 
 /* ===== LOGO ===== */
@@ -49,7 +39,7 @@ border-radius: 10%;
 object-fit: cover;
 transform-style: preserve-3d;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
-box-shadow: 0 8px 20px rgba(0,0,0,0.5); /* enhanced visibility */
+box-shadow: 0 8px 20px rgba(0,0,0,0.5); /* subtle cinematic shadow */
 }
 
 /* ===== TITLE & SLOGAN ===== */
@@ -57,14 +47,14 @@ box-shadow: 0 8px 20px rgba(0,0,0,0.5); /* enhanced visibility */
 display: flex;
 flex-direction: column;
 margin-left: 20px;
-z-index: 2; /* above background */
+z-index: 2;
 }
 
 .luxury-title {
 font-size: 28px;
 font-weight: 700;
-font-family: "Montserrat", sans-serif; /* distinct font */
-color: #ffffff;
+font-family: "Montserrat", sans-serif;
+color: #ffffff; /* fully visible on dark background */
 text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
 white-space: nowrap;
 opacity: 1;
@@ -73,7 +63,7 @@ opacity: 1;
 .luxury-slogan {
 font-size: 14px;
 font-weight: 400;
-font-family: "Roboto", sans-serif; /* different from title */
+font-family: "Roboto", sans-serif;
 color: #f0f0f0;
 text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 margin-top: 4px;
@@ -92,7 +82,7 @@ z-index: 2;
 .nav-link {
 display: inline-block;
 padding: 8px 18px;
-background: #d4af37;
+background: #d4af37; /* gold cinematic accent */
 color: #000;
 font-weight: bold;
 text-decoration: none;
@@ -120,7 +110,7 @@ z-index: 2;
 .cart-icon {
 font-size: 20px;
 cursor: pointer;
-color: #fff;
+color: #ffffff; /* visible on dark background */
 text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 }
 
@@ -148,7 +138,7 @@ z-index: 2;
 #hamburger .bar {
 height: 3px;
 width: 100%;
-background: #fff;
+background: #ffffff; /* visible on dark */
 border-radius: 2px;
 }
 
@@ -157,7 +147,7 @@ display: none;
 position: absolute;
 top: 120px;
 right: 0;
-background: rgba(0,0,0,0.95);
+background: rgba(34, 34, 34, 0.95);
 flex-direction: column;
 width: 100%;
 padding: 10px 0;
