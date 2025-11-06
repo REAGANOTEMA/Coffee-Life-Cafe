@@ -39,7 +39,7 @@ gap: 12px;
 position: relative;
 z-index: 2; /* above background */
 text-decoration: none;
-perspective: 1000px; /* 3D ready */
+perspective: 1200px; /* 3D ready */
 }
 
 .logo img {
@@ -48,7 +48,8 @@ height: 80px;
 border-radius: 10%;
 object-fit: cover;
 transform-style: preserve-3d;
-transition: transform 0.3s ease;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+box-shadow: 0 8px 20px rgba(0,0,0,0.5); /* enhanced visibility */
 }
 
 /* ===== TITLE & SLOGAN ===== */
@@ -61,17 +62,20 @@ z-index: 2; /* above background */
 
 .luxury-title {
 font-size: 28px;
-font-weight: bold;
+font-weight: 700;
+font-family: "Montserrat", sans-serif; /* distinct font */
 color: #ffffff;
-text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
 white-space: nowrap;
 opacity: 1;
 }
 
 .luxury-slogan {
 font-size: 14px;
-color: #ffffff;
-text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+font-weight: 400;
+font-family: "Roboto", sans-serif; /* different from title */
+color: #f0f0f0;
+text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 margin-top: 4px;
 white-space: nowrap;
 opacity: 1;

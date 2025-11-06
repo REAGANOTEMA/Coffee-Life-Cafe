@@ -52,9 +52,11 @@ if (langBtn) {
 function setLanguage(lang) {
     localStorage.setItem('luxury_lang', lang);
     navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
-    mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
-        link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-    });
+    if (mobileMenu) {
+        mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
+            link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
+        });
+    }
     if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
     if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
 }
@@ -115,15 +117,6 @@ navLinks.forEach((link, idx) => {
 
 // ==================== 3D LOGO ROTATION ====================
 if (logo) {
-    logo.style.width = '80px';
-    logo.style.height = '80px';
-    logo.style.borderRadius = '10%';
-    logo.style.objectFit = 'cover';
-    logo.style.zIndex = '20';
-    logoContainer.style.perspective = '1200px';
-    logoContainer.style.zIndex = '20';
-    logoContainer.style.position = 'relative';
-
     let angle = 0;
     function rotateLogo() {
         angle += 0.3;
@@ -169,29 +162,16 @@ animateTitleSlide();
 function adjustHeaderForMobile() {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 768) {
-        // shrink header height
         header.style.padding = '10px 15px';
         header.style.minHeight = '60px';
-
-        // shrink logo
-        if (logo) {
-            logo.style.width = '50px';
-            logo.style.height = '50px';
-        }
-
-        // shrink title & slogan
+        if (logo) { logo.style.width = '50px'; logo.style.height = '50px'; }
         if (title) title.style.fontSize = '1.2rem';
         if (slogan) slogan.style.fontSize = '0.8rem';
-
-        // nav links smaller
         navLinks.forEach(link => link.style.fontSize = '0.9rem');
     } else {
         header.style.padding = '20px 40px';
         header.style.minHeight = '100px';
-        if (logo) {
-            logo.style.width = '80px';
-            logo.style.height = '80px';
-        }
+        if (logo) { logo.style.width = '80px'; logo.style.height = '80px'; }
         if (title) title.style.fontSize = '2rem';
         if (slogan) slogan.style.fontSize = '1rem';
         navLinks.forEach(link => link.style.fontSize = '1rem');
@@ -199,5 +179,4 @@ function adjustHeaderForMobile() {
 }
 window.addEventListener('resize', adjustHeaderForMobile);
 adjustHeaderForMobile();
-
 })();
