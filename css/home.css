@@ -1,22 +1,10 @@
 /* =========================================
 ULTRA-LUXURY CINEMATIC HEADER - FINAL CSS
-FULLY VISIBLE 3D LOGO, MOBILE & DESKTOP READY
+DARK GREY BLURRED BACKGROUND
+LOGO, TITLE, SLOGAN, NAV & CART FULLY VISIBLE
 ========================================= */
 
-/* Reset & Basic */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
-  body {
-  font-family: 'Arial', sans-serif;
-  background: #000;
-  color: #fff;
-  }
-
-/* ===== HEADER ===== */
+/* ===== HEADER CONTAINER ===== */
 #mainHeader {
 position: relative;
 width: 100%;
@@ -27,9 +15,10 @@ justify-content: space-between;
 padding: 0 30px;
 overflow: hidden;
 z-index: 1;
+background: transparent;
 }
 
-/* HEADER BACKGROUND */
+/* ===== BACKGROUND IMAGE WITH DARK BLUR ===== */
 .header-pattern {
 position: absolute;
 top: 0;
@@ -37,75 +26,58 @@ left: 0;
 width: 100%;
 height: 100%;
 background: url('images/header.jpg') center center / cover no-repeat;
+filter: blur(8px) brightness(25%);
 z-index: 0;
+pointer-events: none; /* clicks pass through */
 }
 
-/* LOGO */
+/* ===== LOGO ===== */
 .logo {
 display: flex;
 align-items: center;
 gap: 12px;
 position: relative;
-z-index: 2;
+z-index: 2; /* above background */
 text-decoration: none;
-perspective: 1000px; /* 3D effect container */
+perspective: 1000px; /* 3D ready */
 }
 
-.luxury-logo-circle {
+.logo img {
 width: 80px;
 height: 80px;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
 border-radius: 10%;
-background-color: #fff;
-flex-shrink: 0;
+object-fit: cover;
+transform-style: preserve-3d;
 transition: transform 0.3s ease;
 }
 
-.luxury-logo-circle img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
-transform-style: preserve-3d; /* ready for JS 3D rotations */
-}
-
-/* TITLE & SLOGAN */
+/* ===== TITLE & SLOGAN ===== */
 .luxury-copy {
 display: flex;
 flex-direction: column;
-overflow: hidden;
 margin-left: 20px;
+z-index: 2; /* above background */
 }
 
 .luxury-title {
 font-size: 28px;
 font-weight: bold;
-color: #fff;
-text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+color: #ffffff;
+text-shadow: 0 3px 10px rgba(0,0,0,0.8);
 white-space: nowrap;
-animation: marquee 12s linear infinite;
 opacity: 1;
 }
 
 .luxury-slogan {
 font-size: 14px;
-color: #fff;
-text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+color: #ffffff;
+text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 margin-top: 4px;
 white-space: nowrap;
 opacity: 1;
 }
 
-/* MARQUEE */
-@keyframes marquee {
-0% { transform: translateX(100%); }
-100% { transform: translateX(-100%); }
-}
-
-/* NAVIGATION */
+/* ===== NAVIGATION ===== */
 nav.nav {
 display: flex;
 align-items: center;
@@ -121,30 +93,33 @@ color: #000;
 font-weight: bold;
 text-decoration: none;
 border-radius: 6px;
-box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+box-shadow: 0 5px 15px rgba(0,0,0,0.25);
 transform-style: preserve-3d;
-transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.2s ease;
+transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover {
 transform: translateY(-3px) rotateX(5deg) scale(1.05);
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+background: #f5d75f;
+color: #000;
 }
 
-.nav-link:active {
-background: #c1272d;
-}
-
-/* CART */
+/* ===== CART ===== */
 .nav-actions {
 display: flex;
 align-items: center;
 gap: 10px;
+z-index: 2;
 }
+
 .cart-icon {
 font-size: 20px;
 cursor: pointer;
+color: #fff;
+text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 }
+
 .cart-count-badge {
 background: #c1272d;
 color: #fff;
@@ -153,7 +128,7 @@ padding: 2px 6px;
 font-size: 12px;
 }
 
-/* HAMBURGER & MOBILE MENU */
+/* ===== HAMBURGER & MOBILE MENU ===== */
 #hamburger {
 display: none;
 flex-direction: column;
@@ -163,13 +138,16 @@ height: 18px;
 cursor: pointer;
 background: none;
 border: none;
+z-index: 2;
 }
+
 #hamburger .bar {
 height: 3px;
 width: 100%;
 background: #fff;
 border-radius: 2px;
 }
+
 #mobileMenu {
 display: none;
 position: absolute;
@@ -180,11 +158,13 @@ flex-direction: column;
 width: 100%;
 padding: 10px 0;
 text-align: center;
-z-index: 1000;
+z-index: 2;
 }
+
 #mobileMenu.active {
 display: flex;
 }
+
 #mobileMenu .mobile-link {
 padding: 12px;
 font-weight: bold;
@@ -192,14 +172,15 @@ color: #fff;
 text-decoration: none;
 transition: background 0.3s ease;
 }
+
 #mobileMenu .mobile-link:hover {
 background: rgba(212, 175, 55, 0.8);
 color: #000;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-.luxury-logo-circle { width: 70px; height: 70px; }
+.logo img { width: 70px; height: 70px; }
 .luxury-title { font-size: 24px; }
 .luxury-slogan { font-size: 12px; }
 nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8px; }
@@ -208,7 +189,7 @@ nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8
 }
 
 @media (max-width: 768px) {
-.luxury-logo-circle { width: 60px; height: 60px; }
+.logo img { width: 60px; height: 60px; }
 .luxury-title { font-size: 20px; }
 .luxury-slogan { font-size: 10px; }
 }
