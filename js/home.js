@@ -99,7 +99,7 @@ navLinks.forEach((link, idx) => {
     link.style.transition = `transform 0.8s ease ${idx * 0.1}s, opacity 0.8s ease ${idx * 0.1}s, box-shadow 0.3s ease`;
     link.style.transform = 'translateY(-15px) rotateX(15deg)';
     link.style.opacity = '0';
-    link.style.zIndex = '10'; // ensure visible
+    link.style.zIndex = '10';
     setTimeout(() => {
         link.style.transform = 'translateY(0) rotateX(0)';
         link.style.opacity = '1';
@@ -121,7 +121,7 @@ if (logo) {
     logo.style.height = '80px';
     logo.style.borderRadius = '10%';
     logo.style.objectFit = 'cover';
-    logo.style.zIndex = '20'; // make sure logo is in front
+    logo.style.zIndex = '20';
     logoContainer.style.perspective = '1200px';
     logoContainer.style.zIndex = '20';
     logoContainer.style.position = 'relative';
@@ -166,6 +166,41 @@ function animateTitleSlide() {
     requestAnimationFrame(animateTitleSlide);
 }
 animateTitleSlide();
+
+// ==================== MOBILE HEADER OPTIMIZATION ====================
+function adjustHeaderForMobile() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth <= 768) {
+        // shrink header height
+        header.style.padding = '10px 15px';
+        header.style.minHeight = '60px';
+
+        // shrink logo
+        if (logo) {
+            logo.style.width = '50px';
+            logo.style.height = '50px';
+        }
+
+        // shrink title & slogan
+        if (title) title.style.fontSize = '1.2rem';
+        if (slogan) slogan.style.fontSize = '0.8rem';
+
+        // nav links smaller
+        navLinks.forEach(link => link.style.fontSize = '0.9rem');
+    } else {
+        header.style.padding = '20px 40px';
+        header.style.minHeight = '100px';
+        if (logo) {
+            logo.style.width = '80px';
+            logo.style.height = '80px';
+        }
+        if (title) title.style.fontSize = '2rem';
+        if (slogan) slogan.style.fontSize = '1rem';
+        navLinks.forEach(link => link.style.fontSize = '1rem');
+    }
+}
+window.addEventListener('resize', adjustHeaderForMobile);
+adjustHeaderForMobile();
 ```
 
 })();
