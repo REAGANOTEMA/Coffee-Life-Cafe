@@ -1,4 +1,3 @@
-// ================= FINAL MENU.JS WITH VOICE, COMPANIONS, CONFETTI =================
 (() => {
   'use strict';
 
@@ -23,7 +22,6 @@
     window.speechSynthesis.speak(u);
   };
 
-  // Welcome Message
   window.addEventListener('load', () => speak('Welcome! Browse our menu and select your items.'));
 
   // ======= TOAST SYSTEM =======
@@ -49,7 +47,6 @@
 
   // ======= ADD ITEM WITH COMPANION PROMPT =======
   const addToCart = async item => {
-    // Ask for companion
     let companion = prompt(`Which companion do you want for "${item.name}"?`);
     companion = companion ? companion.trim() : 'No companion';
 
@@ -139,7 +136,7 @@
 
       setTimeout(() => { div.style.opacity = 1; div.style.transform = 'translateX(0)'; }, 30);
 
-      // Event listeners
+      // Quantity & remove buttons
       div.querySelector('.minus').addEventListener('click', () => {
         item.qty--; item.qty <= 0 ? removeFromCart(item.id) : (saveCart(), renderCart(), animateCartBadge());
       });
