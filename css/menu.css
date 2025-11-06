@@ -337,3 +337,110 @@ box-shadow: inset 4px 4px 10px #c5a88c, inset -4px -4px 10px #fff, 0 4px 15px rg
 .menu-cat.active::after {
 opacity: 1;
 }
+/* ================= MENU CATEGORY TABS ================= */
+.menu-cats {
+  display: flex;
+  flex-wrap: nowrap; /* keep tabs in a single row */
+  justify-content: flex-start;
+  gap: 0.8rem;
+  margin: 1rem 0;
+  z-index: 1000; /* stay above menu items */
+  position: sticky; /* stick while scrolling */
+  top: 0; /* distance from top */
+  background-color: #fff; /* match page background */
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid #ddd;
+  overflow-x: auto; /* allow horizontal scroll on small screens */
+  scroll-behavior: smooth; /* smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
+}
+
+.menu-cat {
+  flex: 0 0 auto; /* prevent shrinking on mobile */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(145deg, #fdf6ed, #f6e2d6);
+  color: #4b2e1f;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px #c5a88c, -4px -4px 10px #fff, 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.menu-cat.active::after {
+  opacity: 1;
+}
+
+/* ================= MENU GRID ================= */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* auto-fit for responsiveness */
+  gap: 0.6rem;
+  padding: 0.5rem;
+  margin-bottom: 80px; /* prevents cutting into footer */
+}
+
+/* ================= MENU ITEM MEDIA ================= */
+.menu-media img,
+.menu-media video {
+  width: 100%;
+  height: 140px; /* slightly smaller for mobile */
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+/* ================= MENU BODY ================= */
+.menu-body h4 {
+  font-size: 1.1rem; /* slightly smaller on mobile */
+}
+
+.menu-body .desc {
+  font-size: 0.8rem;
+}
+
+/* ================= BUTTON ================= */
+.btn-add {
+  font-size: 0.85rem;
+  padding: 0.3rem 0;
+}
+
+/* ================= MEDIA QUERIES ================= */
+@media (max-width: 480px) {
+  .menu-header h2 {
+    font-size: 2rem;
+  }
+
+  .menu-header p {
+    font-size: 1rem;
+  }
+
+  .menu-cat {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .menu-media img,
+  .menu-media video {
+    height: 120px;
+  }
+
+  .menu-body h4 {
+    font-size: 1rem;
+  }
+
+  .menu-body .desc {
+    font-size: 0.75rem;
+  }
+}
