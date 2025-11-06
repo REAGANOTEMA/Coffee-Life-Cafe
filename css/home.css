@@ -2,7 +2,13 @@
 FINAL HEADER CSS
 LARGE FULLY SEEN SQUARE LOGO, WHITE TITLE & SLOGAN
 NO LOGO GLOW EFFECT
+FULLY RESPONSIVE, NO HORIZONTAL SCROLL
 ========================================= */
+
+/* ===== GLOBAL RESET TO PREVENT HORIZONTAL SCROLL ===== */
+html, body {
+overflow-x: hidden;
+}
 
 /* ===== HEADER CONTAINER ===== */
 #mainHeader {
@@ -14,6 +20,8 @@ justify-content: space-between;
 padding: 20px 40px;
 position: relative;
 z-index: 50;
+max-width: 100%;
+flex-wrap: wrap; /* allows items to wrap on smaller screens */
 }
 
 /* ===== HIDE HEADER BACKGROUND IMAGE ===== */
@@ -36,13 +44,15 @@ z-index: 60;
 display: block;
 opacity: 1 !important;
 visibility: visible !important;
-width: 180px;          /* Bigger logo */
+width: 180px;
 height: 180px;
+max-width: 100%;
+height: auto;
 object-fit: contain;
-background-color: #fff; /* White square background for visibility */
-border-radius: 8px;     /* Slightly rounded */
+background-color: #fff;
+border-radius: 8px;
 border: 2px solid #fff;
-box-shadow: none;       /* No glow */
+box-shadow: none;
 transform: none;
 }
 
@@ -180,9 +190,14 @@ color: #000;
 }
 
 @media (max-width: 768px) {
+#mainHeader { padding: 15px 10px; }
 .logo img { width: 110px; height: 110px; }
-.luxury-title { font-size: 1.5rem; }
-.luxury-slogan { font-size: 0.9rem; }
+.luxury-title,
+.luxury-slogan {
+font-size: 1.5rem;
+white-space: normal;
+word-wrap: break-word;
+}
 #hamburger { display: flex; }
 .nav-link { display: none; }
 }
