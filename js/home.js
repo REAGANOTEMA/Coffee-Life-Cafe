@@ -116,14 +116,24 @@ navLinks.forEach((link, idx) => {
 
 // ==================== 3D LOGO ROTATION ====================
 if (logo) {
-    let angle = 0;
-    function rotateLogo() {
-        angle += 0.3;
-        logo.style.transform = `rotateY(${angle}deg) rotateX(${angle / 2}deg) scale(1)`;
-        requestAnimationFrame(rotateLogo);
-    }
-    rotateLogo();
+// Force logo to be visible
+logo.style.display = 'block';
+logo.style.opacity = '1';
+logo.style.visibility = 'visible';
+logo.style.zIndex = '50';
+logo.style.width = '80px';
+logo.style.height = '80px';
+// 3D rotation
+let angle = 0;
+function rotateLogo() {
+    angle += 0.3;
+    logo.style.transform = `rotateY(${angle}deg) rotateX(${angle / 2}deg) scale(1)`;
+    requestAnimationFrame(rotateLogo);
 }
+rotateLogo();
+
+}
+
 
 // ==================== CART ICON ANIMATION ====================
 if (cartIcon) {
