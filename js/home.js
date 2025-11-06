@@ -8,7 +8,6 @@ const NAV_ITEMS = [
 const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
 const header = document.getElementById('mainHeader');
 if (!header) return;
-
 const logoContainer = header.querySelector('.logo');
 const logo = header.querySelector('.logo img');
 const title = header.querySelector('.luxury-title');
@@ -114,26 +113,24 @@ navLinks.forEach((link, idx) => {
     });
 });
 
-// ==================== 3D LOGO ROTATION ====================
+// ==================== LOGO VISIBILITY ENFORCER ====================
 if (logo) {
-// Force logo to be visible
-logo.style.display = 'block';
-logo.style.opacity = '1';
-logo.style.visibility = 'visible';
-logo.style.zIndex = '50';
-logo.style.width = '80px';
-logo.style.height = '80px';
-// 3D rotation
-let angle = 0;
-function rotateLogo() {
-    angle += 0.3;
-    logo.style.transform = `rotateY(${angle}deg) rotateX(${angle / 2}deg) scale(1)`;
-    requestAnimationFrame(rotateLogo);
+    const ensureLogoVisible = () => {
+        logo.style.display = 'block';
+        logo.style.opacity = '1';
+        logo.style.visibility = 'visible';
+        logo.style.position = 'absolute';
+        logo.style.left = '24px';
+        logo.style.top = '50%';
+        logo.style.transform = 'translateY(-50%)';
+        logo.style.zIndex = '9999';
+        logo.style.border = '2px solid white';
+        logo.style.boxShadow = '0 0 25px rgba(255,255,255,0.5)';
+    };
+    ensureLogoVisible();
+    const observer = new MutationObserver(ensureLogoVisible);
+    observer.observe(logo, { attributes: true, attributeFilter: ['style', 'class'] });
 }
-rotateLogo();
-
-}
-
 
 // ==================== CART ICON ANIMATION ====================
 if (cartIcon) {
@@ -143,29 +140,21 @@ if (cartIcon) {
     cartIcon.style.zIndex = '30';
 }
 
-// ==================== TITLE & SLOGAN ====================
+// ==================== TITLE & SLOGAN VISIBILITY ====================
 if (title) {
     title.style.opacity = '1';
     title.style.position = 'relative';
     title.style.zIndex = '15';
+    title.style.color = '#fff';
+    title.style.textShadow = '3px 3px 12px rgba(0,0,0,0.85)';
 }
 if (slogan) {
     slogan.style.opacity = '1';
     slogan.style.position = 'relative';
     slogan.style.zIndex = '15';
+    slogan.style.color = '#fff';
+    slogan.style.textShadow = '2px 2px 10px rgba(0,0,0,0.75)';
 }
-
-// ==================== TV-STYLE HORIZONTAL TITLE SLIDE ====================
-let position = 0, direction = 1;
-function animateTitleSlide() {
-    if (!title) return;
-    const maxSlide = 20;
-    position += direction * 0.6;
-    if (position > maxSlide || position < -maxSlide) direction *= -1;
-    title.style.transform = `translateX(${position}px)`;
-    requestAnimationFrame(animateTitleSlide);
-}
-animateTitleSlide();
 
 // ==================== MOBILE HEADER OPTIMIZATION ====================
 function adjustHeaderForMobile() {
