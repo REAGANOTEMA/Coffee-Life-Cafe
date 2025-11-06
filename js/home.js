@@ -5,8 +5,6 @@ const NAV_ITEMS = [
 { id: 'gallery', label: { en: 'Gallery', ar: 'معرض' }, href: 'index.html#gallery' },
 { id: 'contact', label: { en: 'Contact', ar: 'تواصل' }, href: 'index.html#contact' }
 ];
-
-```
 const DEFAULT_LANG = localStorage.getItem('luxury_lang') || 'en';
 const header = document.getElementById('mainHeader');
 if (!header) return;
@@ -201,6 +199,5 @@ function adjustHeaderForMobile() {
 }
 window.addEventListener('resize', adjustHeaderForMobile);
 adjustHeaderForMobile();
-```
 
 })();
