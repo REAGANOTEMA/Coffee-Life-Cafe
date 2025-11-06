@@ -1,34 +1,33 @@
 /* =========================================
-ULTRA-LUXURY CINEMATIC HEADER - FINAL CSS
-DARK GREY BLURRED BACKGROUND
-VISIBLE LARGE LOGO, WHITE TITLE & SLOGAN
+ULTRA-LUXURY HEADER - FINAL CSS
+FULLY VISIBLE SQUARE LOGO, WHITE TITLE & SLOGAN
 HEADER IMAGE HIDDEN
 ========================================= */
-
 /* ===== HEADER CONTAINER ===== */
+
 #mainHeader {
 background: rgba(34, 34, 34, 0.85);
 backdrop-filter: blur(12px);
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 12px 24px;
+padding: 16px 32px;
 position: relative;
 z-index: 50;
 }
 
-/* ===== REMOVE BACKGROUND IMAGE ===== */
+/* ===== HIDE BACKGROUND IMAGE ===== */
 .header-pattern {
 display: none !important;
 opacity: 0 !important;
 visibility: hidden !important;
 }
 
-/* ===== LOGO ===== */
+/* ===== LOGO SECTION ===== */
 .logo {
 display: flex;
 align-items: center;
-gap: 16px;
+gap: 20px;
 position: relative;
 z-index: 60;
 }
@@ -37,20 +36,19 @@ z-index: 60;
 display: block;
 opacity: 1 !important;
 visibility: visible !important;
-width: 120px;
-height: 120px;
+width: 140px;
+height: 140px;
 object-fit: contain;
-background: #ffffff;
-border-radius: 15%;
-border: 2px solid rgba(255,255,255,0.9);
-box-shadow: 0 0 30px rgba(255,255,255,0.9), 0 4px 25px rgba(0,0,0,0.5);
-transform: none;
+background-color: #fff;
+border-radius: 10px;
+border: 3px solid rgba(255,255,255,0.9);
+box-shadow: 0 0 35px rgba(255,255,255,0.9), 0 6px 30px rgba(0,0,0,0.6);
 transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo img:hover {
-transform: scale(1.03);
-box-shadow: 0 0 35px rgba(255,255,255,1), 0 6px 30px rgba(0,0,0,0.6);
+transform: scale(1.04);
+box-shadow: 0 0 40px rgba(255,255,255,1), 0 8px 35px rgba(0,0,0,0.7);
 }
 
 /* ===== TITLE & SLOGAN ===== */
@@ -62,22 +60,22 @@ z-index: 60;
 }
 
 .luxury-title {
-font-size: 2rem;
+font-size: 2.2rem;
 font-weight: 700;
 font-family: "Montserrat", sans-serif;
 color: #ffffff !important;
-text-shadow: 2px 2px 12px rgba(0,0,0,1), 0 0 10px rgba(255,255,255,0.7);
+text-shadow: 3px 3px 12px rgba(0,0,0,1), 0 0 12px rgba(255,255,255,0.7);
 white-space: nowrap;
 opacity: 1;
 }
 
 .luxury-slogan {
-font-size: 1rem;
+font-size: 1.1rem;
 font-weight: 400;
 font-family: "Roboto", sans-serif;
 color: #ffffff !important;
-text-shadow: 1px 1px 10px rgba(0,0,0,1);
-margin-top: 4px;
+text-shadow: 2px 2px 8px rgba(0,0,0,1);
+margin-top: 6px;
 white-space: nowrap;
 opacity: 1;
 }
@@ -92,7 +90,7 @@ z-index: 60;
 
 .nav-link {
 display: inline-block;
-padding: 8px 18px;
+padding: 10px 20px;
 background: #d4af37;
 color: #000;
 font-weight: bold;
@@ -118,7 +116,7 @@ z-index: 60;
 }
 
 .cart-icon {
-font-size: 20px;
+font-size: 22px;
 cursor: pointer;
 color: #ffffff;
 text-shadow: 0 2px 6px rgba(0,0,0,0.8);
@@ -128,7 +126,7 @@ text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 background: #c1272d;
 color: #fff;
 border-radius: 50%;
-padding: 2px 6px;
+padding: 3px 7px;
 font-size: 12px;
 }
 
@@ -185,16 +183,16 @@ color: #000;
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-.logo img { width: 100px; height: 100px; }
-.luxury-title { font-size: 1.6rem; }
-.luxury-slogan { font-size: 0.9rem; }
+.logo img { width: 110px; height: 110px; }
+.luxury-title { font-size: 1.8rem; }
+.luxury-slogan { font-size: 1rem; }
 nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8px; }
 #hamburger { display: flex; }
 .nav-link { display: none; }
 }
 
 @media (max-width: 768px) {
-.logo img { width: 85px; height: 85px; }
-.luxury-title { font-size: 1.3rem; }
-.luxury-slogan { font-size: 0.8rem; }
+.logo img { width: 90px; height: 90px; }
+.luxury-title { font-size: 1.5rem; }
+.luxury-slogan { font-size: 0.9rem; }
 }
