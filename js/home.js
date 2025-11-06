@@ -63,21 +63,23 @@
     }
     setLanguage(DEFAULT_LANG);
 
-    // ==================== MOBILE MENU TOGGLE ====================
-    hamburger.addEventListener('click', () => {
-        const isActive = mobileMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        mobileMenu.style.display = isActive ? 'flex' : 'none';
-        hamburger.setAttribute('aria-expanded', isActive);
+   // Hamburger menu toggle
+hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    const isActive = mobileMenu.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', isActive);
+    mobileMenu.setAttribute('aria-hidden', !isActive);
+});
+mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
     });
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded', 'false');
-        });
-    });
+});
+
 
     // ==================== SMOOTH SCROLL ====================
     document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
@@ -115,20 +117,15 @@
         });
 
         // Logo 3D animation
-        if (logo) {
-            logo.style.width = '80px';
-            logo.style.height = '80px';
-            logo.style.borderRadius = '10%';
-            logo.style.objectFit = 'cover';
-            logoContainer.style.perspective = '1000px';
-            let angle = 0;
-            function rotateLogo() {
-                angle += 0.3; // rotation speed
-                logo.style.transform = `rotateY(${angle}deg) rotateX(${angle/2}deg) scale(1)`;
-                requestAnimationFrame(rotateLogo);
-            }
-            rotateLogo();
-        }
+       if (logo) {
+    logo.style.width = '80px';
+    logo.style.height = '80px';
+    logo.style.borderRadius = '10%';
+    logo.style.objectFit = 'cover';
+    logoContainer.style.perspective = '1000px';
+    logo.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)'; // static 3D-ready
+}
+
 
         // Cart
         if (cartIcon) {
@@ -156,15 +153,4 @@
     }
     animateTitleSlide();
 })();
-```
-    // Logo static (no rotation)
-    if (logo) {
-        logo.style.width = '80px';
-        logo.style.height = '80px';
-        logo.style.borderRadius = '0'; // square
-        logo.style.objectFit = 'cover';
-        logo.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)'; // static
-        logoContainer.style.perspective = '1000px';
-        // Removed rotating animation
-    }
-```
+
