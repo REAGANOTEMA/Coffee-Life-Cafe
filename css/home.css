@@ -2,18 +2,19 @@
 ULTRA-LUXURY CINEMATIC HEADER - FINAL CSS
 DARK GREY BLURRED BACKGROUND
 LOGO, TITLE, SLOGAN, NAV & CART FULLY VISIBLE
+LOGO FORCED FULLY LEFT
 ========================================= */
 
 /* ===== HEADER CONTAINER ===== */
 #mainHeader {
-background: rgba(34, 34, 34, 0.95); /* darker for max contrast */
+background: rgba(34, 34, 34, 0.95);
 backdrop-filter: blur(14px);
 display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 12px 24px;
 position: relative;
-z-index: 100; /* topmost */
+z-index: 100;
 }
 
 /* ===== REMOVE BACKGROUND IMAGE ===== */
@@ -26,8 +27,11 @@ display: none;
 display: flex;
 align-items: center;
 gap: 12px;
-position: relative;
-z-index: 110; /* above everything */
+position: absolute; /* force left */
+left: 24px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 120; /* above everything */
 perspective: 1200px;
 }
 
@@ -41,14 +45,15 @@ border-radius: 10%;
 object-fit: cover;
 transform-style: preserve-3d;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
-box-shadow: 0 10px 25px rgba(0,0,0,0.7); /* strong shadow for clarity */
+box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+border: 2px solid #fff; /* optional glow outline for visibility */
 }
 
 /* ===== TITLE & SLOGAN ===== */
 .luxury-copy {
 display: flex;
 flex-direction: column;
-margin-left: 20px;
+margin-left: 120px; /* leave space for logo */
 z-index: 110;
 }
 
@@ -57,7 +62,7 @@ font-size: 32px;
 font-weight: 900;
 font-family: "Montserrat", sans-serif;
 color: #ffffff !important;
-text-shadow: 3px 3px 12px rgba(0,0,0,0.85); /* high visibility */
+text-shadow: 3px 3px 12px rgba(0,0,0,0.85);
 white-space: nowrap;
 opacity: 1 !important;
 }
@@ -67,7 +72,7 @@ font-size: 16px;
 font-weight: 500;
 font-family: "Roboto", sans-serif;
 color: #ffffff !important;
-text-shadow: 2px 2px 10px rgba(0,0,0,0.75); /* visible on any background */
+text-shadow: 2px 2px 10px rgba(0,0,0,0.75);
 margin-top: 4px;
 white-space: nowrap;
 opacity: 1 !important;
@@ -188,4 +193,5 @@ nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8
 .logo img { width: 60px; height: 60px; }
 .luxury-title { font-size: 24px; }
 .luxury-slogan { font-size: 12px; }
+.luxury-copy { margin-left: 90px; } /* adjust for smaller logo */
 }
