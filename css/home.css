@@ -1,25 +1,27 @@
 /* =========================================
-ULTRA-LUXURY CINEMATIC HEADER - FINAL CSS
+FINAL ULTRA-LUXURY HEADER
 DARK GREY BLURRED BACKGROUND
-LOGO, TITLE, SLOGAN, NAV & CART FULLY VISIBLE
-LOGO FORCED FULLY LEFT
+LOGO ALWAYS VISIBLE — HEADER IMAGE HIDDEN
 ========================================= */
 
 /* ===== HEADER CONTAINER ===== */
 #mainHeader {
-background: rgba(34, 34, 34, 0.95);
-backdrop-filter: blur(14px);
+background: rgba(34, 34, 34, 0.88);
+backdrop-filter: blur(12px);
 display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 12px 24px;
 position: relative;
 z-index: 100;
+overflow: visible;
 }
 
-/* ===== REMOVE BACKGROUND IMAGE ===== */
+/* ===== FORCE HIDE HEADER IMAGE ===== */
 .header-pattern {
-display: none;
+display: none !important;
+opacity: 0 !important;
+visibility: hidden !important;
 }
 
 /* ===== LOGO ===== */
@@ -27,55 +29,60 @@ display: none;
 display: flex;
 align-items: center;
 gap: 12px;
-position: absolute; /* force left */
-left: 24px;
-top: 50%;
-transform: translateY(-50%);
-z-index: 120; /* above everything */
+position: relative;
+z-index: 999;
 perspective: 1200px;
+text-decoration: none;
 }
 
 .logo img {
-display: block !important;
+display: block;
+width: 85px;
+height: 85px;
 opacity: 1 !important;
 visibility: visible !important;
-width: 80px;
-height: 80px;
-border-radius: 10%;
+position: relative;
+z-index: 9999;
 object-fit: cover;
-transform-style: preserve-3d;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-border: 2px solid #fff; /* optional glow outline for visibility */
+border-radius: 12%;
+background: #fff; /* ensures visibility if transparent */
+box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 4px 20px rgba(0, 0, 0, 0.5);
+border: 2px solid rgba(255, 255, 255, 0.8);
+transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+.logo img:hover {
+transform: scale(1.05) rotateY(10deg);
+box-shadow: 0 0 35px rgba(255, 255, 255, 1);
 }
 
 /* ===== TITLE & SLOGAN ===== */
 .luxury-copy {
 display: flex;
 flex-direction: column;
-margin-left: 120px; /* leave space for logo */
-z-index: 110;
+margin-left: 18px;
+z-index: 99;
 }
 
 .luxury-title {
-font-size: 32px;
-font-weight: 900;
+font-size: 28px;
+font-weight: 800;
 font-family: "Montserrat", sans-serif;
-color: #ffffff !important;
-text-shadow: 3px 3px 12px rgba(0,0,0,0.85);
+color: #ffffff;
+text-shadow: 3px 3px 12px rgba(0, 0, 0, 1), 0 0 10px rgba(255, 255, 255, 0.6);
+opacity: 1;
 white-space: nowrap;
-opacity: 1 !important;
 }
 
 .luxury-slogan {
-font-size: 16px;
+font-size: 14px;
 font-weight: 500;
 font-family: "Roboto", sans-serif;
-color: #ffffff !important;
-text-shadow: 2px 2px 10px rgba(0,0,0,0.75);
+color: #f8f8f8;
+text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 margin-top: 4px;
 white-space: nowrap;
-opacity: 1 !important;
+opacity: 1;
 }
 
 /* ===== NAVIGATION ===== */
@@ -83,7 +90,7 @@ nav.nav {
 display: flex;
 align-items: center;
 gap: 12px;
-z-index: 110;
+z-index: 80;
 }
 
 .nav-link {
@@ -94,16 +101,14 @@ color: #000;
 font-weight: bold;
 text-decoration: none;
 border-radius: 6px;
-box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-transform-style: preserve-3d;
-transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.2s ease, color 0.2s ease;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-transform: translateY(-3px) rotateX(5deg) scale(1.05);
-box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 background: #f5d75f;
-color: #000;
 }
 
 /* ===== CART ===== */
@@ -111,14 +116,14 @@ color: #000;
 display: flex;
 align-items: center;
 gap: 10px;
-z-index: 110;
+z-index: 90;
 }
 
 .cart-icon {
 font-size: 20px;
 cursor: pointer;
-color: #ffffff !important;
-text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+color: #fff;
+text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .cart-count-badge {
@@ -139,13 +144,13 @@ height: 18px;
 cursor: pointer;
 background: none;
 border: none;
-z-index: 110;
+z-index: 99;
 }
 
 #hamburger .bar {
 height: 3px;
 width: 100%;
-background: #ffffff;
+background: #fff;
 border-radius: 2px;
 }
 
@@ -154,12 +159,12 @@ display: none;
 position: absolute;
 top: 120px;
 right: 0;
-background: rgba(34, 34, 34, 0.98);
+background: rgba(34, 34, 34, 0.95);
 flex-direction: column;
 width: 100%;
 padding: 10px 0;
 text-align: center;
-z-index: 110;
+z-index: 90;
 }
 
 #mobileMenu.active {
@@ -182,8 +187,8 @@ color: #000;
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
 .logo img { width: 70px; height: 70px; }
-.luxury-title { font-size: 28px; }
-.luxury-slogan { font-size: 14px; }
+.luxury-title { font-size: 24px; }
+.luxury-slogan { font-size: 12px; }
 nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8px; }
 #hamburger { display: flex; }
 .nav-link { display: none; }
@@ -191,7 +196,6 @@ nav.nav { flex-wrap: wrap; justify-content: flex-end; width: 100%; margin-top: 8
 
 @media (max-width: 768px) {
 .logo img { width: 60px; height: 60px; }
-.luxury-title { font-size: 24px; }
-.luxury-slogan { font-size: 12px; }
-.luxury-copy { margin-left: 90px; } /* adjust for smaller logo */
+.luxury-title { font-size: 20px; }
+.luxury-slogan { font-size: 10px; }
 }
