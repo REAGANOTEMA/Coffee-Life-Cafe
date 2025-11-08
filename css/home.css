@@ -3,18 +3,18 @@ html, body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
-    background: #f5f2ef; /* soft background outside header */
+    background: #f5f2ef;
 }
 
 /* ===== HEADER ===== */
 .site-header {
     width: 100%;
-    background: linear-gradient(135deg, #3a2f2f, #6b5040); /* rich chocolate/coffee gradient */
+    background: #8B0000; /* dark red luxury */
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 100;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     color: #fff;
     font-weight: bold;
 }
@@ -26,29 +26,28 @@ html, body {
     justify-content: space-between;
     padding: 15px 50px;
     flex-wrap: wrap;
-    min-height: 120px; /* compact but luxurious */
+    min-height: 120px;
 }
 
-/* ===== LOGO LEFT (Sharp & Premium) ===== */
+/* ===== LOGO ===== */
 .logo {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
     text-decoration: none;
     flex-shrink: 0;
 }
 
 .luxury-logo-circle {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     overflow: hidden;
     background: #fff;
-    border-radius: 10px; /* slightly rounded square for elegance */
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #e0c97f; /* subtle gold trim */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4); /* premium depth */
+    border: 2px solid #FFD700; /* gold trim */
 }
 
 .luxury-logo-circle img {
@@ -62,25 +61,23 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 25px;
     overflow: hidden;
 }
 
 .luxury-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem; /* bigger */
     font-weight: 900;
-    color: #fdf3e7; /* soft ivory */
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
-    display: block;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6); /* cinematic depth */
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
 }
 
 .luxury-slogan {
     font-size: 1rem;
     font-weight: 600;
-    color: #fdf3e7;
-    margin-top: 6px;
+    color: #fff;
+    margin-top: 5px;
     white-space: nowrap;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
@@ -98,24 +95,23 @@ html, body {
 }
 
 .nav-link {
-    padding: 10px 22px;
-    background: linear-gradient(145deg, #d4af37, #b88f3b);
-    color: #fff;
+    padding: 10px 24px;
+    background: linear-gradient(145deg, #FFD700, #DAA520); /* gold buttons */
+    color: #8B0000;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 10px;
-    box-shadow: 0 5px 0 #8c6d2f, 0 5px 12px rgba(0,0,0,0.4);
+    border-radius: 12px;
+    box-shadow: 0 5px 0 #B8860B, 0 5px 12px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
-    letter-spacing: 0.5px;
 }
 
 .nav-link:hover {
     transform: translateY(-2px) scale(1.05);
-    background: linear-gradient(145deg, #f5d75f, #d4af37);
-    box-shadow: 0 7px 0 #8c6d2f, 0 7px 15px rgba(0,0,0,0.5);
+    background: linear-gradient(145deg, #FFFACD, #FFD700);
+    box-shadow: 0 7px 0 #B8860B, 0 7px 15px rgba(0,0,0,0.4);
 }
 
-/* Nav actions */
+/* NAV ACTIONS */
 .nav-actions {
     display: flex;
     align-items: center;
@@ -148,7 +144,7 @@ html, body {
     color: #fff;
 }
 
-/* ===== HAMBURGER ===== */
+/* HAMBURGER */
 #hamburger {
     display: none;
     flex-direction: column;
@@ -167,15 +163,15 @@ html, body {
     border-radius: 2px;
 }
 
-/* ===== MOBILE MENU ===== */
+/* MOBILE MENU */
 .mobile-menu {
     display: none;
     flex-direction: column;
     width: 100%;
-    background: linear-gradient(135deg, #3a2f2f, #6b5040);
+    background: #8B0000;
     text-align: center;
     padding: 12px 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
 .mobile-menu.active {
@@ -190,38 +186,28 @@ html, body {
     font-size: 1.1rem;
 }
 
-/* ===== HERO & PARTICLES PLACEHOLDERS ===== */
-.header-bg-anim {
-    width: 100%;
-    height: 250px;
-    background: linear-gradient(120deg, #6b5040, #4a3528); /* deep chocolate gradient */
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
+/* HERO & PARTICLES */
+.header-bg-anim,
 .luxury-particle-container {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    pointer-events: none;
     z-index: -1;
 }
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-    .luxury-logo-circle { width: 120px; height: 120px; }
-    .luxury-title { font-size: 2rem; }
-    .luxury-slogan { font-size: 0.9rem; }
+    .luxury-logo-circle { width: 140px; height: 140px; }
+    .luxury-title { font-size: 2.2rem; }
+    .luxury-slogan { font-size: 0.95rem; }
 }
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
     #hamburger { display: flex; }
-    .luxury-logo-circle { width: 100px; height: 100px; }
-    .luxury-title { font-size: 1.6rem; }
-    .luxury-slogan { font-size: 0.8rem; }
+    .luxury-logo-circle { width: 120px; height: 120px; }
+    .luxury-title { font-size: 1.8rem; }
+    .luxury-slogan { font-size: 0.85rem; }
 }

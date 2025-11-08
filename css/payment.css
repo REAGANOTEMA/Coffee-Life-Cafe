@@ -365,3 +365,34 @@ button, .payment-option, .btn-3d { min-height: 44px; padding-top: 10px; padding-
 button:active, .btn-3d:active, .payment-option:active { transition-duration: 80ms; transform: translateY(1px) scale(0.995); box-shadow: 0 3px 6px rgba(0,0,0,0.12); }
 
 /* End of file */
+/* ===========================
+   PAYMENT.CSS — BUTTON & INTERACTION FINAL TOUCHES
+   =========================== */
+
+/* Ensure all buttons and payment options have perfect padding & touch targets */
+.btn-3d, .payment-option, .copy-individual, #copyMerchant, #showUSSD,
+#whatsapp-confirm, #callSupport, .btn-3d.add-items, .btn-3d.go-back {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 44px;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+/* Mobile adjustments: stack buttons and ensure full width with comfortable padding */
+@media (max-width: 768px) {
+    .btn-3d, .payment-option, .copy-individual, #copyMerchant, #showUSSD,
+    #whatsapp-confirm, #callSupport, .btn-3d.add-items, .btn-3d.go-back {
+        width: 100%;
+        padding: 12px 16px;
+        min-width: auto;
+        font-size: 0.95rem;
+        box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+    }
+
+    .payment-option { margin: 8px 0; }
+    #waFloat { left: 12px; bottom: 12px; padding: 12px 16px; }
+}

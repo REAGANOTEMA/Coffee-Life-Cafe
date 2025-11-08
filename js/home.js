@@ -10,7 +10,7 @@
   const header = document.getElementById('mainHeader');
   if (!header) return;
 
-  const logo = header.querySelector('.logo img');
+  const logo = header.querySelector('.luxury-logo-circle');
   const title = header.querySelector('.luxury-title');
   const slogan = header.querySelector('.luxury-slogan');
   const hamburger = document.getElementById('hamburger');
@@ -81,7 +81,7 @@
       });  
     });
 
-    // Close mobile menu when clicking outside
+    // Close mobile menu on click outside
     document.addEventListener('click', (e) => {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
         if (mobileMenu.classList.contains('active')) {
@@ -94,7 +94,7 @@
     });
   }
 
-  // ===== SMOOTH SCROLL FOR ALL NAVS & LOGO =====
+  // ===== SMOOTH SCROLL =====
   document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
     el.addEventListener('click', e => {
       const href = el.getAttribute('href');
@@ -106,13 +106,27 @@
     });
   });
 
-  // ===== CINEMATIC TITLE SLIDE =====
+  // ===== CINEMATIC TITLE SLIDE (Stops before hitting logo) =====
   let position = 0, direction = 1;
   function animateTitleSlide() {
-    if (!title) return;
-    const maxSlide = 15;
+    if (!title || !logo) return;
+
+    const maxSlide = 50; // max pixels to slide left-right
+    const logoRect = logo.getBoundingClientRect();
+    const titleRect = title.getBoundingClientRect();
+
+    // Calculate rightmost boundary to prevent title cutting logo
+    const maxRight = logoRect.left + logoRect.width + 20; // 20px padding
+
+    let newPos = position + direction * 0.5;
+
+    // Stop before logo area
+    const titleLeft = titleRect.left + newPos;
+    if (titleLeft < maxRight - titleRect.width || titleLeft > window.innerWidth - 20) {
+      direction *= -1;
+    }
+
     position += direction * 0.5;
-    if (position > maxSlide || position < -maxSlide) direction *= -1;
     title.style.transform = `translateX(${position}px)`;
     requestAnimationFrame(animateTitleSlide);
   }
@@ -123,21 +137,21 @@
     const screenWidth = window.innerWidth;
     if (screenWidth <= 768) {
       header.style.padding = '10px 15px';
-      header.style.minHeight = '60px';
-      if (logo) Object.assign(logo.style, { width: '85px', height: '85px' });
-      if (title) title.style.fontSize = '1.3rem';
+      header.style.minHeight = '90px';
+      if (logo) Object.assign(logo.style, { width: '120px', height: '120px' });
+      if (title) title.style.fontSize = '1.8rem';
       if (slogan) slogan.style.fontSize = '0.8rem';
     } else if (screenWidth <= 1024) {
       header.style.padding = '15px 25px';
-      header.style.minHeight = '80px';
-      if (logo) Object.assign(logo.style, { width: '110px', height: '110px' });
-      if (title) title.style.fontSize = '1.6rem';
+      header.style.minHeight = '110px';
+      if (logo) Object.assign(logo.style, { width: '140px', height: '140px' });
+      if (title) title.style.fontSize = '2.2rem';
       if (slogan) slogan.style.fontSize = '0.95rem';
     } else {
       header.style.padding = '20px 30px';
-      header.style.minHeight = '100px';
-      if (logo) Object.assign(logo.style, { width: '130px', height: '130px' });
-      if (title) title.style.fontSize = '1.8rem';
+      header.style.minHeight = '130px';
+      if (logo) Object.assign(logo.style, { width: '160px', height: '160px' });
+      if (title) title.style.fontSize = '2.8rem';
       if (slogan) slogan.style.fontSize = '1rem';
     }
   }
