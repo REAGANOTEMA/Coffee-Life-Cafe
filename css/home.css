@@ -155,7 +155,7 @@ html, body {
 
 #hamburger .bar {
     height: 3px;
-    width: 100%;
+    width: 100%;rgb(243, 215, 215)
     background: #fff;
     border-radius: 2px;
 }
@@ -165,7 +165,7 @@ html, body {
     display: none;
     flex-direction: column;
     width: 100%;
-    background: #6f4e37; /* coffee color */
+    background: rgb(218, 193, 176); /* coffee color */
     text-align: center;
     padding: 10px 0;
     box-shadow: 0 3px 15px rgba(0,0,0,0.15);
