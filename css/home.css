@@ -1,7 +1,3 @@
-/* =========================================
-   FINAL ULTRA-LUXURY CINEMATIC HEADER CSS
-========================================= */
-
 html, body {
     margin: 0;
     padding: 0;
@@ -12,12 +8,13 @@ html, body {
 /* ===== HEADER ===== */
 .site-header {
     width: 100%;
-    background: #ffffff;
+    background: #6f4e37; /* coffee color */
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 100;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    color: #fff;
 }
 
 /* NAV INNER */
@@ -27,10 +24,10 @@ html, body {
     justify-content: space-between;
     padding: 15px 40px;
     flex-wrap: wrap;
-    min-height: 100px; /* reduced height */
+    min-height: 100px; /* compact header */
 }
 
-/* ===== LOGO LEFT (SQUARE & CLEAR) ===== */
+/* ===== LOGO LEFT (BIG & SQUARE) ===== */
 .logo {
     display: flex;
     align-items: center;
@@ -40,11 +37,11 @@ html, body {
 }
 
 .luxury-logo-circle {
-    width: 120px;
-    height: 120px;
+    width: 140px; /* bigger logo */
+    height: 140px;
     overflow: hidden;
     background: #fff;
-    border: 2px solid #fff;
+    border-radius: 0; /* square */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,18 +63,18 @@ html, body {
 }
 
 .luxury-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #222;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     display: block;
 }
 
 .luxury-slogan {
-    font-size: 0.9rem; /* smaller than title */
-    font-weight: 500;
-    color: #555;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
     margin-top: 4px;
     white-space: nowrap;
 }
@@ -95,20 +92,23 @@ html, body {
 }
 
 .nav-link {
-    padding: 8px 18px;
-    background: #d4af37;
-    color: #000;
+    padding: 10px 20px;
+    background: #c49a6c; /* goldish 3D base */
+    color: #fff;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 6px;
-    transition: transform 0.3s, background 0.3s;
+    border-radius: 8px;
+    box-shadow: 0 4px 0 #a37a4f, 0 4px 8px rgba(0,0,0,0.3); /* 3D effect */
+    transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-    transform: translateY(-2px) scale(1.05);
-    background: #f5d75f;
+    transform: translateY(-2px);
+    background: #d4af37;
+    box-shadow: 0 6px 0 #a37a4f, 0 6px 12px rgba(0,0,0,0.4);
 }
 
+/* Nav actions */
 .nav-actions {
     display: flex;
     align-items: center;
@@ -138,6 +138,7 @@ html, body {
     background: none;
     border: none;
     cursor: pointer;
+    color: #fff;
 }
 
 /* ===== HAMBURGER ===== */
@@ -155,7 +156,7 @@ html, body {
 #hamburger .bar {
     height: 3px;
     width: 100%;
-    background: #222;
+    background: #fff;
     border-radius: 2px;
 }
 
@@ -164,10 +165,10 @@ html, body {
     display: none;
     flex-direction: column;
     width: 100%;
-    background: #fff;
+    background: #6f4e37; /* coffee color */
     text-align: center;
     padding: 10px 0;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 15px rgba(0,0,0,0.15);
 }
 
 .mobile-menu.active {
@@ -177,7 +178,7 @@ html, body {
 .mobile-link {
     padding: 12px 0;
     font-weight: bold;
-    color: #222;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -185,7 +186,7 @@ html, body {
 .header-bg-anim {
     width: 100%;
     height: 250px;
-    background: linear-gradient(120deg, #f5f5f5, #eaeaea);
+    background: linear-gradient(120deg, #6f4e37, #5a3c2b); /* coffee gradient */
     position: absolute;
     top: 0;
     left: 0;
@@ -204,15 +205,15 @@ html, body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-    .luxury-logo-circle { width: 100px; height: 100px; }
-    .luxury-title { font-size: 1.6rem; }
-    .luxury-slogan { font-size: 0.85rem; }
+    .luxury-logo-circle { width: 120px; height: 120px; }
+    .luxury-title { font-size: 1.8rem; }
+    .luxury-slogan { font-size: 0.9rem; }
 }
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
     #hamburger { display: flex; }
-    .luxury-logo-circle { width: 85px; height: 85px; }
-    .luxury-title { font-size: 1.3rem; }
-    .luxury-slogan { font-size: 0.75rem; }
+    .luxury-logo-circle { width: 100px; height: 100px; }
+    .luxury-title { font-size: 1.5rem; }
+    .luxury-slogan { font-size: 0.8rem; }
 }
