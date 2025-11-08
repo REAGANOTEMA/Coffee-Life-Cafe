@@ -262,3 +262,155 @@ button, .btn, .btn-primary, .btn-cta {
     transition: transform 0.3s ease;
 }
 .whatsapp-btn:hover { transform: scale(1.1); }
+/* === FOOTER FINAL REFINED === */
+.site-footer {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 2rem 1rem;
+    font-size: 0.95rem;
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Columns */
+.footer-left,
+.footer-mid,
+.footer-right {
+    flex: 1 1 300px;
+    min-width: 250px;
+}
+
+/* Footer Left */
+.footer-left .brand-footer img {
+    width: 100px;
+    margin-bottom: 1rem;
+}
+
+.footer-left p.about-footer,
+.footer-left .vision-mission p,
+.footer-left .values ul {
+    font-size: 0.85rem;
+    color: #eee;
+    margin-bottom: 0.5rem;
+}
+
+.footer-left h4 {
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+}
+
+.footer-left .values ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-left .values li {
+    margin-bottom: 0.3rem;
+}
+
+/* Footer Middle */
+.footer-mid h4 {
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+}
+
+.footer-mid p, .footer-mid a {
+    color: #eee;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Footer Right */
+.footer-right {
+    position: relative;
+}
+
+/* QR Code - upper right corner */
+.footer-qr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+}
+.footer-qr img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+/* Socials & Newsletter stacked below QR */
+.footer-right .socials,
+.footer-right .newsletter {
+    margin-top: 120px; /* leave space for QR above */
+}
+
+/* Socials */
+.footer-right .socials {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.8rem;
+}
+.footer-right .socials a {
+    font-size: 1.4rem;
+    color: var(--gold);
+    transition: 0.3s;
+}
+.footer-right .socials a:hover {
+    color: var(--latte);
+    transform: scale(1.1);
+}
+
+/* Newsletter */
+.footer-right .newsletter input,
+.footer-right .newsletter button {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    margin-right: 0.3rem;
+    margin-top: 0.3rem;
+}
+.footer-right .newsletter button {
+    background: var(--gold);
+    color: var(--dark);
+    cursor: pointer;
+}
+.footer-right .newsletter p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.3rem;
+}
+
+/* Footer Copyright & Credits */
+.site-footer .copyright,
+.site-footer .designed {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-right .footer-qr {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-bottom: 1rem;
+    }
+    .footer-right .socials,
+    .footer-right .newsletter {
+        margin-top: 0;
+    }
+}
