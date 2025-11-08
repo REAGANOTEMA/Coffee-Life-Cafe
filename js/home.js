@@ -81,7 +81,7 @@
       });  
     });
 
-    // Optional: close menu on click outside
+    // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
         if (mobileMenu.classList.contains('active')) {
@@ -94,7 +94,7 @@
     });
   }
 
-  // ===== SMOOTH SCROLL =====
+  // ===== SMOOTH SCROLL FOR ALL NAVS & LOGO =====
   document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
     el.addEventListener('click', e => {
       const href = el.getAttribute('href');
