@@ -20,12 +20,14 @@ html, body {
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
+/* NAV INNER */
 .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 40px;
     flex-wrap: wrap;
+    min-height: 100px; /* reduced height */
 }
 
 /* ===== LOGO LEFT (SQUARE & CLEAR) ===== */
@@ -38,8 +40,8 @@ html, body {
 }
 
 .luxury-logo-circle {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     overflow: hidden;
     background: #fff;
     border: 2px solid #fff;
@@ -51,15 +53,15 @@ html, body {
 .luxury-logo-circle img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* square & fully visible */
+    object-fit: cover;
 }
 
+/* ===== TITLE + SLOGAN ===== */
 .luxury-copy {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 15px;
-    text-align: center;
+    margin-left: 20px;
     overflow: hidden;
 }
 
@@ -73,12 +75,11 @@ html, body {
 }
 
 .luxury-slogan {
-    font-size: 1rem;
+    font-size: 0.9rem; /* smaller than title */
     font-weight: 500;
     color: #555;
     margin-top: 4px;
     white-space: nowrap;
-    display: block;
 }
 
 /* ===== NAVIGATION RIGHT ===== */
@@ -132,7 +133,6 @@ html, body {
     padding: 2px 5px;
 }
 
-/* Language toggle */
 .lang-toggle {
     font-size: 20px;
     background: none;
@@ -140,7 +140,7 @@ html, body {
     cursor: pointer;
 }
 
-/* Hamburger */
+/* ===== HAMBURGER ===== */
 #hamburger {
     display: none;
     flex-direction: column;
@@ -184,7 +184,7 @@ html, body {
 /* ===== HERO & PARTICLES PLACEHOLDERS ===== */
 .header-bg-anim {
     width: 100%;
-    height: 300px;
+    height: 250px;
     background: linear-gradient(120deg, #f5f5f5, #eaeaea);
     position: absolute;
     top: 0;
@@ -204,15 +204,15 @@ html, body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-    .luxury-logo-circle { width: 110px; height: 110px; }
+    .luxury-logo-circle { width: 100px; height: 100px; }
     .luxury-title { font-size: 1.6rem; }
-    .luxury-slogan { font-size: 0.95rem; }
+    .luxury-slogan { font-size: 0.85rem; }
 }
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
     #hamburger { display: flex; }
-    .luxury-logo-circle { width: 90px; height: 90px; }
+    .luxury-logo-circle { width: 85px; height: 85px; }
     .luxury-title { font-size: 1.3rem; }
-    .luxury-slogan { font-size: 0.85rem; }
+    .luxury-slogan { font-size: 0.75rem; }
 }
