@@ -80,6 +80,18 @@
         mobileMenu.setAttribute('aria-hidden', 'true');  
       });  
     });
+
+    // Optional: close menu on click outside
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        if (mobileMenu.classList.contains('active')) {
+          mobileMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
   }
 
   // ===== SMOOTH SCROLL =====
