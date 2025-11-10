@@ -28,14 +28,12 @@
     if (cartIcon) cartIcon.textContent = total;
   }
   updateCartCount();
-
   window.globalAddToCart = function (item) {
     const existing = window.cart.find(i => i.id === item.id);
     if (existing) existing.qty++;
     else window.cart.push({ ...item, qty: 1 });
     updateCartCount();
   };
-
   window.globalRemoveFromCart = function (id) {
     const index = window.cart.findIndex(i => i.id === id);
     if (index === -1) return;
@@ -54,12 +52,9 @@
       setLanguage(newLang);
     });
   }
-
   function setLanguage(lang) {
     localStorage.setItem('luxury_lang', lang);
-    navLinks.forEach((link, idx) => {
-      link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
-    });
+    navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
     if (mobileMenu) {
       mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
         link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
@@ -91,20 +86,10 @@
         setTimeout(() => (mobileMenu.style.display = 'none'), 300);
       }
     };
-
-    hamburger.addEventListener('click', () => {
-      const isActive = mobileMenu.classList.contains('active');
-      toggleMenu(!isActive);
-    });
-
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => toggleMenu(false));
-    });
-
+    hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('active')));
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
     document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        toggleMenu(false);
-      }
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) toggleMenu(false);
     });
   }
 
@@ -128,21 +113,18 @@
   });
 
   // ====================
-  // CINEMATIC TITLE SLIDE (Subtle + Fully Visible)
+  // CINEMATIC TITLE SLIDE
   // ====================
   let position = 0, direction = 1;
   function animateTitleSlide() {
     if (!title || !logo) return;
-
     const logoRect = logo.getBoundingClientRect();
     const headerRect = header.getBoundingClientRect();
     const titleRect = title.getBoundingClientRect();
-
-    // Smaller, classy motion range
     const minX = logoRect.right + 40; 
     const maxX = headerRect.right - titleRect.width - 60; 
 
-    position += direction * 0.3; // slow elegant movement
+    position += direction * 0.2; // cinematic smooth speed
     if (titleRect.left + position <= minX) direction = 1;
     if (titleRect.left + position >= maxX) direction = -1;
 
@@ -152,7 +134,7 @@
   animateTitleSlide();
 
   // ====================
-  // RESPONSIVE HEADER + LOGO + COLORS
+  // RESPONSIVE HEADER + LOGO + TITLE/SLOGAN COLORS
   // ====================
   function adjustHeaderForMobile() {
     const screenWidth = window.innerWidth;
@@ -164,29 +146,30 @@
 
     if (screenWidth <= 768) {
       header.style.padding = '10px 15px';
-      Object.assign(logo.style, { width: '200px', height: '80px' });
-      title.style.fontSize = '1.9rem';
-      slogan.style.fontSize = '0.9rem';
+      Object.assign(logo.style, { width: '200px', height: '75px' });
+      title.style.fontSize = '1.5rem';
+      slogan.style.fontSize = '0.8rem';
     } else if (screenWidth <= 1024) {
       header.style.padding = '15px 25px';
-      Object.assign(logo.style, { width: '220px', height: '90px' });
-      title.style.fontSize = '2.4rem';
-      slogan.style.fontSize = '1rem';
+      Object.assign(logo.style, { width: '220px', height: '85px' });
+      title.style.fontSize = '1.8rem';
+      slogan.style.fontSize = '0.9rem';
     } else {
       header.style.padding = '20px 30px';
-      Object.assign(logo.style, { width: '250px', height: '100px' });
-      title.style.fontSize = '2.8rem';
-      slogan.style.fontSize = '1.1rem';
+      Object.assign(logo.style, { width: '260px', height: '90px' });
+      title.style.fontSize = '2rem';
+      slogan.style.fontSize = '1rem';
     }
 
-    // Title & Slogan colors
     if (title) {
-      title.style.color = '#FFFFFF'; // pure white
+      title.style.color = '#FFFFFF';
       title.style.textShadow = '2px 2px 8px rgba(0,0,0,0.6)';
+      title.style.fontFamily = "'Montserrat', sans-serif";
     }
     if (slogan) {
-      slogan.style.color = '#FFD700'; // dark yellow gold
+      slogan.style.color = '#FFD700';
       slogan.style.textShadow = '1px 1px 4px rgba(0,0,0,0.5)';
+      slogan.style.fontFamily = "'Roboto', sans-serif";
     }
   }
 
