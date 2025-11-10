@@ -144,105 +144,98 @@
     </head>
 
 <body>
-    <!-- ===== ULTRA-LUXURY CINEMATIC HEADER HTML ===== -->
-    <header class="site-header" id="mainHeader" role="banner">
-        <div class="container nav-inner">
-
-            <!-- ===== BRAND / LOGO ===== -->
-            <a class="logo" href="index.html#home" aria-label="Coffee Life home">
-                <div class="luxury-logo-circle">
-                    <img src="images/logo.png" alt="Coffee Life Logo">
-                </div>
-                <div class="luxury-copy">
-                    <span class="luxury-title">COFFEE LIFE RESTAURANT</span>
-                    <span class="luxury-slogan">Eat. Meet. Work.</span>
-                </div>
-            </a>
-
-            <!-- ===== NAVIGATION + ACTIONS ===== -->
-            <nav class="nav" role="navigation" aria-label="Main navigation">
-                <div class="nav-links">
-                    <a href="index.html#home" class="nav-link">Home</a>
-                    <a href="index.html#menu" class="nav-link">Menu</a>
-                    <a href="index.html#gallery" class="nav-link">Gallery</a>
-                    <a href="index.html#contact" class="nav-link">Contact</a>
-                </div>
-
-                <div class="nav-actions">
-                    <!-- Cart -->
-                    <div class="cart-icon" aria-label="Shopping cart">
-                        🛒 <span class="cart-count-badge">0</span>
-                    </div>
-
-                    <!-- Language toggle -->
-                    <button class="lang-toggle" aria-label="Switch language">🌐</button>
-
-                    <!-- Hamburger -->
-                    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </button>
-                </div>
-            </nav>
+  <!-- ===== ULTRA-LUXURY CINEMATIC HEADER HTML ===== -->
+  <header class="site-header" id="mainHeader" role="banner">
+    <div class="container nav-inner">
+      <!-- ===== BRAND / LOGO ===== -->
+      <a class="logo" href="index.html#home" aria-label="Coffee Life home">
+        <div class="luxury-logo-circle">
+          <img src="images/logo.png" alt="Coffee Life Logo">
         </div>
-
-        <!-- ===== MOBILE MENU INLINE UNDER HEADER ===== -->
-        <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-            <a href="index.html#home" class="mobile-link">Home</a>
-            <a href="index.html#menu" class="mobile-link">Menu</a>
-            <a href="index.html#gallery" class="mobile-link">Gallery</a>
-            <a href="index.html#contact" class="mobile-link">Contact</a>
+        <div class="luxury-copy">
+          <span class="luxury-title">COFFEE LIFE</span>
+          <span class="luxury-slogan">Eat. Meet. Work.</span>
         </div>
-    </header>
+      </a>
 
-    <!-- Background hero animation -->
-    <div class="header-bg-anim"></div>
+      <!-- ===== NAVIGATION + ACTIONS ===== -->
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-links">
+          <a href="index.html#home" class="nav-link">Home</a>
+          <a href="index.html#menu" class="nav-link">Menu</a>
+          <a href="index.html#gallery" class="nav-link">Gallery</a>
+          <a href="index.html#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <div class="cart-icon" aria-label="Shopping cart">🛒 <span class="cart-count-badge">0</span></div>
+          <button class="lang-toggle" aria-label="Switch language">🌐</button>
+          <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
 
-    <!-- Floating gold particles -->
-    <div class="luxury-particle-container"></div>
+    <!-- ===== MOBILE MENU INLINE UNDER HEADER ===== -->
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="index.html#home" class="mobile-link">Home</a>
+      <a href="index.html#menu" class="mobile-link">Menu</a>
+      <a href="index.html#gallery" class="mobile-link">Gallery</a>
+      <a href="index.html#contact" class="mobile-link">Contact</a>
+    </div>
+  </header>
 
-    <script>
-        // ==================== TV-STYLE TITLE SLIDE ====================
-        const title = document.querySelector('.luxury-title');
-        const headerPattern = document.querySelector('.header-pattern');
+  <!-- Background hero animation -->
+  <div class="header-bg-anim"></div>
+  <div class="luxury-particle-container"></div>
 
-        // Smooth horizontal sliding effect (like TV/movie title)
-        let position = 0;
-        let direction = 1;
-        function animateTitle() {
-            if (!title) return;
+  <script>
+    // ===== Smooth and Bounded Title Animation =====
+    const title = document.querySelector('.luxury-title');
+    const logo = document.querySelector('.luxury-logo-circle');
 
-            const maxSlide = 10; // max px to move
-            position += direction * 0.5; // slide speed
-            if (position > maxSlide || position < -maxSlide) direction *= -1;
-            title.style.transform = `translateX(${position}px)`;
-            requestAnimationFrame(animateTitle);
-        }
-        animateTitle();
+    let pos = 0, dir = 1;
+    const step = 0.6;
 
-        // ==================== MOBILE MENU TOGGLE ====================
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
+    function animateTitle(){
+      if(!title || !logo) return;
+      const logoRect = logo.getBoundingClientRect();
+      const titleRect = title.getBoundingClientRect();
+      const leftLimit = logoRect.right + 12 - titleRect.left;
+      const rightLimit = (window.innerWidth - 20) - (titleRect.left + titleRect.width);
+      if(pos + dir * step > rightLimit) dir = -1;
+      if(pos + dir * step < leftLimit) dir = 1;
+      pos += dir * step;
+      title.style.transform = `translateX(${pos}px)`;
+      requestAnimationFrame(animateTitle);
+    }
+    animateTitle();
 
-        hamburger.addEventListener('click', () => {
-            const isActive = mobileMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            mobileMenu.style.display = isActive ? 'flex' : 'none';
-            mobileMenu.setAttribute('aria-hidden', !isActive);
-            hamburger.setAttribute('aria-expanded', isActive);
-        });
+    // ===== MOBILE MENU TOGGLE =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            });
-        });
-    </script>
+    hamburger.addEventListener('click', ()=>{
+      const isActive = mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      mobileMenu.style.display = isActive ? 'flex' : 'none';
+      mobileMenu.setAttribute('aria-hidden', !isActive);
+      hamburger.setAttribute('aria-expanded', isActive);
+    });
 
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link=>{
+      link.addEventListener('click', ()=>{
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded','false');
+        mobileMenu.style.display='none';
+      });
+    });
+  </script>
 </body>
+
 <!-- ===== HERO SECTION WITH CINEMATIC IMAGE SLIDES ===== -->
 <main id="home" class="main">
     <section class="hero" aria-label="Cinematic Food Hero">

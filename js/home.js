@@ -1,3 +1,4 @@
+<script>
 (function() {
   const NAV_ITEMS = [
     { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: 'index.html#home' },
@@ -58,37 +59,62 @@
         link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
       });
     }
-    if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'Coffee Life';
+    if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'COFFEE LIFE RESTAURANT';
     if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
   }
   setLanguage(DEFAULT_LANG);
+
+  // ===== NAV BUTTON ANIMATIONS =====
+  function addNavEffects() {
+    document.querySelectorAll('.nav-link, .mobile-link').forEach(btn => {
+      btn.style.transition = 'all 0.3s ease';
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transform = 'scale(1.08)';
+        btn.style.textShadow = '0 0 10px gold';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'scale(1)';
+        btn.style.textShadow = 'none';
+      });
+      btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.95)');
+      btn.addEventListener('mouseup', () => btn.style.transform = 'scale(1.08)');
+    });
+  }
+  addNavEffects();
 
   // ===== MOBILE MENU =====
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
       const isActive = mobileMenu.classList.toggle('active');
       hamburger.classList.toggle('active', isActive);
-      mobileMenu.setAttribute('aria-hidden', !isActive);
       hamburger.setAttribute('aria-expanded', isActive);
+      mobileMenu.setAttribute('aria-hidden', !isActive);
+      mobileMenu.style.display = isActive ? 'flex' : 'none';
+      mobileMenu.style.opacity = isActive ? '1' : '0';
+      mobileMenu.style.transition = 'opacity 0.3s ease';
     });
 
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {  
-      link.addEventListener('click', () => {  
-        mobileMenu.classList.remove('active');  
-        hamburger.classList.remove('active');  
-        hamburger.setAttribute('aria-expanded', 'false');  
-        mobileMenu.setAttribute('aria-hidden', 'true');  
-      });  
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileMenu.style.opacity = '0';
+        setTimeout(() => (mobileMenu.style.display = 'none'), 300);
+      });
     });
 
-    // Close mobile menu on click outside
-    document.addEventListener('click', (e) => {
+    // Close on outside click
+    document.addEventListener('click', e => {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
         if (mobileMenu.classList.contains('active')) {
           mobileMenu.classList.remove('active');
           hamburger.classList.remove('active');
           hamburger.setAttribute('aria-expanded', 'false');
           mobileMenu.setAttribute('aria-hidden', 'true');
+          mobileMenu.style.opacity = '0';
+          setTimeout(() => (mobileMenu.style.display = 'none'), 300);
         }
       }
     });
@@ -106,27 +132,18 @@
     });
   });
 
-  // ===== CINEMATIC TITLE SLIDE (Stops before hitting logo) =====
+  // ===== TITLE SLIDE =====
   let position = 0, direction = 1;
   function animateTitleSlide() {
     if (!title || !logo) return;
-
-    const maxSlide = 50; // max pixels to slide left-right
     const logoRect = logo.getBoundingClientRect();
     const titleRect = title.getBoundingClientRect();
-
-    // Calculate rightmost boundary to prevent title cutting logo
-    const maxRight = logoRect.left + logoRect.width + 20; // 20px padding
-
-    let newPos = position + direction * 0.5;
-
-    // Stop before logo area
-    const titleLeft = titleRect.left + newPos;
-    if (titleLeft < maxRight - titleRect.width || titleLeft > window.innerWidth - 20) {
+    const leftBoundary = logoRect.right + 30; // spacing from logo
+    const rightBoundary = window.innerWidth - titleRect.width - 40;
+    position += direction * 0.4;
+    if (titleRect.left + position < leftBoundary || titleRect.left + position > rightBoundary) {
       direction *= -1;
     }
-
-    position += direction * 0.5;
     title.style.transform = `translateX(${position}px)`;
     requestAnimationFrame(animateTitleSlide);
   }
@@ -137,24 +154,22 @@
     const screenWidth = window.innerWidth;
     if (screenWidth <= 768) {
       header.style.padding = '10px 15px';
-      header.style.minHeight = '90px';
-      if (logo) Object.assign(logo.style, { width: '120px', height: '120px' });
-      if (title) title.style.fontSize = '1.8rem';
+      if (logo) Object.assign(logo.style, { width: '90px', height: '90px' });
+      if (title) title.style.fontSize = '1.4rem';
       if (slogan) slogan.style.fontSize = '0.8rem';
     } else if (screenWidth <= 1024) {
       header.style.padding = '15px 25px';
-      header.style.minHeight = '110px';
-      if (logo) Object.assign(logo.style, { width: '140px', height: '140px' });
-      if (title) title.style.fontSize = '2.2rem';
-      if (slogan) slogan.style.fontSize = '0.95rem';
+      if (logo) Object.assign(logo.style, { width: '110px', height: '110px' });
+      if (title) title.style.fontSize = '2rem';
+      if (slogan) slogan.style.fontSize = '0.9rem';
     } else {
       header.style.padding = '20px 30px';
-      header.style.minHeight = '130px';
-      if (logo) Object.assign(logo.style, { width: '160px', height: '160px' });
+      if (logo) Object.assign(logo.style, { width: '130px', height: '130px' });
       if (title) title.style.fontSize = '2.8rem';
-      if (slogan) slogan.style.fontSize = '1rem';
+      if (slogan) slogan.style.fontSize = '1.1rem';
     }
   }
   window.addEventListener('resize', adjustHeaderForMobile);
   adjustHeaderForMobile();
 })();
+</script>

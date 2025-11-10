@@ -1,213 +1,293 @@
+/* ===============================
+   GLOBAL BASE STYLES
+================================= */
 html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
-    background: #f5f2ef;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  background: #f5f2ef;
+  color: #fff;
 }
 
-/* ===== HEADER ===== */
+/* ===============================
+   HEADER
+================================= */
 .site-header {
-    width: 100%;
-    background: #8B0000; /* dark red luxury */
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 100;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    color: #fff;
-    font-weight: bold;
+  width: 100%;
+  background: linear-gradient(135deg, #8B0000, #5c0000);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.45);
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-/* NAV INNER */
+/* ===============================
+   NAV INNER WRAPPER
+================================= */
 .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 50px;
-    flex-wrap: wrap;
-    min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 50px;
+  flex-wrap: wrap;
+  min-height: 120px;
+  position: relative;
 }
 
-/* ===== LOGO ===== */
+/* ===============================
+   LOGO (LEFT)
+================================= */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    text-decoration: none;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .luxury-logo-circle {
-    width: 160px;
-    height: 160px;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #FFD700; /* gold trim */
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.luxury-logo-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
 }
 
 .luxury-logo-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* ===== TITLE + SLOGAN ===== */
+/* ===============================
+   TITLE & SLOGAN (CENTER)
+================================= */
 .luxury-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  margin-left: 10px;
+  flex-grow: 1;
 }
 
 .luxury-title {
-    font-size: 2.8rem; /* bigger */
-    font-weight: 900;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  transition: transform 0.5s ease;
 }
 
 .luxury-slogan {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-    margin-top: 5px;
-    white-space: nowrap;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin-top: 6px;
+  white-space: nowrap;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
 }
 
-/* ===== NAVIGATION RIGHT ===== */
+/* ===============================
+   NAVIGATION RIGHT (NAV + CART + LANG)
+================================= */
 .nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .nav-link {
-    padding: 10px 24px;
-    background: linear-gradient(145deg, #FFD700, #DAA520); /* gold buttons */
-    color: #8B0000;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 12px;
-    box-shadow: 0 5px 0 #B8860B, 0 5px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
+  padding: 10px 24px;
+  background: linear-gradient(145deg, #FFD700, #DAA520);
+  color: #8B0000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 0 #B8860B, 0 5px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-    transform: translateY(-2px) scale(1.05);
-    background: linear-gradient(145deg, #FFFACD, #FFD700);
-    box-shadow: 0 7px 0 #B8860B, 0 7px 15px rgba(0,0,0,0.4);
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(145deg, #FFFACD, #FFD700);
+  box-shadow: 0 7px 0 #B8860B, 0 7px 15px rgba(0,0,0,0.4);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* NAV ACTIONS */
+.nav-link:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* ACTION ICONS */
 .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .cart-icon {
-    font-size: 22px;
-    position: relative;
-    cursor: pointer;
+  font-size: 24px;
+  position: relative;
+  cursor: pointer;
+  color: #FFD700;
+  transition: transform 0.3s ease;
+}
+
+.cart-icon:hover {
+  transform: scale(1.2);
 }
 
 .cart-count-badge {
-    position: absolute;
-    top: -6px;
-    right: -10px;
-    background: red;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: bold;
-    border-radius: 50%;
-    padding: 2px 5px;
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #ff3333;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 
 .lang-toggle {
-    font-size: 22px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #FFD700;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* HAMBURGER */
+.lang-toggle:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+/* ===============================
+   HAMBURGER MENU (MOBILE)
+================================= */
 #hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28px;
-    height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 120;
+  transition: transform 0.3s ease;
 }
 
 #hamburger .bar {
-    height: 3px;
-    width: 100%;
-    background: #fff;
-    border-radius: 2px;
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-/* MOBILE MENU */
+/* Animated bars */
+#hamburger.active .bar:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+#hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+#hamburger.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ===============================
+   MOBILE MENU
+================================= */
 .mobile-menu {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: #8B0000;
-    text-align: center;
-    padding: 12px 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background: #8B0000;
+  text-align: center;
+  padding: 14px 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
 .mobile-menu.active {
-    display: flex;
+  display: flex;
+  opacity: 1;
 }
 
 .mobile-link {
-    padding: 14px 0;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
+  padding: 14px 0;
+  font-weight: bold;
+  color: #FFD700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
 }
 
-/* HERO & PARTICLES */
+.mobile-link:hover {
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===============================
+   BACKGROUND / PARTICLES
+================================= */
 .header-bg-anim,
 .luxury-particle-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top right, rgba(255,215,0,0.15), transparent 60%);
 }
 
-/* RESPONSIVE */
+/* ===============================
+   RESPONSIVE DESIGN
+================================= */
 @media (max-width: 1024px) {
-    .luxury-logo-circle { width: 140px; height: 140px; }
-    .luxury-title { font-size: 2.2rem; }
-    .luxury-slogan { font-size: 0.95rem; }
+  .luxury-logo-circle { width: 140px; height: 140px; }
+  .luxury-title { font-size: 2.2rem; }
+  .luxury-slogan { font-size: 0.95rem; }
 }
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    #hamburger { display: flex; }
-    .luxury-logo-circle { width: 120px; height: 120px; }
-    .luxury-title { font-size: 1.8rem; }
-    .luxury-slogan { font-size: 0.85rem; }
+  .nav-links { display: none; }
+  #hamburger { display: flex; }
+  .luxury-logo-circle { width: 120px; height: 120px; }
+  .luxury-title { font-size: 1.8rem; }
+  .luxury-slogan { font-size: 0.85rem; }
+  .nav-inner { padding: 10px 20px; }
 }
