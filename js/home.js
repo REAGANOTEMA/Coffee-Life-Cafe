@@ -1,5 +1,4 @@
-<script>
-(function() {
+(function () {
   const NAV_ITEMS = [
     { id: 'home', label: { en: 'Home', ar: 'الصفحة الرئيسية' }, href: 'index.html#home' },
     { id: 'menu', label: { en: 'Menu', ar: 'القائمة' }, href: 'index.html#menu' },
@@ -19,7 +18,9 @@
   const cartIcon = header.querySelector('.cart-icon .cart-count-badge');
   const navLinks = header.querySelectorAll('.nav-link');
 
-  // ===== CART MANAGEMENT =====
+  // ====================
+  // CART MANAGEMENT
+  // ====================
   window.cart = window.cart || [];
   function updateCartCount() {
     const total = window.cart.reduce((sum, item) => sum + (item.qty || 0), 0);
@@ -27,14 +28,14 @@
   }
   updateCartCount();
 
-  window.globalAddToCart = function(item) {
+  window.globalAddToCart = function (item) {
     const existing = window.cart.find(i => i.id === item.id);
     if (existing) existing.qty++;
     else window.cart.push({ ...item, qty: 1 });
     updateCartCount();
   };
 
-  window.globalRemoveFromCart = function(id) {
+  window.globalRemoveFromCart = function (id) {
     const index = window.cart.findIndex(i => i.id === id);
     if (index === -1) return;
     window.cart[index].qty--;
@@ -42,7 +43,9 @@
     updateCartCount();
   };
 
-  // ===== LANGUAGE SWITCH =====
+  // ====================
+  // LANGUAGE SWITCH
+  // ====================
   const langBtn = header.querySelector('.lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', () => {
@@ -53,123 +56,125 @@
 
   function setLanguage(lang) {
     localStorage.setItem('luxury_lang', lang);
-    navLinks.forEach((link, idx) => link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en);
+    navLinks.forEach((link, idx) => {
+      link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
+    });
     if (mobileMenu) {
       mobileMenu.querySelectorAll('.mobile-link').forEach((link, idx) => {
         link.textContent = NAV_ITEMS[idx].label[lang] || NAV_ITEMS[idx].label.en;
       });
     }
-    if (title) title.textContent = (lang === 'ar') ? 'قهوة الحياة' : 'COFFEE LIFE RESTAURANT';
-    if (slogan) slogan.textContent = (lang === 'ar') ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
+    if (title) title.textContent = lang === 'ar' ? 'قهوة الحياة' : 'Coffee Life';
+    if (slogan) slogan.textContent = lang === 'ar' ? 'كل. اجتمع. اعمل.' : 'Eat. Meet. Work.';
   }
   setLanguage(DEFAULT_LANG);
 
-  // ===== NAV BUTTON ANIMATIONS =====
-  function addNavEffects() {
-    document.querySelectorAll('.nav-link, .mobile-link').forEach(btn => {
-      btn.style.transition = 'all 0.3s ease';
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transform = 'scale(1.08)';
-        btn.style.textShadow = '0 0 10px gold';
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'scale(1)';
-        btn.style.textShadow = 'none';
-      });
-      btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.95)');
-      btn.addEventListener('mouseup', () => btn.style.transform = 'scale(1.08)');
-    });
-  }
-  addNavEffects();
-
-  // ===== MOBILE MENU =====
+  // ====================
+  // MOBILE MENU TOGGLE
+  // ====================
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      const isActive = mobileMenu.classList.toggle('active');
-      hamburger.classList.toggle('active', isActive);
-      hamburger.setAttribute('aria-expanded', isActive);
-      mobileMenu.setAttribute('aria-hidden', !isActive);
-      mobileMenu.style.display = isActive ? 'flex' : 'none';
-      mobileMenu.style.opacity = isActive ? '1' : '0';
-      mobileMenu.style.transition = 'opacity 0.3s ease';
-    });
-
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
+    const toggleMenu = (show) => {
+      if (show) {
+        mobileMenu.classList.add('active');
+        hamburger.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        mobileMenu.style.display = 'flex';
+      } else {
         mobileMenu.classList.remove('active');
         hamburger.classList.remove('active');
         hamburger.setAttribute('aria-expanded', 'false');
         mobileMenu.setAttribute('aria-hidden', 'true');
-        mobileMenu.style.opacity = '0';
-        setTimeout(() => (mobileMenu.style.display = 'none'), 300);
-      });
+        mobileMenu.style.display = 'none';
+      }
+    };
+
+    hamburger.addEventListener('click', () => {
+      const isActive = mobileMenu.classList.contains('active');
+      toggleMenu(!isActive);
     });
 
-    // Close on outside click
-    document.addEventListener('click', e => {
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    document.addEventListener('click', (e) => {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        if (mobileMenu.classList.contains('active')) {
-          mobileMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-          hamburger.setAttribute('aria-expanded', 'false');
-          mobileMenu.setAttribute('aria-hidden', 'true');
-          mobileMenu.style.opacity = '0';
-          setTimeout(() => (mobileMenu.style.display = 'none'), 300);
-        }
+        toggleMenu(false);
       }
     });
   }
 
-  // ===== SMOOTH SCROLL =====
+  // ====================
+  // SMOOTH SCROLL
+  // ====================
   document.querySelectorAll('.nav-link, .mobile-link, .logo').forEach(el => {
     el.addEventListener('click', e => {
       const href = el.getAttribute('href');
       if (!href || !href.includes('#')) return;
       e.preventDefault();
       const target = document.getElementById(href.split('#')[1]);
-      if (target) window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: 'smooth' });
-      else window.location.href = href;
+      if (target) {
+        const headerOffset = header.offsetHeight;
+        const top = target.offsetTop - headerOffset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      } else {
+        window.location.href = href;
+      }
     });
   });
 
-  // ===== TITLE SLIDE =====
+  // ====================
+  // CINEMATIC TITLE SLIDE (bounded)
+  // ====================
   let position = 0, direction = 1;
   function animateTitleSlide() {
     if (!title || !logo) return;
+
     const logoRect = logo.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
     const titleRect = title.getBoundingClientRect();
-    const leftBoundary = logoRect.right + 30; // spacing from logo
-    const rightBoundary = window.innerWidth - titleRect.width - 40;
-    position += direction * 0.4;
-    if (titleRect.left + position < leftBoundary || titleRect.left + position > rightBoundary) {
-      direction *= -1;
-    }
+
+    const minX = logoRect.right + 15; // distance from logo
+    const maxX = headerRect.right - titleRect.width - 25;
+
+    position += direction * 0.5;
+
+    if (titleRect.left + position <= minX) direction = 1;
+    if (titleRect.left + position >= maxX) direction = -1;
+
     title.style.transform = `translateX(${position}px)`;
     requestAnimationFrame(animateTitleSlide);
   }
   animateTitleSlide();
 
-  // ===== RESPONSIVE HEADER =====
+  // ====================
+  // RESPONSIVE HEADER
+  // ====================
   function adjustHeaderForMobile() {
     const screenWidth = window.innerWidth;
+
     if (screenWidth <= 768) {
       header.style.padding = '10px 15px';
-      if (logo) Object.assign(logo.style, { width: '90px', height: '90px' });
-      if (title) title.style.fontSize = '1.4rem';
-      if (slogan) slogan.style.fontSize = '0.8rem';
+      header.style.minHeight = '90px';
+      Object.assign(logo.style, { width: '160px', height: '85px' });
+      title.style.fontSize = '1.9rem';
+      slogan.style.fontSize = '0.9rem';
     } else if (screenWidth <= 1024) {
       header.style.padding = '15px 25px';
-      if (logo) Object.assign(logo.style, { width: '110px', height: '110px' });
-      if (title) title.style.fontSize = '2rem';
-      if (slogan) slogan.style.fontSize = '0.9rem';
+      header.style.minHeight = '110px';
+      Object.assign(logo.style, { width: '180px', height: '95px' });
+      title.style.fontSize = '2.4rem';
+      slogan.style.fontSize = '1rem';
     } else {
       header.style.padding = '20px 30px';
-      if (logo) Object.assign(logo.style, { width: '130px', height: '130px' });
-      if (title) title.style.fontSize = '2.8rem';
-      if (slogan) slogan.style.fontSize = '1.1rem';
+      header.style.minHeight = '130px';
+      Object.assign(logo.style, { width: '200px', height: '110px' });
+      title.style.fontSize = '2.9rem';
+      slogan.style.fontSize = '1.1rem';
     }
   }
+
   window.addEventListener('resize', adjustHeaderForMobile);
   adjustHeaderForMobile();
 })();
-</script>
