@@ -1,33 +1,25 @@
-/* ===============================
-   GLOBAL BASE STYLES
-================================= */
+/* ===== GLOBAL ===== */
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   background: #f5f2ef;
-  color: #fff;
 }
 
-/* ===============================
-   HEADER
-================================= */
+/* ===== HEADER CONTAINER ===== */
 .site-header {
   width: 100%;
-  background: linear-gradient(135deg, #8B0000, #5c0000);
+  background: #8B0000; /* dark red luxury tone */
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 100;
   box-shadow: 0 5px 20px rgba(0,0,0,0.45);
   color: #fff;
-  font-weight: bold;
 }
 
-/* ===============================
-   NAV INNER WRAPPER
-================================= */
+/* ===== INNER WRAP ===== */
 .nav-inner {
   display: flex;
   align-items: center;
@@ -35,12 +27,9 @@ html, body {
   padding: 15px 50px;
   flex-wrap: wrap;
   min-height: 120px;
-  position: relative;
 }
 
-/* ===============================
-   LOGO (LEFT)
-================================= */
+/* ===== LOGO AREA ===== */
 .logo {
   display: flex;
   align-items: center;
@@ -50,67 +39,53 @@ html, body {
 }
 
 .luxury-logo-circle {
-  width: 200px;   /* wider */
-  height: 110px;  /* less tall */
+  width: 250px;
+  height: 100px;
   overflow: hidden;
   background: #fff;
-  border-radius: 18px;
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px solid #FFD700;
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.luxury-logo-circle:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+  box-shadow: 0 0 15px rgba(255,215,0,0.3);
 }
 
 .luxury-logo-circle img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  transform: scale(1.2);
 }
 
-/* ===============================
-   TITLE & SLOGAN (CENTER)
-================================= */
+/* ===== TITLE + SLOGAN ===== */
 .luxury-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  overflow: visible; /* ensure text fully visible */
-  margin-left: 10px;
-  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .luxury-title {
-  font-size: 2.9rem;
+  font-size: 2.8rem;
   font-weight: 900;
-  color: #e6b800; /* rich dark gold */
-  white-space: nowrap;
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0 0 15px rgba(255,215,0,0.4);
-  transform: translateX(0);
-  transition: transform 0.5s ease;
+  color: #FFFFFF;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  letter-spacing: 1px;
+  transition: transform 0.3s ease;
 }
 
 .luxury-slogan {
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #ffffff; /* clear white */
-  margin-top: 8px;
-  white-space: nowrap;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-  overflow: visible; /* ensure fully visible */
+  font-weight: 600;
+  color: #FFD700;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
 
-/* ===============================
-   NAVIGATION RIGHT
-================================= */
+/* ===== NAVIGATION ===== */
 .nav {
   display: flex;
   align-items: center;
@@ -137,39 +112,31 @@ html, body {
   transform: translateY(-2px) scale(1.05);
   background: linear-gradient(145deg, #FFFACD, #FFD700);
   box-shadow: 0 7px 0 #B8860B, 0 7px 15px rgba(0,0,0,0.4);
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* ACTION ICONS */
+/* ===== NAV ACTIONS ===== */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .cart-icon {
-  font-size: 24px;
+  font-size: 22px;
   position: relative;
   cursor: pointer;
-  color: #FFD700;
-  transition: transform 0.3s ease;
-}
-
-.cart-icon:hover {
-  transform: scale(1.2);
 }
 
 .cart-count-badge {
   position: absolute;
   top: -6px;
   right: -10px;
-  background: #ff3333;
+  background: red;
   color: #fff;
   font-size: 0.75rem;
   font-weight: bold;
   border-radius: 50%;
-  padding: 2px 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  padding: 2px 6px;
 }
 
 .lang-toggle {
@@ -177,18 +144,10 @@ html, body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #FFD700;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.lang-toggle:hover {
   color: #fff;
-  transform: scale(1.2);
 }
 
-/* ===============================
-   HAMBURGER MENU
-================================= */
+/* ===== HAMBURGER ===== */
 #hamburger {
   display: none;
   flex-direction: column;
@@ -198,7 +157,6 @@ html, body {
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 120;
   transition: transform 0.3s ease;
 }
 
@@ -211,31 +169,27 @@ html, body {
 }
 
 #hamburger.active .bar:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
+
 #hamburger.active .bar:nth-child(2) {
   opacity: 0;
 }
+
 #hamburger.active .bar:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ===============================
-   MOBILE MENU
-================================= */
+/* ===== MOBILE MENU ===== */
 .mobile-menu {
   display: none;
   flex-direction: column;
   width: 100%;
   background: #8B0000;
   text-align: center;
-  padding: 14px 0;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
+  padding: 15px 0;
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
 }
 
 .mobile-menu.active {
@@ -246,20 +200,17 @@ html, body {
 .mobile-link {
   padding: 14px 0;
   font-weight: bold;
-  color: #FFD700;
+  color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .mobile-link:hover {
-  color: #fff;
-  transform: scale(1.05);
+  background: rgba(255,255,255,0.1);
 }
 
-/* ===============================
-   BACKGROUND / PARTICLES
-================================= */
+/* ===== BACKGROUND DECORATIONS ===== */
 .header-bg-anim,
 .luxury-particle-container {
   position: absolute;
@@ -268,23 +219,37 @@ html, body {
   top: 0;
   left: 0;
   z-index: -1;
-  background: radial-gradient(circle at top right, rgba(255,215,0,0.15), transparent 60%);
 }
 
-/* ===============================
-   RESPONSIVE DESIGN
-================================= */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .luxury-logo-circle { width: 180px; height: 95px; }
-  .luxury-title { font-size: 2.4rem; }
-  .luxury-slogan { font-size: 0.95rem; }
+  .luxury-logo-circle {
+    width: 220px;
+    height: 90px;
+  }
+  .luxury-title {
+    font-size: 2.4rem;
+  }
+  .luxury-slogan {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  #hamburger { display: flex; }
-  .luxury-logo-circle { width: 160px; height: 85px; }
-  .luxury-title { font-size: 1.9rem; }
-  .luxury-slogan { font-size: 0.9rem; }
-  .nav-inner { padding: 10px 20px; }
+  .nav-links {
+    display: none;
+  }
+  #hamburger {
+    display: flex;
+  }
+  .luxury-logo-circle {
+    width: 200px;
+    height: 80px;
+  }
+  .luxury-title {
+    font-size: 1.9rem;
+  }
+  .luxury-slogan {
+    font-size: 0.9rem;
+  }
 }
