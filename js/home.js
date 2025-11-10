@@ -138,7 +138,7 @@
     const headerRect = header.getBoundingClientRect();
     const titleRect = title.getBoundingClientRect();
 
-    // smaller, classy motion range
+    // Smaller, classy motion range
     const minX = logoRect.right + 40; 
     const maxX = headerRect.right - titleRect.width - 60; 
 
@@ -152,7 +152,7 @@
   animateTitleSlide();
 
   // ====================
-  // RESPONSIVE HEADER + LOGO + COLOR FIXES
+  // RESPONSIVE HEADER + LOGO + COLORS
   // ====================
   function adjustHeaderForMobile() {
     const screenWidth = window.innerWidth;
@@ -179,7 +179,7 @@
       slogan.style.fontSize = '1.1rem';
     }
 
-    // Title & Slogan colors (visible and elegant)
+    // Title & Slogan colors
     if (title) {
       title.style.color = '#FFFFFF'; // pure white
       title.style.textShadow = '2px 2px 8px rgba(0,0,0,0.6)';
