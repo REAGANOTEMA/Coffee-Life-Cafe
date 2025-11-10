@@ -40,8 +40,8 @@ html, body {
 }
 
 .luxury-logo-circle {
-    width: 260px;
-    height: 90px; /* shorter, wider */
+    width: 280px;
+    height: 90px; /* wider, shorter */
     overflow: hidden;
     background: #fff;
     border-radius: 12px;
@@ -54,8 +54,8 @@ html, body {
 .luxury-logo-circle img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transform: scale(1.2); /* zoomed for full visibility */
+    object-fit: contain; /* fully visible */
+    transform: scale(1);
 }
 
 /* ===== TITLE + SLOGAN ===== */
@@ -73,7 +73,7 @@ html, body {
     white-space: nowrap;
     overflow: visible;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* luxury font */
 }
 
 .luxury-slogan {
@@ -223,7 +223,7 @@ html, body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-    .luxury-logo-circle { width: 220px; height: 85px; }
+    .luxury-logo-circle { width: 240px; height: 80px; }
     .luxury-title { font-size: 1.8rem; }
     .luxury-slogan { font-size: 0.9rem; }
 }
@@ -231,7 +231,7 @@ html, body {
 @media (max-width: 768px) {
     .nav-links { display: none; }
     #hamburger { display: flex; }
-    .luxury-logo-circle { width: 200px; height: 75px; }
+    .luxury-logo-circle { width: 220px; height: 70px; }
     .luxury-title { font-size: 1.5rem; }
     .luxury-slogan { font-size: 0.8rem; }
     .nav-inner { padding: 10px 15px; min-height: 90px; }

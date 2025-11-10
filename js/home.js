@@ -140,23 +140,25 @@
     const screenWidth = window.innerWidth;
 
     if (logoImg) {
-      logoImg.style.objectFit = 'cover';
-      logoImg.style.transform = 'scale(1.2)';
+      logoImg.style.objectFit = 'contain'; // keep full image visible
+      logoImg.style.width = '100%';
+      logoImg.style.height = '100%';
+      logoImg.style.transform = 'scale(1)'; // no zoom
     }
 
     if (screenWidth <= 768) {
       header.style.padding = '10px 15px';
-      Object.assign(logo.style, { width: '200px', height: '75px' });
+      Object.assign(logo.style, { width: '220px', height: '70px' }); // shorter height, wider
       title.style.fontSize = '1.5rem';
       slogan.style.fontSize = '0.8rem';
     } else if (screenWidth <= 1024) {
       header.style.padding = '15px 25px';
-      Object.assign(logo.style, { width: '220px', height: '85px' });
+      Object.assign(logo.style, { width: '240px', height: '80px' });
       title.style.fontSize = '1.8rem';
       slogan.style.fontSize = '0.9rem';
     } else {
       header.style.padding = '20px 30px';
-      Object.assign(logo.style, { width: '260px', height: '90px' });
+      Object.assign(logo.style, { width: '280px', height: '90px' });
       title.style.fontSize = '2rem';
       slogan.style.fontSize = '1rem';
     }
