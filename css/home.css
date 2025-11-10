@@ -236,3 +236,41 @@ html, body {
     .luxury-slogan { font-size: 0.9rem; }
     .nav-inner { padding: 10px 15px; min-height: 90px; }
 }
+/* ===== TITLE + SLOGAN ===== */
+.luxury-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: visible;
+}
+
+.luxury-title {
+    font-size: 2rem; /* smaller for better visibility */
+    font-weight: 900;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: visible;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    font-family: 'Montserrat', sans-serif; /* luxury font */
+}
+
+.luxury-slogan {
+    font-size: 1rem; /* smaller, fully visible */
+    font-weight: 600;
+    color: #FFD700; /* dark yellow gold */
+    margin-top: 5px;
+    white-space: nowrap;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    font-family: 'Roboto', sans-serif; /* different from title */
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
+    .luxury-title { font-size: 1.8rem; }
+    .luxury-slogan { font-size: 0.9rem; }
+}
+
+@media (max-width: 768px) {
+    .luxury-title { font-size: 1.5rem; }
+    .luxury-slogan { font-size: 0.8rem; }
+}
