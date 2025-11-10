@@ -11,7 +11,7 @@
   if (!header) return;
 
   const logo = header.querySelector('.luxury-logo-circle');
-  const logoImg = logo ? logo.querySelector('img') : null;
+  const logoImg = logo.querySelector('img');
   const title = header.querySelector('.luxury-title');
   const slogan = header.querySelector('.luxury-slogan');
   const hamburger = document.getElementById('hamburger');
@@ -29,14 +29,14 @@
   }
   updateCartCount();
 
-  window.globalAddToCart = function (item) {
+  window.globalAddToCart = function(item) {
     const existing = window.cart.find(i => i.id === item.id);
     if (existing) existing.qty++;
     else window.cart.push({ ...item, qty: 1 });
     updateCartCount();
   };
 
-  window.globalRemoveFromCart = function (id) {
+  window.globalRemoveFromCart = function(id) {
     const index = window.cart.findIndex(i => i.id === id);
     if (index === -1) return;
     window.cart[index].qty--;
@@ -73,26 +73,18 @@
   // ====================
   if (hamburger && mobileMenu) {
     const toggleMenu = (show) => {
-      if (show) {
-        mobileMenu.classList.add('active');
-        hamburger.classList.add('active');
-        hamburger.setAttribute('aria-expanded', 'true');
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        mobileMenu.style.display = 'flex';
-        mobileMenu.style.opacity = '1';
-      } else {
-        mobileMenu.classList.remove('active');
-        hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        mobileMenu.style.opacity = '0';
-        setTimeout(() => (mobileMenu.style.display = 'none'), 300);
-      }
+      mobileMenu.classList.toggle('active', show);
+      hamburger.classList.toggle('active', show);
+      mobileMenu.style.display = show ? 'flex' : 'none';
+      mobileMenu.setAttribute('aria-hidden', !show);
+      hamburger.setAttribute('aria-expanded', show);
     };
 
     hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('active')));
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
-    document.addEventListener('click', (e) => {
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+    document.addEventListener('click', e => {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) toggleMenu(false);
     });
   }
@@ -119,31 +111,27 @@
   // ====================
   // CINEMATIC TITLE SLIDE
   // ====================
-  let position = 0, direction = 1;
+  let pos = 0, dir = 1;
+  const speed = 0.2; // cinematic smooth speed
   function animateTitleSlide() {
     if (!title || !logo) return;
-
     const logoRect = logo.getBoundingClientRect();
-    const headerRect = header.getBoundingClientRect();
     const titleRect = title.getBoundingClientRect();
-
-    const minX = logoRect.right + 40;
-    const maxX = headerRect.right - titleRect.width - 60;
-
-    position += direction * 0.2; // cinematic smooth speed
-    if (titleRect.left + position <= minX) direction = 1;
-    if (titleRect.left + position >= maxX) direction = -1;
-
-    title.style.transform = `translateX(${position}px)`;
+    const leftLimit = logoRect.right + 20;
+    const rightLimit = window.innerWidth - titleRect.width - 20;
+    pos += dir * speed;
+    if (pos > rightLimit) dir = -1;
+    if (pos < leftLimit) dir = 1;
+    title.style.transform = `translateX(${pos}px)`;
     requestAnimationFrame(animateTitleSlide);
   }
   animateTitleSlide();
 
   // ====================
-  // RESPONSIVE HEADER + LOGO + TITLE/SLOGAN COLORS
+  // RESPONSIVE HEADER + LOGO + TITLE/SLOGAN
   // ====================
   function adjustHeaderForMobile() {
-    const screenWidth = window.innerWidth;
+    const w = window.innerWidth;
 
     if (logoImg) {
       logoImg.style.objectFit = 'contain';
@@ -152,12 +140,12 @@
       logoImg.style.transform = 'scale(1)';
     }
 
-    if (screenWidth <= 768) {
+    if (w <= 768) {
       header.style.padding = '10px 15px';
       Object.assign(logo.style, { width: '220px', height: '70px' });
       title.style.fontSize = '1.5rem';
       slogan.style.fontSize = '0.8rem';
-    } else if (screenWidth <= 1024) {
+    } else if (w <= 1024) {
       header.style.padding = '15px 25px';
       Object.assign(logo.style, { width: '240px', height: '80px' });
       title.style.fontSize = '1.8rem';

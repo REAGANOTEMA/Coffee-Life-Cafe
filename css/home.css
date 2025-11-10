@@ -40,7 +40,7 @@ html, body {
 }
 
 .luxury-logo-circle {
-    width: 300px; /* wider */
+    width: 300px;  /* wider */
     height: 100px; /* shorter */
     overflow: hidden;
     background: #fff;
@@ -67,7 +67,7 @@ html, body {
 }
 
 .luxury-title {
-    font-size: 2rem; /* smaller, readable */
+    font-size: 2rem;
     font-weight: 900;
     color: #FFFFFF;
     white-space: nowrap;
